@@ -68,7 +68,20 @@ export default function HamburgerMenu({ baseUrl }: HamburgerMenuProps) {
           </a>
 
           <a
-            href={`${baseUrl}/info`}
+            href={`${baseUrl.replace(/\/$/, '')}/tabella`}
+            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+            onClick={() => setIsOpen(false)}
+          >
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0V4a2 2 0 012-2h14a2 2 0 012 2v16a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              </svg>
+              Tabella
+            </div>
+          </a>
+
+          <a
+            href={`${baseUrl.replace(/\/$/, '')}/info`}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
             onClick={() => setIsOpen(false)}
           >
