@@ -1,0 +1,381 @@
+{
+  "profile": "tabular-data-package",
+  "resources": [
+    {
+      "profile": "tabular-data-resource",
+      "name": "content",
+      "flatterer_name": "content",
+      "title": "content",
+      "schema": {
+        "fields": [
+          {
+            "name": "_link",
+            "title": "_link",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "_link_main",
+            "title": "_link_main",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "dataApertura",
+            "title": "dataApertura",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "dataFineRaccolta",
+            "title": "dataFineRaccolta",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "dataFineValidita",
+            "title": "dataFineValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "dataGazzetta",
+            "title": "dataGazzetta",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "dataInizioRaccolta",
+            "title": "dataInizioRaccolta",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "dataInizioValidita",
+            "title": "dataInizioValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "dataIns",
+            "title": "dataIns",
+            "type": "datetime",
+            "format": "%Y-%m-%dT%H:%M:%S%.f",
+            "count": 67
+          },
+          {
+            "name": "dataUltimoAgg",
+            "title": "dataUltimoAgg",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "descrizione",
+            "title": "descrizione",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "descrizioneBreve",
+            "title": "descrizioneBreve",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "estremi",
+            "title": "estremi",
+            "type": "integer",
+            "format": "integer",
+            "count": 67
+          },
+          {
+            "name": "id",
+            "title": "id",
+            "type": "number",
+            "format": "number",
+            "count": 67
+          },
+          {
+            "name": "titoloLeggeCostituzionale",
+            "title": "titoloLeggeCostituzionale",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "titolo",
+            "title": "titolo",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "supportata",
+            "title": "supportata",
+            "type": "boolean",
+            "format": "boolean",
+            "count": 67
+          },
+          {
+            "name": "sostenitori",
+            "title": "sostenitori",
+            "type": "number",
+            "format": "number",
+            "count": 67
+          },
+          {
+            "name": "sito",
+            "title": "sito",
+            "type": "string",
+            "format": "string",
+            "count": 60
+          },
+          {
+            "name": "logo",
+            "title": "logo",
+            "type": "boolean",
+            "format": "boolean",
+            "count": 59
+          },
+          {
+            "name": "quesito",
+            "title": "quesito",
+            "type": "boolean",
+            "format": "boolean",
+            "count": 67
+          },
+          {
+            "name": "quorum",
+            "title": "quorum",
+            "type": "number",
+            "format": "number",
+            "count": 67
+          },
+          {
+            "name": "idDecCatIniziativa_dataFineValidita",
+            "title": "idDecCatIniziativa_dataFineValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "idDecCatIniziativa_dataInizioValidita",
+            "title": "idDecCatIniziativa_dataInizioValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "idDecCatIniziativa_descrizione",
+            "title": "idDecCatIniziativa_descrizione",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "idDecCatIniziativa_id",
+            "title": "idDecCatIniziativa_id",
+            "type": "number",
+            "format": "number",
+            "count": 67
+          },
+          {
+            "name": "idDecCatIniziativa_nome",
+            "title": "idDecCatIniziativa_nome",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "idDecStatoIniziativa_dataFineValidita",
+            "title": "idDecStatoIniziativa_dataFineValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "idDecStatoIniziativa_dataInizioValidita",
+            "title": "idDecStatoIniziativa_dataInizioValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "idDecStatoIniziativa_descrizione",
+            "title": "idDecStatoIniziativa_descrizione",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "idDecStatoIniziativa_id",
+            "title": "idDecStatoIniziativa_id",
+            "type": "number",
+            "format": "number",
+            "count": 67
+          },
+          {
+            "name": "idDecStatoIniziativa_nome",
+            "title": "idDecStatoIniziativa_nome",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "idDecStatoLogo_dataFineValidita",
+            "title": "idDecStatoLogo_dataFineValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 59
+          },
+          {
+            "name": "idDecStatoLogo_dataInizioValidita",
+            "title": "idDecStatoLogo_dataInizioValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 59
+          },
+          {
+            "name": "idDecStatoLogo_descrizione",
+            "title": "idDecStatoLogo_descrizione",
+            "type": "string",
+            "format": "string",
+            "count": 59
+          },
+          {
+            "name": "idDecStatoLogo_id",
+            "title": "idDecStatoLogo_id",
+            "type": "number",
+            "format": "number",
+            "count": 59
+          },
+          {
+            "name": "idDecStatoLogo_nome",
+            "title": "idDecStatoLogo_nome",
+            "type": "string",
+            "format": "string",
+            "count": 59
+          },
+          {
+            "name": "idDecTipoIniziativa_dataFineValidita",
+            "title": "idDecTipoIniziativa_dataFineValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "idDecTipoIniziativa_dataInizioValidita",
+            "title": "idDecTipoIniziativa_dataInizioValidita",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 67
+          },
+          {
+            "name": "idDecTipoIniziativa_descrizione",
+            "title": "idDecTipoIniziativa_descrizione",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "idDecTipoIniziativa_id",
+            "title": "idDecTipoIniziativa_id",
+            "type": "number",
+            "format": "number",
+            "count": 67
+          },
+          {
+            "name": "idDecTipoIniziativa_nome",
+            "title": "idDecTipoIniziativa_nome",
+            "type": "string",
+            "format": "string",
+            "count": 67
+          },
+          {
+            "name": "dataChiusura",
+            "title": "dataChiusura",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "count": 32
+          }
+        ],
+        "primaryKey": "_link",
+        "foreignKeys": [
+          {
+            "fields": "_link_main",
+            "reference": {
+              "resource": "main",
+              "fields": "_link"
+            }
+          }
+        ]
+      },
+      "path": "csv/content.csv"
+    },
+    {
+      "profile": "tabular-data-resource",
+      "name": "main",
+      "flatterer_name": "main",
+      "title": "main",
+      "schema": {
+        "fields": [
+          {
+            "name": "_link",
+            "title": "_link",
+            "type": "string",
+            "format": "string",
+            "count": 1
+          },
+          {
+            "name": "resultCode",
+            "title": "resultCode",
+            "type": "number",
+            "format": "number",
+            "count": 1
+          },
+          {
+            "name": "resultDescription",
+            "title": "resultDescription",
+            "type": "string",
+            "format": "string",
+            "count": 1
+          },
+          {
+            "name": "infoPaginazione_elementCount",
+            "title": "infoPaginazione_elementCount",
+            "type": "number",
+            "format": "number",
+            "count": 1
+          },
+          {
+            "name": "infoPaginazione_pageIndex",
+            "title": "infoPaginazione_pageIndex",
+            "type": "number",
+            "format": "number",
+            "count": 1
+          },
+          {
+            "name": "infoPaginazione_pageSize",
+            "title": "infoPaginazione_pageSize",
+            "type": "number",
+            "format": "number",
+            "count": 1
+          }
+        ],
+        "primaryKey": "_link"
+      },
+      "path": "csv/main.csv"
+    }
+  ]
+}
