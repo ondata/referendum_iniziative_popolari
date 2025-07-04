@@ -1,4 +1,4 @@
-import { 
+import {
   CalendarIcon,
   UserGroupIcon,
   TagIcon,
@@ -6,6 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import type { Initiative } from '../types/initiative';
 import { formatDate, formatNumber } from '../lib/initiatives';
+import { createPath } from '../lib/paths';
 
 interface InitiativeCardProps {
   initiative: Initiative;
@@ -13,8 +14,8 @@ interface InitiativeCardProps {
 
 export default function InitiativeCard({ initiative }: InitiativeCardProps) {
   return (
-    <a 
-      href={`/initiative/${initiative.id}/`}
+    <a
+      href={createPath(`/initiative/${initiative.id}/`)}
       className="card-shadow bg-white rounded-lg p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer border border-gray-200 block no-underline"
     >
       {/* Header con categoria e stato */}
