@@ -9,7 +9,7 @@ interface TableViewProps {
   baseUrl: string;
 }
 
-type SortColumn = 'titolo' | 'tipologia' | 'categoria' | 'stato' | 'sostenitori' | 'dataApertura';
+type SortColumn = 'titolo' | 'tipologia' | 'categoria' | 'stato' | 'sostenitori' | 'quorum' | 'dataApertura';
 type SortDirection = 'asc' | 'desc';
 
 export default function TableView({ initiatives, baseUrl }: TableViewProps) {
@@ -93,6 +93,10 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
           aValue = a.sostenitori || 0;
           bValue = b.sostenitori || 0;
           break;
+        case 'quorum':
+          aValue = a.quorum || 0;
+          bValue = b.quorum || 0;
+          break;
         case 'dataApertura':
           aValue = new Date(a.dataApertura || 0).getTime();
           bValue = new Date(b.dataApertura || 0).getTime();
@@ -102,7 +106,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
           bValue = b.titolo || '';
       }
 
-      if (sortColumn === 'sostenitori' || sortColumn === 'dataApertura') {
+      if (sortColumn === 'sostenitori' || sortColumn === 'dataApertura' || sortColumn === 'quorum') {
         return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
       } else {
         const comparison = aValue.toString().localeCompare(bValue.toString(), 'it-IT');
@@ -226,6 +230,13 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
 
       {/* Tabella */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Nota informativa */}
+        <div className="mb-6 p-4 bg-gray-50 border-l-4 border-blue-500 rounded-r-lg">
+          <p className="text-sm text-gray-600">
+            <span className="font-bold">Nota bene</span>: le firme visualizzate qui si riferiscono esclusivamente alle quelle raccolte online; il quorum finale si raggiunge sommando queste a quelle tradizionali.
+          </p>
+        </div>
+
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
@@ -277,6 +288,15 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </div>
                   </th>
                   <th
+                    onClick={() => handleSort('quorum')}
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                  >
+                    <div className="flex items-center space-x-1">
+                      <span>Quorum</span>
+                      {getSortIcon('quorum')}
+                    </div>
+                  </th>
+                  <th
                     onClick={() => handleSort('dataApertura')}
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
                   >
@@ -321,6 +341,9 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900 text-right">
                       {formatNumber(initiative.sostenitori)}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900 text-right">
+                      {formatNumber(initiative.quorum)}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       {initiative.dataApertura
