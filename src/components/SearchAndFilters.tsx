@@ -133,17 +133,17 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
           />
         </div>
 
-        {/* Filtro per categoria */}
+        {/* Filtro per tipologia */}
         <div>
           <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
             className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="">Tutte le categorie</option>
-            {categories.map(category => (
-              <option key={category} value={category}>
-                {category}
+            <option value="">Tutte le tipologie</option>
+            {types.map(type => (
+              <option key={type} value={type}>
+                {type}
               </option>
             ))}
           </select>
@@ -165,17 +165,17 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
           </select>
         </div>
 
-        {/* Filtro per tipologia */}
+        {/* Filtro per categoria */}
         <div>
           <select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
             className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="">Tutte le tipologie</option>
-            {types.map(type => (
-              <option key={type} value={type}>
-                {type}
+            <option value="">Tutte le categorie</option>
+            {categories.map(category => (
+              <option key={category} value={category}>
+                {category}
               </option>
             ))}
           </select>
