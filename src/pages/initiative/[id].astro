@@ -1,0 +1,183 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import { fetchInitiatives, formatDate, formatNumber, getInitiativeUrl, isSigningActive } from '../../lib/initiatives';
+import type { Initiative } from '../../types/initiative';
+import {
+  ArrowLeftIcon,
+  ArrowTopRightOnSquareIcon,
+  CalendarIcon,
+  UserGroupIcon,
+  TagIcon,
+  ClockIcon,
+  LinkIcon
+} from '@heroicons/react/24/outline';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const initiatives = await fetchInitiatives();
+
+  return initiatives.map((initiative) => ({
+    params: { id: initiative.id.toString() },
+    props: { initiative }
+  }));
+};
+
+interface Props {
+  initiative: Initiative;
+}
+
+const { initiative } = Astro.props;
+
+if (!initiative) {
+  return Astro.redirect('/404');
+}
+
+const officialUrl = getInitiativeUrl(initiative);
+const title = String(initiative.titolo || 'Iniziativa');
+const description = String(initiative.descrizioneBreve || initiative.descrizione || initiative.titolo || 'Descrizione non disponibile');
+const fullTitle = `${title} - Referendum e Iniziative Popolari`;
+const signingActive = isSigningActive(initiative);
+---
+
+<Layout title={fullTitle} description={description}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <a href="/" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+          <ArrowLeftIcon className="w-5 h-5 mr-2" />
+          Torna alle iniziative
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Header -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
+        <!-- Badges -->
+        <div class="flex flex-wrap gap-3 mb-6">
+          <a
+            href={`/?categoria=${encodeURIComponent(initiative.idDecCatIniziativa?.nome || '')}`}
+            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors duration-200 cursor-pointer"
+          >
+            <TagIcon className="w-4 h-4 mr-1" />
+            {initiative.idDecCatIniziativa?.nome || 'AMBIENTE'}
+          </a>
+          <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+            initiative.idDecStatoIniziativa?.nome?.includes('RACCOLTA')
+              ? 'bg-green-100 text-green-800'
+              : 'bg-gray-100 text-gray-800'
+          }`}>
+            <ClockIcon className="w-4 h-4 mr-1" />
+            {initiative.idDecStatoIniziativa?.nome || 'IN RACCOLTA FIRME'}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-3xl font-bold text-gray-900 mb-6">
+          {initiative.titolo}
+        </h1>
+
+        <!-- CTA Button -->
+        <div class="mb-6">
+          {signingActive ? (
+            <a
+              href={officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200"
+            >
+              Firma ora
+              <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
+            </a>
+          ) : (
+            <div class="inline-flex items-center px-6 py-3 bg-gray-400 text-gray-200 font-semibold rounded-lg cursor-not-allowed">
+              Raccolta firme terminata
+              <ClockIcon className="w-5 h-5 ml-2" />
+            </div>
+          )}
+          <p class="mt-2 text-sm text-gray-600">
+            {signingActive
+              ? "Visita il sito ufficiale per firmare e sostenere questa iniziativa"
+              : "La raccolta firme per questa iniziativa è terminata"
+            }
+          </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+          <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+            <CalendarIcon className="w-8 h-8 text-gray-600 mr-4" />
+            <div>
+              <p class="text-sm text-gray-600">Data apertura</p>
+              <p class="text-lg font-semibold text-gray-900">{formatDate(initiative.dataApertura)}</p>
+            </div>
+          </div>
+
+          {initiative.dataFineRaccolta && (
+            <div class="flex items-center p-4 bg-orange-50 rounded-lg">
+              <CalendarIcon className="w-8 h-8 text-orange-600 mr-4" />
+              <div>
+                <p class="text-sm text-orange-600">Scadenza raccolta firme</p>
+                <p class="text-lg font-semibold text-orange-900">{formatDate(initiative.dataFineRaccolta)}</p>
+              </div>
+            </div>
+          )}
+
+          {initiative.sostenitori !== undefined && (
+            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+              <UserGroupIcon className="w-8 h-8 text-gray-600 mr-4" />
+              <div>
+                <p class="text-sm text-gray-600">Sostenitori</p>
+                <p class="text-lg font-semibold text-gray-900">{formatNumber(initiative.sostenitori)}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Descrizione</h2>
+
+        {initiative.descrizione ? (
+          <div class="prose prose-gray max-w-none">
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+              {initiative.descrizione}
+            </p>
+          </div>
+        ) : initiative.descrizioneBreve ? (
+          <div class="prose prose-gray max-w-none">
+            <p class="text-gray-700 leading-relaxed">
+              {initiative.descrizioneBreve}
+            </p>
+          </div>
+        ) : (
+          <p class="text-gray-500 italic">
+            Descrizione non disponibile per questa iniziativa.
+          </p>
+        )}
+      </div>
+
+      <!-- Links -->
+      {officialUrl && (
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Link utili</h2>
+          <div class="space-y-3">
+            <a
+              href={officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+            >
+              <LinkIcon className="w-5 h-5 mr-2" />
+              Sito web dell'iniziativa
+              <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1" />
+            </a>
+          </div>
+        </div>
+      )}
+    </main>
+  </div>
+</Layout>

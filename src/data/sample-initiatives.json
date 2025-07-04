@@ -1,0 +1,145 @@
+[
+  {
+    "id": 1,
+    "titolo": "Referendum per l'abrogazione del servizio militare obbligatorio",
+    "descrizioneBreve": "Proposta di referendum per abrogare le norme relative al servizio militare obbligatorio nel nostro paese.",
+    "descrizione": "Questo referendum mira ad abrogare le disposizioni legislative che prevedono il servizio militare obbligatorio, promuovendo invece un modello di difesa basato esclusivamente su volontari professionali. La proposta nasce dalla necessità di modernizzare il sistema difensivo nazionale e di garantire maggiore libertà di scelta ai giovani cittadini.",
+    "dataApertura": "2024-01-15T00:00:00Z",
+    "dataChiusura": "2024-12-31T23:59:59Z",
+    "sostenitori": 45230,
+    "sito": "https://example.com/referendum-militare",
+    "idDecCatIniziativa": {
+      "id": 1,
+      "nome": "DIFESA E SICUREZZA",
+      "descrizione": "Iniziative relative alla difesa nazionale e sicurezza"
+    },
+    "idDecStatoIniziativa": {
+      "id": 1,
+      "nome": "IN RACCOLTA FIRME",
+      "descrizione": "La raccolta di firme è attualmente in corso"
+    },
+    "idDecTipologiaIniziativa": {
+      "id": 1,
+      "nome": "REFERENDUM ABROGATIVO",
+      "descrizione": "Referendum per abrogare una legge esistente"
+    }
+  },
+  {
+    "id": 2,
+    "titolo": "Iniziativa popolare per la tutela dell'ambiente e della biodiversità",
+    "descrizioneBreve": "Proposta di legge di iniziativa popolare per rafforzare la protezione ambientale e la conservazione della biodiversità.",
+    "descrizione": "L'iniziativa propone l'introduzione di nuove norme per la protezione degli ecosistemi naturali, la riduzione dell'inquinamento e la promozione di pratiche sostenibili. Include misure per la creazione di nuove aree protette, incentivi per le energie rinnovabili e sanzioni più severe per i reati ambientali.",
+    "dataApertura": "2024-02-01T00:00:00Z",
+    "sostenitori": 78540,
+    "idDecCatIniziativa": {
+      "id": 2,
+      "nome": "AMBIENTE E TERRITORIO",
+      "descrizione": "Iniziative relative alla tutela dell'ambiente"
+    },
+    "idDecStatoIniziativa": {
+      "id": 1,
+      "nome": "IN RACCOLTA FIRME",
+      "descrizione": "La raccolta di firme è attualmente in corso"
+    },
+    "idDecTipologiaIniziativa": {
+      "id": 2,
+      "nome": "INIZIATIVA POPOLARE",
+      "descrizione": "Proposta di legge di iniziativa popolare"
+    }
+  },
+  {
+    "id": 3,
+    "titolo": "Referendum per la riduzione dei privilegi della classe politica",
+    "descrizioneBreve": "Proposta per ridurre i compensi e i privilegi dei rappresentanti politici a tutti i livelli.",
+    "descrizione": "Il referendum mira a ridurre significativamente i compensi, le indennità e i privilegi di deputati, senatori, consiglieri regionali e amministratori locali. L'obiettivo è quello di rendere la politica più vicina ai cittadini e ridurre i costi della rappresentanza democratica.",
+    "dataApertura": "2024-03-10T00:00:00Z",
+    "sostenitori": 156780,
+    "sito": "https://example.com/referendum-privilegi",
+    "idDecCatIniziativa": {
+      "id": 3,
+      "nome": "VITA POLITICA",
+      "descrizione": "Iniziative relative al sistema politico"
+    },
+    "idDecStatoIniziativa": {
+      "id": 1,
+      "nome": "IN RACCOLTA FIRME",
+      "descrizione": "La raccolta di firme è attualmente in corso"
+    },
+    "idDecTipologiaIniziativa": {
+      "id": 1,
+      "nome": "REFERENDUM ABROGATIVO",
+      "descrizione": "Referendum per abrogare una legge esistente"
+    }
+  },
+  {
+    "id": 4,
+    "titolo": "Iniziativa per il reddito di cittadinanza universale",
+    "descrizioneBreve": "Proposta per l'introduzione di un reddito di base universale per tutti i cittadini.",
+    "descrizione": "L'iniziativa propone l'introduzione di un reddito di cittadinanza universale che garantisca a tutti i cittadini, indipendentemente dalla loro condizione lavorativa, un sostegno economico minimo per una vita dignitosa. La misura sarebbe finanziata attraverso una riforma del sistema fiscale e la riduzione di altre forme di assistenza sociale.",
+    "dataApertura": "2023-11-01T00:00:00Z",
+    "dataChiusura": "2024-10-31T23:59:59Z",
+    "sostenitori": 89345,
+    "idDecCatIniziativa": {
+      "id": 4,
+      "nome": "LAVORO E PREVIDENZA",
+      "descrizione": "Iniziative relative al mondo del lavoro"
+    },
+    "idDecStatoIniziativa": {
+      "id": 2,
+      "nome": "TERMINATA",
+      "descrizione": "La raccolta di firme è terminata"
+    },
+    "idDecTipologiaIniziativa": {
+      "id": 2,
+      "nome": "INIZIATIVA POPOLARE",
+      "descrizione": "Proposta di legge di iniziativa popolare"
+    }
+  },
+  {
+    "id": 5,
+    "titolo": "Referendum per la legalizzazione della cannabis",
+    "descrizioneBreve": "Proposta per depenalizzare e regolamentare l'uso della cannabis per fini ricreativi.",
+    "descrizione": "Il referendum propone di depenalizzare completamente l'uso personale di cannabis e di creare un sistema di regolamentazione per la produzione e distribuzione controllata. L'iniziativa include misure per la prevenzione, l'educazione e il trattamento delle dipendenze, oltre a prevedere entrate fiscali significative per lo Stato.",
+    "dataApertura": "2024-01-20T00:00:00Z",
+    "sostenitori": 234567,
+    "sito": "https://example.com/referendum-cannabis",
+    "idDecCatIniziativa": {
+      "id": 5,
+      "nome": "GIUSTIZIA",
+      "descrizione": "Iniziative relative al sistema giudiziario"
+    },
+    "idDecStatoIniziativa": {
+      "id": 1,
+      "nome": "IN RACCOLTA FIRME",
+      "descrizione": "La raccolta di firme è attualmente in corso"
+    },
+    "idDecTipologiaIniziativa": {
+      "id": 1,
+      "nome": "REFERENDUM ABROGATIVO",
+      "descrizione": "Referendum per abrogare una legge esistente"
+    }
+  },
+  {
+    "id": 6,
+    "titolo": "Iniziativa per la digitalizzazione della pubblica amministrazione",
+    "descrizioneBreve": "Proposta per accelerare la trasformazione digitale dei servizi pubblici.",
+    "descrizione": "L'iniziativa mira a modernizzare completamente i servizi della pubblica amministrazione attraverso la digitalizzazione, l'automazione dei processi e l'introduzione di servizi online accessibili 24/7. Include investimenti in infrastrutture digitali, formazione del personale e semplificazione burocratica.",
+    "dataApertura": "2024-02-15T00:00:00Z",
+    "sostenitori": 67890,
+    "idDecCatIniziativa": {
+      "id": 6,
+      "nome": "INNOVAZIONE E TECNOLOGIA",
+      "descrizione": "Iniziative relative all'innovazione tecnologica"
+    },
+    "idDecStatoIniziativa": {
+      "id": 1,
+      "nome": "IN RACCOLTA FIRME",
+      "descrizione": "La raccolta di firme è attualmente in corso"
+    },
+    "idDecTipologiaIniziativa": {
+      "id": 2,
+      "nome": "INIZIATIVA POPOLARE",
+      "descrizione": "Proposta di legge di iniziativa popolare"
+    }
+  }
+]
