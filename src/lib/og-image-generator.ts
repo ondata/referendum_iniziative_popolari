@@ -19,15 +19,34 @@ const defaultOptions: Required<OGImageOptions> = {
   categoryColor: '#3b82f6' // blue-500
 };
 
-// Funzione per wrappare il testo su più righe
-function wrapText(text: string, maxLength: number): string[] {
+// Funzione per wrappare il testo su più righe considerando la larghezza del font
+function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
   const words = text.split(' ');
   const lines: string[] = [];
   let currentLine = '';
 
+  // Stima approssimativa: carattere medio = fontSize * 0.6
+  const avgCharWidth = fontSize * 0.6;
+  const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
+
   for (const word of words) {
     const testLine = currentLine ? `${currentLine} ${word}` : word;
-    if (testLine.length <= maxLength) {
+
+    // Se la parola singola è troppo lunga, la spezziamo
+    if (word.length > maxCharsPerLine) {
+      if (currentLine) {
+        lines.push(currentLine);
+        currentLine = '';
+      }
+
+      // Spezza la parola lunga
+      let remainingWord = word;
+      while (remainingWord.length > maxCharsPerLine) {
+        lines.push(remainingWord.substring(0, maxCharsPerLine - 1) + '-');
+        remainingWord = remainingWord.substring(maxCharsPerLine - 1);
+      }
+      currentLine = remainingWord;
+    } else if (testLine.length <= maxCharsPerLine) {
       currentLine = testLine;
     } else {
       if (currentLine) {
@@ -71,15 +90,21 @@ export async function generateOGImage(
   const category = initiative.idDecCatIniziativa?.nome || 'GENERALE';
   const status = initiative.idDecStatoIniziativa?.nome || 'IN RACCOLTA FIRME';
 
-  // Wrapper del titolo se troppo lungo
-  const titleLines = wrapText(title, 40);
+  // Wrapper del titolo considerando la larghezza disponibile
+  const titleMaxWidth = opts.width - 120; // Margini laterali
+  const titleFontSize = 56;
+  const titleLines = wrapText(title, titleMaxWidth, titleFontSize);
   const maxLines = 3;
   const displayLines = titleLines.slice(0, maxLines);
   if (titleLines.length > maxLines) {
-    displayLines[maxLines - 1] = displayLines[maxLines - 1] + '...';
+    displayLines[maxLines - 1] = displayLines[maxLines - 1].slice(0, -3) + '...';
   }
 
   const categoryColor = getCategoryColor(category);
+
+  // Calcolo più preciso delle larghezze
+  const categoryWidth = Math.max(category.length * 11 + 40, 120);
+  const statusWidth = Math.max(status.length * 9 + 30, 100);
 
   // Creo il template SVG per l'immagine
   const svgTemplate = `
@@ -105,8 +130,8 @@ export async function generateOGImage(
       <rect x="0" y="0" width="100%" height="8" fill="${categoryColor}" />
 
       <!-- Badge categoria -->
-      <rect x="60" y="60" width="${category.length * 12 + 40}" height="40" rx="20" fill="${categoryColor}" />
-      <text x="${60 + (category.length * 12 + 40) / 2}" y="85"
+      <rect x="60" y="60" width="${categoryWidth}" height="40" rx="20" fill="${categoryColor}" />
+      <text x="${60 + categoryWidth / 2}" y="85"
             text-anchor="middle"
             font-family="system-ui, -apple-system, sans-serif"
             font-size="18"
@@ -117,18 +142,20 @@ export async function generateOGImage(
 
       <!-- Titolo principale -->
       ${displayLines.map((line, index) => `
-        <text x="60" y="${180 + (index * 70)}"
+        <text x="60" y="${180 + (index * 65)}"
               font-family="system-ui, -apple-system, sans-serif"
               font-size="56"
               font-weight="700"
-              fill="${opts.textColor}">
-          ${line}
+              fill="${opts.textColor}"
+              textLength="${Math.min(line.length * 33, titleMaxWidth)}"
+              lengthAdjust="spacingAndGlyphs">
+          ${line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
         </text>
       `).join('')}
 
       <!-- Status badge -->
-      <rect x="60" y="${opts.height - 120}" width="${status.length * 10 + 30}" height="35" rx="17" fill="rgba(255,255,255,0.2)" />
-      <text x="${60 + (status.length * 10 + 30) / 2}" y="${opts.height - 97}"
+      <rect x="60" y="${opts.height - 120}" width="${statusWidth}" height="35" rx="17" fill="rgba(255,255,255,0.2)" />
+      <text x="${60 + statusWidth / 2}" y="${opts.height - 97}"
             text-anchor="middle"
             font-family="system-ui, -apple-system, sans-serif"
             font-size="16"
