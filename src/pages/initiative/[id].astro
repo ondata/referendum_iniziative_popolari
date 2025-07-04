@@ -78,6 +78,18 @@ const ogImage = `og-${initiative.id}.png`;
             <ClockIcon className="w-4 h-4 mr-1" />
             {initiative.idDecStatoIniziativa?.nome || 'IN RACCOLTA FIRME'}
           </span>
+          <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+            initiative.idDecTipoIniziativa?.id === 1 
+              ? 'bg-red-100 text-red-800'
+              : 'bg-purple-100 text-purple-800'
+          }`}>
+            <TagIcon className="w-4 h-4 mr-1" />
+            {initiative.idDecTipoIniziativa?.id === 4 
+              ? 'Legge di iniziativa popolare'
+              : initiative.idDecTipoIniziativa?.id === 1
+              ? 'Referendum abrogativo'
+              : 'Tipologia non specificata'}
+          </span>
         </div>
 
         <!-- Title -->

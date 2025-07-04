@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Initiative } from '../types/initiative';
 
 interface SearchAndFiltersProps {
@@ -12,6 +12,7 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || '');
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedType, setSelectedType] = useState('');
   const [sortBy, setSortBy] = useState('dataApertura');
 
   // Funzione per cancellare tutti i filtri
@@ -19,11 +20,12 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
     setSearchTerm('');
     setSelectedCategory('');
     setSelectedStatus('');
+    setSelectedType('');
     setSortBy('dataApertura');
   };
 
   // Controlla se ci sono filtri attivi
-  const hasActiveFilters = searchTerm || selectedCategory || selectedStatus || sortBy !== 'dataApertura';
+  const hasActiveFilters = searchTerm || selectedCategory || selectedStatus || selectedType || sortBy !== 'dataApertura';
 
   // Aggiorna la categoria selezionata quando initialCategory cambia
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
     }
   }, [initialCategory]);
 
-  // Estrai categorie e stati unici
+  // Estrai categorie, stati e tipologie unici
   const categories = Array.from(
     new Set(initiatives.map(i => i.idDecCatIniziativa?.nome).filter(Boolean))
   ).sort();
@@ -40,6 +42,18 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
   const statuses = Array.from(
     new Set(initiatives.map(i => i.idDecStatoIniziativa?.nome).filter(Boolean))
   ).sort();
+
+  const types = Array.from(
+    new Set(
+      initiatives
+        .map(i => {
+          if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
+          if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
+          return null;
+        })
+        .filter((type) => type !== null)
+    )
+  ).sort() as string[];
 
   // Effettua il filtro quando cambiano i parametri
   useEffect(() => {
@@ -67,6 +81,19 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
       );
     }
 
+    // Filtro per tipologia
+    if (selectedType) {
+      filtered = filtered.filter(initiative => {
+        if (selectedType === 'Legge di iniziativa popolare') {
+          return initiative.idDecTipoIniziativa?.id === 4;
+        }
+        if (selectedType === 'Referendum abrogativo') {
+          return initiative.idDecTipoIniziativa?.id === 1;
+        }
+        return false;
+      });
+    }
+
     // Ordinamento
     filtered.sort((a, b) => {
       switch (sortBy) {
@@ -87,11 +114,11 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
     });
 
     onFilter(filtered);
-  }, [searchTerm, selectedCategory, selectedStatus, sortBy, initiatives]);
+  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, initiatives]);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
         {/* Barra di ricerca */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -138,6 +165,22 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
           </select>
         </div>
 
+        {/* Filtro per tipologia */}
+        <div>
+          <select
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">Tutte le tipologie</option>
+            {types.map(type => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Ordinamento */}
         <div>
           <select
@@ -152,17 +195,18 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
         </div>
 
         {/* Pulsante Cancella filtri */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-end">
           <button
             onClick={clearAllFilters}
             disabled={!hasActiveFilters}
-            className={`w-full px-4 py-2 rounded-md font-medium transition-colors ${
+            title="Rimuovi filtri"
+            className={`p-2 rounded-md transition-colors ${
               hasActiveFilters
                 ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
                 : 'bg-gray-50 text-gray-400 border border-gray-200 cursor-not-allowed'
             }`}
           >
-            Cancella filtri
+            <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
       </div>

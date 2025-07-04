@@ -17,7 +17,7 @@ export interface Initiative {
     nome: string;
     descrizione?: string;
   };
-  idDecTipologiaIniziativa?: {
+  idDecTipoIniziativa?: {
     id: number;
     nome: string;
     descrizione?: string;
