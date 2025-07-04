@@ -4,9 +4,18 @@ import '../styles/global.css';
 export interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
 }
 
-const { title, description = "Scopri e partecipa alle iniziative democratiche in corso" } = Astro.props;
+const {
+  title,
+  description = "Scopri e partecipa alle iniziative democratiche in corso",
+  ogImage = "og-default.png",
+  ogType = "website"
+} = Astro.props;
+
+const ogImageUrl = `${Astro.site || ''}${import.meta.env.BASE_URL.replace(/^\/+|\/+$/g, '')}${import.meta.env.BASE_URL.endsWith('/') ? '' : '/'}og-images/${ogImage}`;
 ---
 
 <!DOCTYPE html>
@@ -22,7 +31,18 @@ const { title, description = "Scopri e partecipa alle iniziative democratiche in
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={title} />
   </head>
   <body class="min-h-screen bg-gray-50">
     <slot />

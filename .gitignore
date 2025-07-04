@@ -12,6 +12,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Generated Open Graph images
+public/og-images/
 
 # environment variables
 .env

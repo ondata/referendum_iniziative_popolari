@@ -37,9 +37,10 @@ const title = String(initiative.titolo || 'Iniziativa');
 const description = String(initiative.descrizioneBreve || initiative.descrizione || initiative.titolo || 'Descrizione non disponibile');
 const fullTitle = `${title} - Referendum e Iniziative Popolari`;
 const signingActive = isSigningActive(initiative);
+const ogImage = `og-${initiative.id}.png`;
 ---
 
-<Layout title={fullTitle} description={description}>
+<Layout title={fullTitle} description={description} ogImage={ogImage} ogType="article">
   <div class="min-h-screen bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm border-b border-gray-200">
