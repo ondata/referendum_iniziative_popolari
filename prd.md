@@ -41,6 +41,27 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - Consentire agli utenti di ordinare gli elementi in base a determinati criteri (es. data di apertura, numero di sostenitori, titolo).
 
+### Pagine Aggiuntive
+
+#### Pagina Info
+
+- Una pagina dedicata che descrive il progetto, i suoi obiettivi e come utilizzare il sito.
+- Deve includere informazioni sul dataset utilizzato e la fonte dei dati.
+- Accessibile tramite link nel menu di navigazione principale.
+
+#### Vista Tabellare
+
+- Una pagina che presenta le iniziative in formato tabellare per una visualizzazione più compatta.
+- Colonne della tabella:
+  - **Titolo:** `titolo` (con link alla single page dell'iniziativa)
+  - **Tipologia:** `idDecTipologiaIniziativa.nome`
+  - **Categoria:** `idDecCatIniziativa.nome`
+  - **Stato:** `idDecStatoIniziativa.nome`
+  - **Numero Sostenitori:** `sostenitori`
+- La tabella deve essere ordinabile per ogni colonna.
+- Deve includere funzionalità di ricerca e filtro simili alla home page.
+- Accessibile tramite link nel menu di navigazione principale.
+
 ### Informazioni da visualizzare nelle card
 
 - **Titolo:** `titolo`
