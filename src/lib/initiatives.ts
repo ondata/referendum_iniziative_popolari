@@ -7,8 +7,8 @@ export async function fetchInitiatives(): Promise<Initiative[]> {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      console.warn('API error, using sample data');
-      return sampleData as Initiative[];
+      console.warn('API error, trying local source.json');
+      return await loadLocalData();
     }
     const data = await response.json();
 
@@ -22,12 +22,35 @@ export async function fetchInitiatives(): Promise<Initiative[]> {
       return data as Initiative[];
     }
 
-    console.warn('Invalid API response, using sample data');
-    return sampleData as Initiative[];
+    console.warn('Invalid API response, trying local source.json');
+    return await loadLocalData();
   } catch (error) {
-    console.warn('Error fetching data, using sample data:', error);
-    return sampleData as Initiative[];
+    console.warn('Error fetching data, trying local source.json:', error);
+    return await loadLocalData();
   }
+}
+
+async function loadLocalData(): Promise<Initiative[]> {
+  try {
+    // Prova a caricare il file source.json dalla cartella data
+    const sourceData = await import('../../data/source.json');
+
+    if (sourceData.default && sourceData.default.content && Array.isArray(sourceData.default.content)) {
+      console.log('✅ Using local source.json');
+      return sourceData.default.content as Initiative[];
+    }
+
+    if (Array.isArray(sourceData.default)) {
+      console.log('✅ Using local source.json (direct array)');
+      return sourceData.default as Initiative[];
+    }
+  } catch (error) {
+    console.warn('Error loading local source.json, using sample data:', error);
+  }
+
+  // Fallback finale ai dati di esempio
+  console.log('📝 Using sample data as final fallback');
+  return sampleData as Initiative[];
 }
 
 export function formatDate(dateString: string): string {

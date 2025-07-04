@@ -1,0 +1,2 @@
+# This file ensures that the data directory is tracked by git
+# The source.json file will be automatically downloaded and updated by GitHub Actions
