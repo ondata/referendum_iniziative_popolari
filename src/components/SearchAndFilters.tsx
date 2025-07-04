@@ -117,97 +117,106 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
   }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, initiatives]);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-        {/* Barra di ricerca */}
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+    <div className="space-y-4 mb-8">
+      {/* Sezione Filtri */}
+      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Filtri</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          {/* Barra di ricerca */}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              placeholder="Cerca iniziative..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            />
           </div>
-          <input
-            type="text"
-            placeholder="Cerca iniziative..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
 
-        {/* Filtro per tipologia */}
-        <div>
-          <select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">Tutte le tipologie</option>
-            {types.map(type => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
+          {/* Filtro per tipologia */}
+          <div>
+            <select
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value)}
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">Tutte le tipologie</option>
+              {types.map(type => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Filtro per stato */}
-        <div>
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">Tutti gli stati</option>
-            {statuses.map(status => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-        </div>
+          {/* Filtro per stato */}
+          <div>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">Tutti gli stati</option>
+              {statuses.map(status => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Filtro per categoria */}
-        <div>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">Tutte le categorie</option>
-            {categories.map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
+          {/* Filtro per categoria */}
+          <div>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">Tutte le categorie</option>
+              {categories.map(category => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Ordinamento */}
-        <div>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="dataApertura">Data apertura (più recenti)</option>
-            <option value="titolo">Titolo (A-Z)</option>
-            <option value="sostenitori">Sostenitori (più numerosi)</option>
-          </select>
+          {/* Pulsante Cancella filtri */}
+          <div className="flex items-center justify-end">
+            <button
+              onClick={clearAllFilters}
+              disabled={!hasActiveFilters}
+              title="Rimuovi filtri"
+              className={`p-2 rounded-md transition-colors ${
+                hasActiveFilters
+                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+                  : 'bg-gray-50 text-gray-400 border border-gray-200 cursor-not-allowed'
+              }`}
+            >
+              <XMarkIcon className="w-5 h-5" />
+            </button>
+          </div>
         </div>
+      </div>
 
-        {/* Pulsante Cancella filtri */}
-        <div className="flex items-center justify-end">
-          <button
-            onClick={clearAllFilters}
-            disabled={!hasActiveFilters}
-            title="Rimuovi filtri"
-            className={`p-2 rounded-md transition-colors ${
-              hasActiveFilters
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
-                : 'bg-gray-50 text-gray-400 border border-gray-200 cursor-not-allowed'
-            }`}
-          >
-            <XMarkIcon className="w-5 h-5" />
-          </button>
+      {/* Sezione Ordinamento */}
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-medium text-gray-900">Ordinamento</h3>
+          <div className="w-64">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="dataApertura">Data apertura (più recenti)</option>
+              <option value="titolo">Titolo (A-Z)</option>
+              <option value="sostenitori">Sostenitori (più numerosi)</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

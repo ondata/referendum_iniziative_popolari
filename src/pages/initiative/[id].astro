@@ -110,10 +110,15 @@ const ogImage = `og-${initiative.id}.png`;
               <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
             </a>
           ) : (
-            <div class="inline-flex items-center px-6 py-3 bg-gray-400 text-gray-200 font-semibold rounded-lg cursor-not-allowed">
+            <a
+              href={officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-6 py-3 bg-gray-400 text-gray-200 font-semibold rounded-lg hover:bg-gray-500 transition-colors duration-200"
+            >
               Raccolta firme terminata
-              <ClockIcon className="w-5 h-5 ml-2" />
-            </div>
+              <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
+            </a>
           )}
           <p class="mt-2 text-sm text-gray-600">
             {signingActive
@@ -166,7 +171,7 @@ const ogImage = `og-${initiative.id}.png`;
 
         <!-- Note about signatures -->
         <p class="text-sm text-gray-500 mt-4">
-          <strong>Nota bene:</strong> le firme visualizzate qui si riferiscono esclusivamente alle quelle raccolte online; il quorum finale si raggiunge sommando queste a quelle tradizionali
+          <strong>Nota bene:</strong> le firme visualizzate qui si riferiscono esclusivamente alle quelle raccolte online; il quorum finale si raggiunge sommando queste a quelle tradizionali.
         </p>
       </div>
 

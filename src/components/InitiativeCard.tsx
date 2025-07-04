@@ -35,7 +35,7 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
       </div>
 
       {/* Titolo */}
-      <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+      <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2" title={initiative.titolo}>
         {initiative.titolo}
       </h3>
 
