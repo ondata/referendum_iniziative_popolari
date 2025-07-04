@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import HamburgerMenuNative from '../../components/HamburgerMenuNative.astro';
+import ShareButton from '../../components/ShareButton';
 import { fetchInitiatives, formatDate, formatNumber, isSigningActive } from '../../lib/initiatives';
 import type { Initiative } from '../../types/initiative';
 import {
@@ -40,6 +41,7 @@ const description = String(initiative.descrizioneBreve || initiative.descrizione
 const fullTitle = `${title} - Referendum e Iniziative Popolari`;
 const signingActive = isSigningActive(initiative);
 const ogImage = `og-${initiative.id}.png`;
+const currentUrl = `${Astro.site}${Astro.url.pathname}`;
 ---
 
 <Layout title={fullTitle} description={description} ogImage={ogImage} ogType="article">
@@ -97,8 +99,8 @@ const ogImage = `og-${initiative.id}.png`;
           {initiative.titolo}
         </h1>
 
-        <!-- CTA Button -->
-        <div class="mb-6">
+        <!-- CTA Buttons -->
+        <div class="mb-6 flex flex-col sm:flex-row gap-4">
           {signingActive ? (
             <a
               href={officialUrl}
@@ -120,13 +122,22 @@ const ogImage = `og-${initiative.id}.png`;
               <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
             </a>
           )}
-          <p class="mt-2 text-sm text-gray-600">
+          
+          <!-- Tasto Condividi -->
+          <ShareButton 
+            url={currentUrl} 
+            title={title} 
+            description={description} 
+            client:load 
+          />
+        </div>
+        
+        <p class="text-sm text-gray-600">
             {signingActive
               ? "Visita il sito ufficiale per firmare e sostenere questa iniziativa"
               : "La raccolta firme per questa iniziativa è terminata"
             }
-          </p>
-        </div>
+        </p>
 
         <!-- Stats -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -180,13 +191,13 @@ const ogImage = `og-${initiative.id}.png`;
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Descrizione</h2>
 
         {initiative.descrizione ? (
-          <div class="prose prose-gray max-w-none">
+          <div class="w-full">
             <p class="text-gray-700 leading-relaxed whitespace-pre-line">
               {initiative.descrizione}
             </p>
           </div>
         ) : initiative.descrizioneBreve ? (
-          <div class="prose prose-gray max-w-none">
+          <div class="w-full">
             <p class="text-gray-700 leading-relaxed">
               {initiative.descrizioneBreve}
             </p>

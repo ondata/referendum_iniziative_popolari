@@ -59,6 +59,14 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - Se presente, il campo `sito` deve essere visualizzato come un link cliccabile che apre una nuova scheda.
 
+### Funzionalità di Condivisione
+
+- Nella pagina di dettaglio, accanto al tasto "Sostieni", deve essere presente un tasto "Condividi".
+- Il tasto "Condividi" deve permettere la condivisione dell'URL della pagina su social media, chat e altre piattaforme.
+- La funzionalità deve utilizzare la Web Share API nativa quando disponibile sui dispositivi mobili.
+- Come fallback per desktop, deve fornire opzioni di condivisione per le principali piattaforme (WhatsApp, Telegram, Twitter, Facebook, LinkedIn).
+- L'URL condiviso deve includere i metadati OpenGraph ottimizzati per una preview ricca sui social.
+
 ## 4. Wireframes/Mockups
 
 - **Pagina Principale:**
@@ -71,21 +79,21 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 ## 5. Design (UI)
 
-- **Schema colori:** (da definire)
-- **Tipografia:** (da definire)
-- **Stile delle card:** (da definire)
-- **Responsività:** Il sito deve essere pienamente responsive e adattabile a diverse dimensioni di schermo.
+- **Schema colori:** Palette moderna e pulita utilizzando Tailwind CSS
+- **Tipografia:** Font system di Tailwind CSS per leggibilità ottimale
+- **Stile delle card:** Design minimalista con ombre e bordi arrotondati
+- **Responsività:** Il sito deve essere pienamente responsive e adattabile a diverse dimensioni di schermo utilizzando Tailwind CSS
 
 ## 6. Dati
 
-- **Formato dati:** JSON (come fornito)
-- **Origine dati:** (da definire, es. file locale, API)
-- **Aggiornamento dati:** (da definire, es. statico, aggiornamenti periodici)
+- **Formato dati:** JSON (come fornito dall'API)
+- **Origine dati:** API endpoint fornito dal Ministero di Giustizia
+- **Aggiornamento dati:** I dati vengono recuperati al momento del build del sito statico
 
 ## 7. Requisiti Tecnici
 
 - Il sito deve essere statico: per ogni referendum o proposta di legge verrà generata una pagina singola (single page) dedicata.
-- Next.js è una soluzione consigliata per la generazione statica delle pagine e la gestione delle rotte.
+- **Astro** è il framework scelto per la generazione statica delle pagine e la gestione delle rotte.
 
 - Ogni single page avrà una sezione OpenGraph ottimizzata per la condivisione su social e chat:
   - Verrà generata staticamente un'immagine di preview con il titolo dell'iniziativa.
@@ -93,13 +101,15 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - **Linguaggi e Framework:**
   - HTML, CSS, JavaScript
-  - Framework JavaScript: **Next.js** (consigliato per la generazione statica e la gestione delle pagine), oppure React, Angular, Vue.js (da definire)
-- **Responsività:** Utilizzo di framework CSS come Bootstrap o Tailwind CSS per garantire la responsività.
-- **Paginazione:** Implementazione lato server o client-side (da definire in base al volume dei dati).
-- **Hosting:** Il sito sarà ospitato su **GitHub Pages**.
+  - Framework: **Astro** per la generazione statica e la gestione delle pagine
+  - Componenti: Astro components con possibile integrazione di componenti React/Vue se necessario
+- **Responsività:** Utilizzo di Tailwind CSS per garantire la responsività e un design moderno.
+- **Paginazione:** Implementazione client-side per la navigazione tra le card.
+- **Hosting:** Il sito sarà ospitato su **GitHub Pages** con supporto per siti statici Astro.
 - **SEO:**
   - Ottimizzazione per i motori di ricerca (meta description, titoli, URL amichevoli).
   - Ottimizzazione OpenGraph per ogni single page, con immagine di anteprima e link diretto alla pagina ufficiale dell'iniziativa.
+  - Astro genera automaticamente HTML ottimizzato per SEO.
 
 ## 8. Test
 
