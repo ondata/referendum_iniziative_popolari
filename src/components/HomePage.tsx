@@ -126,26 +126,7 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-600">
-            <p>
-              Dati forniti dal{' '}
-              <a
-                href="https://firmereferendum.giustizia.it"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-700"
-              >
-                Ministero della Giustizia
-              </a>
-            </p>
-            <p className="mt-2 text-sm">
-              Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}
-            </p>
-          </div>
-        </div>
-      </footer>
+      <div id="footer-placeholder"></div>
     </>
   );
 }

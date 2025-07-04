@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import HamburgerMenuNative from '../../components/HamburgerMenuNative.astro';
 import ShareButton from '../../components/ShareButton';
+import Footer from '../../components/Footer.astro';
 import { fetchInitiatives, formatDate, formatNumber, isSigningActive } from '../../lib/initiatives';
 import type { Initiative } from '../../types/initiative';
 import {
@@ -228,5 +229,8 @@ const currentUrl = `${Astro.site}${Astro.url.pathname}`;
         </div>
       )}
     </main>
+
+    <!-- Footer -->
+    <Footer />
   </div>
 </Layout>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
+import Footer from '../components/Footer.astro';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -70,5 +71,8 @@ const description = "Scopri come funziona questo sito e perché è importante pa
         </article>
       </div>
     </main>
+
+    <!-- Footer -->
+    <Footer />
   </div>
 </Layout>

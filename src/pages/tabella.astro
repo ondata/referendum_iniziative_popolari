@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TableView from '../components/TableView.tsx';
+import Footer from '../components/Footer.astro';
 import { fetchInitiatives } from '../lib/initiatives';
 
 const initiatives = await fetchInitiatives();
@@ -18,4 +19,7 @@ const baseUrl = import.meta.env.BASE_URL || '/';
       client:load
     />
   </main>
+
+  <!-- Footer -->
+  <Footer />
 </Layout>
