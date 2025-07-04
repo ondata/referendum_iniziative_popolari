@@ -33,8 +33,8 @@ if (!initiative) {
   return Astro.redirect('/404');
 }
 
-// Use the 'sito' field from the initiative data if available, otherwise fallback to the official URL
-const officialUrl = initiative.sito || `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
+// Always use the official URL with the initiative ID for signing
+const officialUrl = `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
 const title = String(initiative.titolo || 'Iniziativa');
 const description = String(initiative.descrizioneBreve || initiative.descrizione || initiative.titolo || 'Descrizione non disponibile');
 const fullTitle = `${title} - Referendum e Iniziative Popolari`;
@@ -106,7 +106,7 @@ const ogImage = `og-${initiative.id}.png`;
               rel="noopener noreferrer"
               class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200"
             >
-              Firma ora
+              Sostieni
               <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
             </a>
           ) : (
@@ -124,7 +124,7 @@ const ogImage = `og-${initiative.id}.png`;
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div class="flex items-center p-4 bg-gray-50 rounded-lg">
             <CalendarIcon className="w-8 h-8 text-gray-600 mr-4" />
             <div>
@@ -152,7 +152,22 @@ const ogImage = `og-${initiative.id}.png`;
               </div>
             </div>
           )}
+
+          {initiative.quorum !== undefined && (
+            <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+              <UserGroupIcon className="w-8 h-8 text-blue-600 mr-4" />
+              <div>
+                <p class="text-sm text-blue-600">Quorum</p>
+                <p class="text-lg font-semibold text-blue-900">{formatNumber(initiative.quorum)}</p>
+              </div>
+            </div>
+          )}
         </div>
+
+        <!-- Note about signatures -->
+        <p class="text-sm text-gray-500 mt-4">
+          <strong>Nota bene:</strong> le firme visualizzate qui si riferiscono esclusivamente alle quelle raccolte online; il quorum finale si raggiunge sommando queste a quelle tradizionali
+        </p>
       </div>
 
       <!-- Description -->
