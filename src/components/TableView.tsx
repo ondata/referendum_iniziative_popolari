@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import type { Initiative } from '../types/initiative';
 import { formatNumber } from '../lib/initiatives';
 import HamburgerMenu from './HamburgerMenu';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 interface TableViewProps {
   initiatives: Initiative[];
@@ -148,9 +149,10 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">
-                Vista Tabellare
-              </h1>
+              <a href={baseUrl} className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+                <ArrowLeftIcon className="w-5 h-5 mr-2" />
+                Torna alle iniziative
+              </a>
             </div>
             <HamburgerMenu baseUrl={baseUrl} />
           </div>
@@ -172,16 +174,16 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
               />
             </div>
 
-            {/* Filtro categoria */}
+            {/* Filtro tipologia */}
             <select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">Tutte le categorie</option>
-              {categories.map(category => (
-                <option key={category} value={category}>
-                  {category}
+              <option value="">Tutte le tipologie</option>
+              {types.map(type => (
+                <option key={type} value={type}>
+                  {type}
                 </option>
               ))}
             </select>
@@ -200,16 +202,16 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
               ))}
             </select>
 
-            {/* Filtro tipologia */}
+            {/* Filtro categoria */}
             <select
-              value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value)}
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">Tutte le tipologie</option>
-              {types.map(type => (
-                <option key={type} value={type}>
-                  {type}
+              <option value="">Tutte le categorie</option>
+              {categories.map(category => (
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))}
             </select>
