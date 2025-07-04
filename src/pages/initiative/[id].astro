@@ -122,16 +122,16 @@ const currentUrl = `${Astro.site}${Astro.url.pathname}`;
               <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
             </a>
           )}
-          
+
           <!-- Tasto Condividi -->
-          <ShareButton 
-            url={currentUrl} 
-            title={title} 
-            description={description} 
-            client:load 
+          <ShareButton
+            url={currentUrl}
+            title={title}
+            description={description}
+            client:load
           />
         </div>
-        
+
         <p class="text-sm text-gray-600">
             {signingActive
               ? "Visita il sito ufficiale per firmare e sostenere questa iniziativa"

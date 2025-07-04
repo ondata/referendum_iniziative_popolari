@@ -110,7 +110,7 @@ export default function ShareButton({ url, title, description = '' }: ShareButto
                   <span className="text-sm font-medium">{option.name}</span>
                 </button>
               ))}
-              
+
               {/* Opzione copia link */}
               <button
                 onClick={copyToClipboard}
