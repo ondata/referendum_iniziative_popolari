@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import HamburgerMenuNative from '../../components/HamburgerMenuNative.astro';
-import { fetchInitiatives, formatDate, formatNumber, getInitiativeUrl, isSigningActive } from '../../lib/initiatives';
+import { fetchInitiatives, formatDate, formatNumber, isSigningActive } from '../../lib/initiatives';
 import type { Initiative } from '../../types/initiative';
 import {
   ArrowLeftIcon,
@@ -33,7 +33,8 @@ if (!initiative) {
   return Astro.redirect('/404');
 }
 
-const officialUrl = getInitiativeUrl(initiative);
+// Use the 'sito' field from the initiative data if available, otherwise fallback to the official URL
+const officialUrl = initiative.sito || `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
 const title = String(initiative.titolo || 'Iniziativa');
 const description = String(initiative.descrizioneBreve || initiative.descrizione || initiative.titolo || 'Descrizione non disponibile');
 const fullTitle = `${title} - Referendum e Iniziative Popolari`;
@@ -177,7 +178,7 @@ const ogImage = `og-${initiative.id}.png`;
               class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
             >
               <LinkIcon className="w-5 h-5 mr-2" />
-              Sito web dell'iniziativa
+              {initiative.sito ? 'Sito web dell\'iniziativa' : 'Pagina ufficiale su firmereferendum.giustizia.it'}
               <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-1" />
             </a>
           </div>
