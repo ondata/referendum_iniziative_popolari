@@ -5,6 +5,10 @@ on:
   push:
     branches: [ main ]
 
+  # Deploy automatico ogni giorno alle 6:00 UTC (8:00 CET)
+  schedule:
+    - cron: '0 6 * * *'
+
   # Permetti di lanciare manualmente dalla UI GitHub
   workflow_dispatch:
     inputs:
