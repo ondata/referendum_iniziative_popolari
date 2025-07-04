@@ -46,9 +46,14 @@ jobs:
 
       - name: Build with Astro
         run: npm run build
+        env:
+          NODE_ENV: production
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          # Abilita automaticamente Pages se non è già abilitato
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
