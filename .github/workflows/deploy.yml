@@ -5,8 +5,13 @@ on:
   push:
     branches: [ main ]
 
-  # Permetti di lanciare manualmente
+  # Permetti di lanciare manualmente dalla UI GitHub
   workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Motivo del deploy manuale'
+        required: false
+        default: 'Deploy manuale'
 
 # Permessi necessari per il deploy
 permissions:
@@ -25,6 +30,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Show manual deploy reason
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Deploy manuale lanciato - Motivo:" "${{ github.event.inputs.reason }}"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
