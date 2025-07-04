@@ -276,6 +276,15 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                       {getSortIcon('sostenitori')}
                     </div>
                   </th>
+                  <th
+                    onClick={() => handleSort('dataApertura')}
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                  >
+                    <div className="flex items-center space-x-1">
+                      <span>Data Apertura</span>
+                      {getSortIcon('dataApertura')}
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -300,7 +309,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                       {initiative.idDecCatIniziativa?.nome || 'N/A'}
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-sm ${
                         initiative.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME'
                           ? 'bg-green-100 text-green-800'
                           : initiative.idDecStatoIniziativa?.nome === 'CHIUSA'
@@ -312,6 +321,12 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900 text-right">
                       {formatNumber(initiative.sostenitori)}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900">
+                      {initiative.dataApertura
+                        ? new Date(initiative.dataApertura).toISOString().split('T')[0]
+                        : 'N/A'
+                      }
                     </td>
                   </tr>
                 ))}
