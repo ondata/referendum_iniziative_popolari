@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HomePage from '../components/HomePage';
+import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
 import { fetchInitiatives } from '../lib/initiatives';
 
 // Carica i dati delle iniziative
@@ -8,5 +9,28 @@ const initiatives = await fetchInitiatives();
 ---
 
 <Layout title="Referendum e Iniziative Popolari">
-  <HomePage initiatives={initiatives} client:load />
+  <div class="min-h-screen bg-gray-50">
+    <!-- Header con menu hamburger -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <!-- Navigation -->
+        <div class="flex justify-end items-center mb-4">
+          <HamburgerMenuNative baseUrl={import.meta.env.BASE_URL} />
+        </div>
+
+        <!-- Title -->
+        <div class="text-center">
+          <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+            Referendum e Iniziative Popolari
+          </h1>
+          <p class="mt-2 text-lg text-gray-600">
+            Scopri e partecipa alle iniziative democratiche in corso
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- HomePage content senza header -->
+    <HomePage initiatives={initiatives} baseUrl={import.meta.env.BASE_URL} hideHeader={true} client:load />
+  </div>
 </Layout>

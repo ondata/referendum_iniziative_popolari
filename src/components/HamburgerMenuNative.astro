@@ -1,0 +1,130 @@
+---
+// Nessun framework esterno, solo Astro nativo
+export interface Props {
+  baseUrl: string;
+}
+
+const { baseUrl } = Astro.props;
+---
+
+<div class="hamburger-menu" data-base-url={baseUrl}>
+  <!-- Hamburger Button -->
+  <button class="hamburger-btn" aria-label="Menu di navigazione">
+    <span class="line line-1"></span>
+    <span class="line line-2"></span>
+    <span class="line line-3"></span>
+  </button>
+
+  <!-- Overlay -->
+  <div class="overlay hidden"></div>
+
+  <!-- Menu Dropdown -->
+  <nav class="menu-dropdown">
+    <div class="menu-content">
+      <a href={baseUrl} class="menu-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Home
+      </a>
+
+      <a href={`${baseUrl}info`} class="menu-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Info
+      </a>
+    </div>
+  </nav>
+</div>
+
+<style>
+  .hamburger-menu {
+    position: relative;
+  }
+
+  .hamburger-btn {
+    @apply flex flex-col justify-center items-center w-8 h-8 bg-transparent border-none cursor-pointer p-1;
+  }
+
+  .line {
+    @apply bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm;
+  }
+
+  .line-1 {
+    @apply -translate-y-0.5;
+  }
+
+  .line-2 {
+    @apply my-0.5;
+  }
+
+  .line-3 {
+    @apply translate-y-0.5;
+  }
+
+  .hamburger-menu.open .line-1 {
+    @apply rotate-45 translate-y-1;
+  }
+
+  .hamburger-menu.open .line-2 {
+    @apply opacity-0;
+  }
+
+  .hamburger-menu.open .line-3 {
+    @apply -rotate-45 -translate-y-1;
+  }
+
+  .overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-40;
+  }
+
+  .menu-dropdown {
+    @apply absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-200 ease-in-out opacity-0 -translate-y-2 invisible;
+  }
+
+  .hamburger-menu.open .menu-dropdown {
+    @apply opacity-100 translate-y-0 visible;
+  }
+
+  .menu-content {
+    @apply py-2;
+  }
+
+  .menu-item {
+    @apply block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150 flex items-center;
+  }
+
+  .icon {
+    @apply w-5 h-5 mr-3 text-gray-500;
+  }
+</style>
+
+<script>
+  // Script inline di Astro - nativo e semplice
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerMenus = document.querySelectorAll('.hamburger-menu');
+
+    hamburgerMenus.forEach(menu => {
+      const btn = menu.querySelector('.hamburger-btn');
+      const overlay = menu.querySelector('.overlay');
+      const menuItems = menu.querySelectorAll('.menu-item');
+
+      const toggleMenu = () => {
+        menu.classList.toggle('open');
+        overlay?.classList.toggle('hidden');
+      };
+
+      const closeMenu = () => {
+        menu.classList.remove('open');
+        overlay?.classList.add('hidden');
+      };
+
+      btn?.addEventListener('click', toggleMenu);
+      overlay?.addEventListener('click', closeMenu);
+      menuItems.forEach(item => {
+        item.addEventListener('click', closeMenu);
+      });
+    });
+  });
+</script>

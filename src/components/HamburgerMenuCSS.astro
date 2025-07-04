@@ -1,0 +1,100 @@
+---
+export interface Props {
+  baseUrl: string;
+}
+
+const { baseUrl } = Astro.props;
+---
+
+<div class="hamburger-css-only">
+  <!-- Checkbox nascosto per gestire lo stato -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+
+  <!-- Label che funge da hamburger button -->
+  <label for="menu-toggle" class="hamburger-label">
+    <span class="hamburger-icon">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </span>
+  </label>
+
+  <!-- Menu dropdown -->
+  <nav class="menu-nav">
+    <div class="menu-links">
+      <a href={baseUrl} class="nav-link">
+        🏠 Home
+      </a>
+      <a href={`${baseUrl}info`} class="nav-link">
+        ℹ️ Info
+      </a>
+    </div>
+  </nav>
+</div>
+
+<style>
+  .hamburger-css-only {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .hamburger-label {
+    @apply cursor-pointer block w-8 h-8 relative;
+  }
+
+  .hamburger-icon {
+    @apply block w-6 h-6 relative;
+  }
+
+  .bar {
+    @apply block w-full h-0.5 bg-gray-600 transition-all duration-300 ease-in-out;
+    position: absolute;
+  }
+
+  .bar:nth-child(1) {
+    top: 0;
+  }
+
+  .bar:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .bar:nth-child(3) {
+    bottom: 0;
+  }
+
+  /* Animazione hamburger -> X */
+  .menu-toggle:checked ~ .hamburger-label .bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .menu-toggle:checked ~ .hamburger-label .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle:checked ~ .hamburger-label .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* Menu dropdown */
+  .menu-nav {
+    @apply absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50;
+    @apply opacity-0 invisible transform scale-95 transition-all duration-200 ease-out;
+  }
+
+  .menu-toggle:checked ~ .menu-nav {
+    @apply opacity-100 visible scale-100;
+  }
+
+  .menu-links {
+    @apply py-2;
+  }
+
+  .nav-link {
+    @apply block px-4 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-150;
+  }
+</style>

@@ -8,9 +8,11 @@ const ITEMS_PER_PAGE = 12;
 
 interface HomePageProps {
   initiatives: Initiative[];
+  baseUrl?: string;
+  hideHeader?: boolean;
 }
 
-export default function HomePage({ initiatives: allInitiatives }: HomePageProps) {
+export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', hideHeader = false }: HomePageProps) {
   const [filteredInitiatives, setFilteredInitiatives] = useState<Initiative[]>(allInitiatives);
   const [currentPage, setCurrentPage] = useState(1);
   const [initialCategory, setInitialCategory] = useState<string>('');
@@ -43,19 +45,27 @@ export default function HomePage({ initiatives: allInitiatives }: HomePageProps)
 
   return (
     <>
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Referendum e Iniziative Popolari
-            </h1>
-            <p className="mt-2 text-lg text-gray-600">
-              Scopri e partecipa alle iniziative democratiche in corso
-            </p>
+      {/* Header - condizionale */}
+      {!hideHeader && (
+        <header className="bg-white shadow-sm border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            {/* Navigation */}
+            <div className="flex justify-end items-center mb-4">
+              <div id="hamburger-menu-placeholder" data-base-url={baseUrl}></div>
+            </div>
+
+            {/* Title */}
+            <div className="text-center">
+              <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                Referendum e Iniziative Popolari
+              </h1>
+              <p className="mt-2 text-lg text-gray-600">
+                Scopri e partecipa alle iniziative democratiche in corso
+              </p>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

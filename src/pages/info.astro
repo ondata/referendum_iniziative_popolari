@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Leggo il contenuto markdown
+const markdownPath = join(process.cwd(), 'src/content/info.md');
+const markdownContent = readFileSync(markdownPath, 'utf-8');
+
+// Importo e uso un parser markdown semplice per convertire in HTML
+function markdownToHTML(markdown: string): string {
+  return markdown
+    // Headers
+    .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-800 mb-3 mt-6">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 mb-4 mt-8">$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-gray-900 mb-6">$1</h1>')
+
+    // Bold text
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+
+    // Lists
+    .replace(/^- (.*$)/gim, '<li class="mb-2">$1</li>')
+
+    // Blockquotes
+    .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4">$1</blockquote>')
+
+    // Paragraphs (simple approach)
+    .split('\n\n')
+    .map(paragraph => {
+      // Skip if it's already HTML (starts with <)
+      if (paragraph.startsWith('<') || paragraph.trim() === '' || paragraph.includes('---')) {
+        return paragraph;
+      }
+      // If it contains list items, wrap in ul
+      if (paragraph.includes('<li')) {
+        return `<ul class="list-none space-y-1 my-4">${paragraph}</ul>`;
+      }
+      // Regular paragraph
+      return `<p class="text-gray-700 leading-relaxed mb-4">${paragraph}</p>`;
+    })
+    .join('\n');
+}
+
+const htmlContent = markdownToHTML(markdownContent);
+
+const title = "Info - Referendum e Iniziative Popolari";
+const description = "Scopri come funziona questo sito e perché è importante partecipare alle iniziative democratiche in Italia.";
+---
+
+<Layout title={title} description={description}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <a href={import.meta.env.BASE_URL} class="text-xl font-bold text-blue-600 hover:text-blue-700">
+          Referendum & Iniziative
+        </a>
+
+        <!-- Menu Hamburger -->
+        <HamburgerMenuNative baseUrl={import.meta.env.BASE_URL} />
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <article class="prose prose-gray max-w-none">
+          <div set:html={htmlContent} />
+        </article>
+      </div>
+    </main>
+  </div>
+</Layout>

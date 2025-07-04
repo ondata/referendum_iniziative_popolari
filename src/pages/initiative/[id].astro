@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
+import HamburgerMenuNative from '../../components/HamburgerMenuNative.astro';
 import { fetchInitiatives, formatDate, formatNumber, getInitiativeUrl, isSigningActive } from '../../lib/initiatives';
 import type { Initiative } from '../../types/initiative';
 import {
@@ -44,11 +45,14 @@ const ogImage = `og-${initiative.id}.png`;
   <div class="min-h-screen bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href={import.meta.env.BASE_URL} class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
           <ArrowLeftIcon className="w-5 h-5 mr-2" />
           Torna alle iniziative
         </a>
+
+        <!-- Menu Hamburger -->
+        <HamburgerMenuNative baseUrl={import.meta.env.BASE_URL} />
       </div>
     </nav>
 
