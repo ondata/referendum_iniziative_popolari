@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { normalizeBaseUrl } from '../lib/paths';
 
 interface HamburgerMenuReactProps {
   baseUrl: string;
@@ -6,6 +7,9 @@ interface HamburgerMenuReactProps {
 
 export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Normalizza il baseUrl per gestire correttamente dev e produzione
+  const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -59,7 +63,7 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
       >
         <div className="py-2">
           <a
-            href={baseUrl}
+            href={normalizedBaseUrl || '/'}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
             onClick={closeMenu}
           >
@@ -72,7 +76,7 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
           </a>
 
           <a
-            href={`${baseUrl.replace(/\/$/, '')}/tabella`}
+            href={`${normalizedBaseUrl}/tabella`}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
             onClick={closeMenu}
           >
@@ -85,7 +89,7 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
           </a>
 
           <a
-            href={`${baseUrl.replace(/\/$/, '')}/info`}
+            href={`${normalizedBaseUrl}/info`}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
             onClick={closeMenu}
           >

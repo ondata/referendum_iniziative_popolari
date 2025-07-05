@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import type { Initiative } from '../types/initiative';
-import { formatNumber } from '../lib/initiatives';
+import { formatDate, formatNumber, isSigningActive } from '../lib/initiatives';
+import { normalizeBaseUrl } from '../lib/paths';
 import HamburgerMenuReact from './HamburgerMenuReact';
 import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -17,6 +18,9 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
+
+  // Normalizza il baseUrl per gestire correttamente dev e produzione
+  const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
   const [sortColumn, setSortColumn] = useState<SortColumn>('dataApertura');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [isInitialized, setIsInitialized] = useState(false);
@@ -353,7 +357,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <a href={baseUrl} className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+              <a href={normalizedBaseUrl || '/'} className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
                 <ArrowLeftIcon className="w-5 h-5 mr-2" />
                 Torna alle iniziative
               </a>
@@ -552,7 +556,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     <tr key={initiative.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <a
-                          href={`${baseUrl.replace(/\/$/, '')}/initiative/${initiative.id}`}
+                          href={`${normalizedBaseUrl}/initiative/${initiative.id}`}
                           className="text-blue-600 hover:text-blue-800 font-medium"
                         >
                           {initiative.titolo}
