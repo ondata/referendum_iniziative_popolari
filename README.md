@@ -30,7 +30,8 @@ Il sito è pubblicato automaticamente su GitHub Pages ad ogni push al branch mai
 ## 📡 API
 
 I dati provengono dall'API ufficiale del Ministero della Giustizia:
-```
+
+```bash
 https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public
 ```
 
@@ -58,11 +59,12 @@ Il sito si auto-deploya su GitHub Pages tramite GitHub Actions. Per configurare:
 2. Seleziona **GitHub Actions** come source
 3. Il deploy avviene automaticamente ad ogni push al branch `main`
 
-## � Configurazione
+## ⚙️ Configurazione
 
 Per utilizzare questo progetto su un altro repository:
 
 1. Modifica `astro.config.mjs`:
+
    ```js
    site: 'https://tuousername.github.io',
    base: '/nome-repository',
@@ -77,30 +79,23 @@ Progetto open source. I dati provengono dal Ministero della Giustizia italiano.
 ## 👨‍💻 Sviluppo
 
 Sviluppato con ❤️ per rendere più accessibili le informazioni sui referendum e iniziative popolari italiane.
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Struttura del progetto
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `src/pages/` - Pagine del sito (index.astro, tabella.astro, info.astro)
+- `src/components/` - Componenti React/Astro riutilizzabili
+- `src/layouts/` - Layout base per le pagine
+- `src/lib/` - Utilità e funzioni helper
+- `src/types/` - Definizioni TypeScript
+- `public/` - Asset statici (immagini, favicon)
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Funzionalità principali
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Vista a card**: Presentazione moderna delle iniziative con paginazione
+- **Vista tabellare**: Visualizzazione compatta con ordinamento per colonne
+- **Filtri dinamici**: Ricerca e filtri che si influenzano reciprocamente
+- **URL persistenti**: I filtri vengono salvati nell'URL per condivisione
+- **Pagine dettaglio**: Informazioni complete per ogni iniziativa
+- **OpenGraph**: Immagini di anteprima ottimizzate per social media
+- **Design responsive**: Ottimizzato per tutti i dispositivi
+- **Aggiornamento**: Le informazioni sono aggiornate una volta al giorno
