@@ -13,7 +13,8 @@ import {
   UserGroupIcon,
   TagIcon,
   ClockIcon,
-  LinkIcon
+  LinkIcon,
+  FlagIcon
 } from '@heroicons/react/24/outline';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -174,7 +175,7 @@ const currentUrl = (() => {
 
           {initiative.quorum !== undefined && (
             <div class="flex items-center p-3 sm:p-4 bg-blue-50 rounded-lg">
-              <UserGroupIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-4 flex-shrink-0" />
+              <FlagIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-4 flex-shrink-0" />
               <div class="min-w-0">
                 <p class="text-xs sm:text-sm text-blue-600">Quorum</p>
                 <p class="text-sm sm:text-lg font-semibold text-blue-900 leading-tight">{formatNumber(initiative.quorum)}</p>
