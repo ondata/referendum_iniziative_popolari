@@ -63,4 +63,4 @@ La tua partecipazione può fare la differenza per:
 
 > **"La democrazia è partecipazione"** - questa piattaforma ti aiuta a esercitare i tuoi diritti e a contribuire al futuro del Paese.
 
-**Inizia subito:** esplora le iniziative, informati, e se ne trovi una che condividi... firmala! 🖊️
+**Inizia subito:** [esplora le iniziative](/referendum_iniziative_popolari/?stato=IN%20RACCOLTA%20FIRME), informati, e se ne trovi una che condividi... firmala! 🖊️
