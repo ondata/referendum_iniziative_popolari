@@ -3,6 +3,7 @@ import type { Initiative } from '../types/initiative';
 import InitiativeCard from './InitiativeCard';
 import SearchAndFilters from './SearchAndFilters';
 import Pagination from './Pagination';
+import { homeContent } from '../config/content';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -70,10 +71,10 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
             {/* Title */}
             <div className="text-center">
               <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                Referendum e Iniziative Popolari
+                {homeContent.title}
               </h1>
               <p className="mt-2 text-lg text-gray-600">
-                Scopri e partecipa alle iniziative democratiche in corso
+                {homeContent.subtitle}
               </p>
             </div>
           </div>

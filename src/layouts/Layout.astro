@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { homeContent } from '../config/content';
 
 export interface Props {
   title: string;
@@ -10,7 +11,7 @@ export interface Props {
 
 const {
   title,
-  description = "Scopri e partecipa alle iniziative democratiche in corso",
+  description = homeContent.subtitle,
   ogImage = "og-default.png",
   ogType = "website"
 } = Astro.props;

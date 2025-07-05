@@ -4,12 +4,13 @@ import HomePage from '../components/HomePage';
 import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
 import Footer from '../components/Footer.astro';
 import { fetchInitiatives } from '../lib/initiatives';
+import { homeContent } from '../config/content';
 
 // Carica i dati delle iniziative
 const initiatives = await fetchInitiatives();
 ---
 
-<Layout title="Referendum e Iniziative Popolari">
+<Layout title={homeContent.title}>
   <div class="min-h-screen bg-gray-50">
     <!-- Header con menu hamburger -->
     <header class="bg-white shadow-sm border-b border-gray-200">
@@ -22,10 +23,10 @@ const initiatives = await fetchInitiatives();
         <!-- Title -->
         <div class="text-center">
           <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Referendum e Iniziative Popolari
+            {homeContent.title}
           </h1>
           <p class="mt-2 text-lg text-gray-600">
-            Scopri e partecipa alle iniziative democratiche in corso
+            {homeContent.subtitle}
           </p>
         </div>
       </div>
