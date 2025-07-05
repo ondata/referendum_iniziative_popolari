@@ -27,13 +27,14 @@ Ogni immagine include:
 
 ```typescript
 AMBIENTE: #10b981 (verde)
-SALUTE: #ef4444 (rosso)
-ECONOMIA: #f59e0b (ambra)
-DIRITTI: #8b5cf6 (viola)
-GIUSTIZIA: #6366f1 (indaco)
-SOCIALE: #ec4899 (rosa)
-LAVORO: #14b8a6 (teal)
-TRASPORTI: #84cc16 (lime)
+DIRITTO: #8b5cf6 (viola)
+ENERGIA: #f59e0b (ambra)
+ISTRUZIONE E COMUNICAZIONE: #6366f1 (indaco)
+OCCUPAZIONE E LAVORO: #14b8a6 (teal)
+QUESTIONI SOCIALI: #ec4899 (rosa)
+TRASPORTO: #84cc16 (lime)
+UNIONE EUROPEA: #3b82f6 (blu)
+VITA POLITICA: #ef4444 (rosso)
 ```
 
 ### 4. Meta Tag Open Graph
