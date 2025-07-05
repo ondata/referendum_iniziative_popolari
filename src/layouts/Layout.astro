@@ -20,7 +20,8 @@ const ogImageUrl = (() => {
   const site = Astro.site?.toString() || '';
   const baseUrl = import.meta.env.BASE_URL || '/';
   const cleanSite = site.replace(/\/$/, '');
-  const cleanBase = baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
+  // Assicuriamoci che baseUrl finisca sempre con /
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
   return `${cleanSite}${cleanBase}og-images/${ogImage}`;
 })();
 ---
