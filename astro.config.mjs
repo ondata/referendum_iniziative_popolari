@@ -10,6 +10,6 @@ export default defineConfig({
 
   // Configurazione per GitHub Pages
   site: process.env.NODE_ENV === 'production' ? 'https://aborruso.github.io' : 'http://localhost:4321',
-  base: process.env.NODE_ENV === 'production' ? '/referendum_astro' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/referendum_iniziative_popolari' : '/',
   output: 'static', // Genera sito statico
 });
