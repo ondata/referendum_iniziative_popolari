@@ -149,5 +149,3 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 ## 10. Tempi e Budget
 
 - (Da definire)
-
-Spero che questo documento PRD ti sia utile! Fammi sapere se hai bisogno di ulteriori dettagli o modifiche.
