@@ -117,26 +117,91 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     }
   }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, isInitialized, updateURL]);
 
-  // Estrai categorie, stati e tipologie unici
-  const categories = Array.from(
-    new Set(initiatives.map(i => i.idDecCatIniziativa?.nome).filter(Boolean))
-  ).sort();
+  // Calcola le opzioni disponibili basandosi sui filtri attivi
+  const getAvailableOptions = useCallback(() => {
+    let baseInitiatives = [...initiatives];
 
-  const statuses = Array.from(
-    new Set(initiatives.map(i => i.idDecStatoIniziativa?.nome).filter(Boolean))
-  ).sort();
+    // Applica filtro di ricerca per tutti i dropdown
+    if (searchTerm) {
+      baseInitiatives = baseInitiatives.filter(initiative =>
+        initiative.titolo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        initiative.descrizioneBreve?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-  const types = Array.from(
-    new Set(
-      initiatives
-        .map(i => {
-          if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-          if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-          return null;
-        })
-        .filter((type) => type !== null)
-    )
-  ).sort() as string[];
+    // Per categories: applica solo filtri tipo e stato
+    let categoriesBase = [...baseInitiatives];
+    if (selectedType) {
+      categoriesBase = categoriesBase.filter(initiative => {
+        if (selectedType === 'Legge di iniziativa popolare') {
+          return initiative.idDecTipoIniziativa?.id === 4;
+        }
+        if (selectedType === 'Referendum abrogativo') {
+          return initiative.idDecTipoIniziativa?.id === 1;
+        }
+        return false;
+      });
+    }
+    if (selectedStatus) {
+      categoriesBase = categoriesBase.filter(initiative =>
+        initiative.idDecStatoIniziativa?.nome === selectedStatus
+      );
+    }
+
+    // Per statuses: applica solo filtri tipo e categoria
+    let statusesBase = [...baseInitiatives];
+    if (selectedType) {
+      statusesBase = statusesBase.filter(initiative => {
+        if (selectedType === 'Legge di iniziativa popolare') {
+          return initiative.idDecTipoIniziativa?.id === 4;
+        }
+        if (selectedType === 'Referendum abrogativo') {
+          return initiative.idDecTipoIniziativa?.id === 1;
+        }
+        return false;
+      });
+    }
+    if (selectedCategory) {
+      statusesBase = statusesBase.filter(initiative =>
+        initiative.idDecCatIniziativa?.nome === selectedCategory
+      );
+    }
+
+    // Per types: applica solo filtri categoria e stato
+    let typesBase = [...baseInitiatives];
+    if (selectedCategory) {
+      typesBase = typesBase.filter(initiative =>
+        initiative.idDecCatIniziativa?.nome === selectedCategory
+      );
+    }
+    if (selectedStatus) {
+      typesBase = typesBase.filter(initiative =>
+        initiative.idDecStatoIniziativa?.nome === selectedStatus
+      );
+    }
+
+    return {
+      categories: Array.from(
+        new Set(categoriesBase.map(i => i.idDecCatIniziativa?.nome).filter(Boolean))
+      ).sort(),
+      statuses: Array.from(
+        new Set(statusesBase.map(i => i.idDecStatoIniziativa?.nome).filter(Boolean))
+      ).sort(),
+      types: Array.from(
+        new Set(
+          typesBase
+            .map(i => {
+              if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
+              if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
+              return null;
+            })
+            .filter((type) => type !== null)
+        )
+      ).sort() as string[]
+    };
+  }, [initiatives, searchTerm, selectedCategory, selectedStatus, selectedType]);
+
+  const availableOptions = getAvailableOptions();
 
   // Effettua il filtro quando cambiano i parametri (solo dopo l'inizializzazione)
   useEffect(() => {
@@ -229,7 +294,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Tutte le tipologie</option>
-              {types.map(type => (
+              {availableOptions.types.map(type => (
                 <option key={type} value={type}>
                   {type}
                 </option>
@@ -245,7 +310,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Tutti gli stati</option>
-              {statuses.map(status => (
+              {availableOptions.statuses.map(status => (
                 <option key={status} value={status}>
                   {status}
                 </option>
@@ -261,7 +326,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Tutte le categorie</option>
-              {categories.map(category => (
+              {availableOptions.categories.map(category => (
                 <option key={category} value={category}>
                   {category}
                 </option>
