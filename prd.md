@@ -36,6 +36,8 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - Fornire una barra di ricerca per consentire agli utenti di trovare elementi specifici in base a parole chiave.
 - Implementare filtri basati su categorie o altri attributi rilevanti (es. `idDecCatIniziativa.nome`, `idDecStatoIniziativa.nome`).
+- **Filtri dinamici:** I filtri si influenzano reciprocamente mostrando solo le opzioni disponibili in base alle altre selezioni attive.
+- **URL persistenti:** I filtri attivi vengono riflessi nell'URL permettendo di condividere link con filtri preimpostati e di mantenere lo stato durante la navigazione.
 
 ### Ordinamento
 
@@ -58,8 +60,16 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
   - **Categoria:** `idDecCatIniziativa.nome`
   - **Stato:** `idDecStatoIniziativa.nome`
   - **Numero Sostenitori:** `sostenitori`
-- La tabella deve essere ordinabile per ogni colonna.
-- Deve includere funzionalità di ricerca e filtro simili alla home page.
+  - **Quorum:** `quorum`
+  - **Data Apertura:** `dataApertura`
+- La tabella deve essere ordinabile per ogni colonna con indicazione visiva della direzione di ordinamento.
+- **Filtri avanzati:** Include la stessa logica di filtri della home page con:
+  - Filtri dinamici che si influenzano reciprocamente
+  - URL che si adatta ai filtri applicati
+  - Barra di ricerca integrata
+  - Pulsante per cancellare tutti i filtri
+  - Contatore di risultati filtrati
+- **Gestione stato vuoto:** Messaggio informativo quando non ci sono risultati con opzione per rimuovere i filtri.
 - Accessibile tramite link nel menu di navigazione principale.
 
 ### Informazioni da visualizzare nelle card
