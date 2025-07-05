@@ -86,6 +86,53 @@ export async function generateOGImage(
 ): Promise<void> {
   const opts = { ...defaultOptions, ...options };
 
+  // Layout speciale per la default image (id === 0)
+  if (initiative.id === 0) {
+    // Titolo e sottotitolo centrati
+    const title = 'Referendum e Iniziative Popolari';
+    const subtitle = 'Scopri e partecipa alle iniziative democratiche';
+    const titleFontSize = 60;
+    const subtitleFontSize = 36;
+    const titleY = opts.height / 2 - 30;
+    const subtitleY = opts.height / 2 + 40;
+    const brandText = "Un'idea di onData";
+    
+    const svgTemplate = `
+      <svg width="${opts.width}" height="${opts.height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:${opts.backgroundColor};stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+          </linearGradient>
+          <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#bg)" />
+        <rect width="100%" height="100%" fill="url(#dots)" />
+        <text x="50%" y="${titleY}" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="${titleFontSize}" font-weight="700" fill="${opts.textColor}">${title}</text>
+        <text x="50%" y="${subtitleY}" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="${subtitleFontSize}" font-weight="400" fill="rgba(255,255,255,0.85)">${subtitle}</text>
+        <text x="${opts.width - 60}" y="${opts.height - 40}" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="500" fill="rgba(255,255,255,0.7)">${brandText}</text>
+        <circle cx="${opts.width - 100}" cy="100" r="80" fill="rgba(255,255,255,0.05)" />
+        <circle cx="${opts.width - 100}" cy="100" r="50" fill="rgba(255,255,255,0.1)" />
+      </svg>
+    `;
+    
+    try {
+      const pngBuffer = await sharp(Buffer.from(svgTemplate))
+        .png({ quality: 90, compressionLevel: 6 })
+        .toBuffer();
+      const dir = outputPath.substring(0, outputPath.lastIndexOf('/'));
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(outputPath, pngBuffer);
+      console.log(`✅ Immagine OG generata: ${outputPath}`);
+    } catch (error) {
+      console.error(`❌ Errore nella generazione dell'immagine di default:`, error);
+      throw error;
+    }
+    return;
+  }
+
   const title = initiative.titolo || 'Iniziativa Popolare';
   const category = initiative.idDecCatIniziativa?.nome || 'GENERALE';
   const status = initiative.idDecStatoIniziativa?.nome || 'IN RACCOLTA FIRME';
