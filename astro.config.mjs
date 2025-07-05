@@ -9,7 +9,7 @@ export default defineConfig({
   integrations: [react(), tailwind()],
 
   // Configurazione per GitHub Pages
-  site: 'https://aborruso.github.io',
+  site: process.env.NODE_ENV === 'production' ? 'https://aborruso.github.io' : 'http://localhost:4321',
   base: process.env.NODE_ENV === 'production' ? '/referendum_astro' : '/',
   output: 'static', // Genera sito statico
 });
