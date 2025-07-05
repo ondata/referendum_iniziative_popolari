@@ -66,14 +66,15 @@ function wrapText(text: string, maxWidth: number, fontSize: number): string[] {
 // Funzione per generare il colore basato sulla categoria
 function getCategoryColor(category: string): string {
   const colors: Record<string, string> = {
-    'AMBIENTE': '#10b981', // emerald-500
-    'SALUTE': '#ef4444', // red-500
-    'ECONOMIA': '#f59e0b', // amber-500
-    'DIRITTI': '#8b5cf6', // violet-500
-    'GIUSTIZIA': '#6366f1', // indigo-500
-    'SOCIALE': '#ec4899', // pink-500
-    'LAVORO': '#14b8a6', // teal-500
-    'TRASPORTI': '#84cc16', // lime-500
+    'AMBIENTE': '#10b981', // verde
+    'DIRITTO': '#8b5cf6', // viola
+    'ENERGIA': '#f59e0b', // ambra
+    'ISTRUZIONE E COMUNICAZIONE': '#6366f1', // indaco
+    'OCCUPAZIONE E LAVORO': '#14b8a6', // teal
+    'QUESTIONI SOCIALI': '#ec4899', // rosa
+    'TRASPORTO': '#84cc16', // lime
+    'UNIONE EUROPEA': '#3b82f6', // blu
+    'VITA POLITICA': '#ef4444', // rosso
   };
 
   return colors[category.toUpperCase()] || '#3b82f6'; // default blue-500
