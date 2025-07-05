@@ -71,8 +71,8 @@ Il sito ha configurazioni diverse per sviluppo e produzione:
 
 **Produzione (GitHub Pages):**
 
-- `site`: `https://aborruso.github.io`
-- `base`: `/referendum_astro`
+- `site`: `https://ondata.github.io`
+- `base`: `/referendum_iniziative_popolari`
 
 ---
 
@@ -83,7 +83,7 @@ Il sito ha configurazioni diverse per sviluppo e produzione:
 Il progetto usa `import.meta.env.BASE_URL` per gestire i percorsi:
 
 - **Sviluppo**: `/`
-- **Produzione**: `/referendum_astro/`
+- **Produzione**: `/referendum_iniziative_popolari/`
 
 ### Pattern corretti per path
 
