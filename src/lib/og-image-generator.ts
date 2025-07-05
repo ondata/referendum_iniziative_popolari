@@ -96,7 +96,7 @@ export async function generateOGImage(
     const titleY = opts.height / 2 - 30;
     const subtitleY = opts.height / 2 + 40;
     const brandText = "Un'idea di onData";
-    
+
     const svgTemplate = `
       <svg width="${opts.width}" height="${opts.height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -117,7 +117,7 @@ export async function generateOGImage(
         <circle cx="${opts.width - 100}" cy="100" r="50" fill="rgba(255,255,255,0.1)" />
       </svg>
     `;
-    
+
     try {
       const pngBuffer = await sharp(Buffer.from(svgTemplate))
         .png({ quality: 90, compressionLevel: 6 })
