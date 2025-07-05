@@ -16,10 +16,13 @@ La democrazia non si esercita solo durante le elezioni. **I referendum e le iniz
 ## Come funziona il sito?
 
 ### 🔍 **Esplora le iniziative**
+
 Naviga tra [tutte le iniziative attive](/?stato=IN+RACCOLTA+FIRME), filtra per categoria (ambiente, salute, diritti, economia...) e trova quelle che ti interessano di più.
 
 ### 📊 **Informazioni complete**
+
 Per ogni iniziativa trovi:
+
 - Descrizione dettagliata degli obiettivi
 - Date di apertura e scadenza per la raccolta firme
 - Numero di sostenitori attuali
@@ -27,7 +30,9 @@ Per ogni iniziativa trovi:
 - Link diretto per firmare
 
 ### ✍️ **Partecipa attivamente**
+
 Con un semplice click puoi:
+
 - Accedere al sito ufficiale per firmare l'iniziativa
 - Condividere l'iniziativa sui social media
 - Rimanere aggiornato sui progressi
@@ -46,6 +51,7 @@ Come cittadino italiano hai il diritto di:
 **Ogni firma conta.** Le iniziative popolari hanno bisogno di raggiungere determinati numeri di firme per essere discusse in Parlamento o per andare a referendum.
 
 La tua partecipazione può fare la differenza per:
+
 - 🌱 Proteggere l'ambiente
 - 🏥 Migliorare il sistema sanitario
 - ⚖️ Riformare la giustizia
