@@ -67,6 +67,10 @@ jobs:
           if [ -f "data/source.json" ] && [ -s "data/source.json" ]; then
             echo "✅ API data downloaded successfully to data/source.json"
             echo "File size: $(wc -c < data/source.json) bytes"
+
+            # Crea il file check_date.txt con la data di scarico
+            date '+%Y-%m-%d' > data/check_date.txt
+            echo "📅 Created check_date.txt with download date: $(cat data/check_date.txt)"
           else
             echo "❌ Failed to download API data"
             exit 1
@@ -79,7 +83,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           # Aggiungi il file se è cambiato
-          git add data/source.json
+          git add data/source.json data/check_date.txt
 
           # Verifica se ci sono cambiamenti da committare
           if git diff --staged --quiet; then
