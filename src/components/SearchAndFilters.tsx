@@ -5,15 +5,87 @@ import type { Initiative } from '../types/initiative';
 interface SearchAndFiltersProps {
   initiatives: Initiative[];
   onFilter: (filtered: Initiative[]) => void;
-  initialCategory?: string;
 }
 
-export default function SearchAndFilters({ initiatives, onFilter, initialCategory }: SearchAndFiltersProps) {
+export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFiltersProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory || '');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedType, setSelectedType] = useState('');
   const [sortBy, setSortBy] = useState('dataApertura');
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Funzione per aggiornare l'URL con i parametri attuali
+  const updateURL = useCallback((params: {
+    search?: string;
+    categoria?: string;
+    stato?: string;
+    tipo?: string;
+    ordinamento?: string;
+  }) => {
+    if (typeof window === 'undefined') return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Aggiorna o rimuovi i parametri
+    if (params.search) {
+      urlParams.set('search', params.search);
+    } else {
+      urlParams.delete('search');
+    }
+
+    if (params.categoria) {
+      urlParams.set('categoria', params.categoria);
+    } else {
+      urlParams.delete('categoria');
+    }
+
+    if (params.stato) {
+      urlParams.set('stato', params.stato);
+    } else {
+      urlParams.delete('stato');
+    }
+
+    if (params.tipo) {
+      urlParams.set('tipo', params.tipo);
+    } else {
+      urlParams.delete('tipo');
+    }
+
+    if (params.ordinamento && params.ordinamento !== 'dataApertura') {
+      urlParams.set('ordinamento', params.ordinamento);
+    } else {
+      urlParams.delete('ordinamento');
+    }
+
+    // Aggiorna l'URL senza ricaricare la pagina
+    const newURL = urlParams.toString() ? `${window.location.pathname}?${urlParams.toString()}` : window.location.pathname;
+    window.history.replaceState({}, '', newURL);
+  }, []);
+
+  // Funzione per leggere i parametri dall'URL
+  const readFromURL = useCallback(() => {
+    if (typeof window === 'undefined') return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const search = urlParams.get('search') || '';
+    const categoria = urlParams.get('categoria') || '';
+    const stato = urlParams.get('stato') || '';
+    const tipo = urlParams.get('tipo') || '';
+    const ordinamento = urlParams.get('ordinamento') || 'dataApertura';
+
+    setSearchTerm(search);
+    setSelectedCategory(categoria);
+    setSelectedStatus(stato);
+    setSelectedType(tipo);
+    setSortBy(ordinamento);
+    setIsInitialized(true);
+  }, []);
+
+  // Inizializza i filtri dall'URL al primo caricamento
+  useEffect(() => {
+    readFromURL();
+  }, [readFromURL]);
 
   // Funzione per cancellare tutti i filtri
   const clearAllFilters = () => {
@@ -22,17 +94,28 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
     setSelectedStatus('');
     setSelectedType('');
     setSortBy('dataApertura');
+
+    // Pulisci anche l'URL
+    if (typeof window !== 'undefined') {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
   };
 
   // Controlla se ci sono filtri attivi
   const hasActiveFilters = searchTerm || selectedCategory || selectedStatus || selectedType || sortBy !== 'dataApertura';
 
-  // Aggiorna la categoria selezionata quando initialCategory cambia
+  // Aggiorna l'URL quando cambiano i filtri (solo dopo l'inizializzazione)
   useEffect(() => {
-    if (initialCategory && initialCategory !== selectedCategory) {
-      setSelectedCategory(initialCategory);
+    if (isInitialized) {
+      updateURL({
+        search: searchTerm,
+        categoria: selectedCategory,
+        stato: selectedStatus,
+        tipo: selectedType,
+        ordinamento: sortBy
+      });
     }
-  }, [initialCategory]);
+  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, isInitialized, updateURL]);
 
   // Estrai categorie, stati e tipologie unici
   const categories = Array.from(
@@ -55,8 +138,10 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
     )
   ).sort() as string[];
 
-  // Effettua il filtro quando cambiano i parametri
+  // Effettua il filtro quando cambiano i parametri (solo dopo l'inizializzazione)
   useEffect(() => {
+    if (!isInitialized) return;
+
     let filtered = [...initiatives];
 
     // Filtro per ricerca
@@ -114,7 +199,7 @@ export default function SearchAndFilters({ initiatives, onFilter, initialCategor
     });
 
     onFilter(filtered);
-  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, initiatives]);
+  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, initiatives, isInitialized, onFilter]);
 
   return (
     <div className="space-y-4 mb-8">

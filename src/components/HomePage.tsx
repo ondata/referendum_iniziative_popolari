@@ -15,18 +15,31 @@ interface HomePageProps {
 export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', hideHeader = false }: HomePageProps) {
   const [filteredInitiatives, setFilteredInitiatives] = useState<Initiative[]>(allInitiatives);
   const [currentPage, setCurrentPage] = useState(1);
-  const [initialCategory, setInitialCategory] = useState<string>('');
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Leggi il parametro categoria dall'URL al caricamento
+  // Leggi la pagina dall'URL al caricamento
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
-      const categoria = urlParams.get('categoria');
-      if (categoria) {
-        setInitialCategory(decodeURIComponent(categoria));
-      }
+      const page = parseInt(urlParams.get('page') || '1', 10);
+      setCurrentPage(Math.max(1, page));
+      setIsInitialized(true);
     }
   }, []);
+
+  // Aggiorna l'URL quando cambia la pagina
+  useEffect(() => {
+    if (isInitialized && typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (currentPage > 1) {
+        urlParams.set('page', currentPage.toString());
+      } else {
+        urlParams.delete('page');
+      }
+      const newURL = urlParams.toString() ? `${window.location.pathname}?${urlParams.toString()}` : window.location.pathname;
+      window.history.replaceState({}, '', newURL);
+    }
+  }, [currentPage, isInitialized]);
 
   const handleFilter = useCallback((filtered: Initiative[]) => {
     setFilteredInitiatives(filtered);
@@ -73,7 +86,6 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
         <SearchAndFilters
           initiatives={allInitiatives}
           onFilter={handleFilter}
-          initialCategory={initialCategory}
         />
 
         {/* Statistiche */}
