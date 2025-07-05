@@ -61,32 +61,32 @@ const currentUrl = `${Astro.site}${Astro.url.pathname}`;
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
       <!-- Header -->
-      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8 mb-6 sm:mb-8">
         <!-- Badges -->
-        <div class="flex flex-wrap gap-3 mb-6">
+        <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
           <a
             href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/?categoria=${encodeURIComponent(initiative.idDecCatIniziativa?.nome || '')}`}
-            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors duration-200 cursor-pointer"
+            class="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors duration-200 cursor-pointer"
           >
-            <TagIcon className="w-4 h-4 mr-1" />
+            <TagIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
             {initiative.idDecCatIniziativa?.nome || 'AMBIENTE'}
           </a>
-          <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+          <span class={`inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium ${
             initiative.idDecStatoIniziativa?.nome?.includes('RACCOLTA')
               ? 'bg-green-100 text-green-800'
               : 'bg-gray-100 text-gray-800'
           }`}>
-            <ClockIcon className="w-4 h-4 mr-1" />
+            <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
             {initiative.idDecStatoIniziativa?.nome || 'IN RACCOLTA FIRME'}
           </span>
-          <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+          <span class={`inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium ${
             initiative.idDecTipoIniziativa?.id === 1
               ? 'bg-red-100 text-red-800'
               : 'bg-purple-100 text-purple-800'
           }`}>
-            <TagIcon className="w-4 h-4 mr-1" />
+            <TagIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
             {initiative.idDecTipoIniziativa?.id === 4
               ? 'Legge di iniziativa popolare'
               : initiative.idDecTipoIniziativa?.id === 1
@@ -96,80 +96,82 @@ const currentUrl = `${Astro.site}${Astro.url.pathname}`;
         </div>
 
         <!-- Title -->
-        <h1 class="text-2xl font-bold text-gray-900 mb-6">
+        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
           {initiative.titolo}
         </h1>
 
         <!-- CTA Buttons -->
-        <div class="mb-6 flex flex-col sm:flex-row gap-4">
+        <div class="mb-4 sm:mb-6 flex flex-row gap-3 sm:gap-4">
           {signingActive ? (
             <a
               href={officialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              class="flex-1 sm:flex-none inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white text-sm sm:text-base font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200"
             >
               Sostieni
-              <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
+              <ArrowTopRightOnSquareIcon className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
             </a>
           ) : (
             <a
               href={officialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center px-6 py-3 bg-gray-400 text-gray-200 font-semibold rounded-lg hover:bg-gray-500 transition-colors duration-200"
+              class="flex-1 sm:flex-none inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-400 text-gray-200 text-sm sm:text-base font-semibold rounded-lg hover:bg-gray-500 transition-colors duration-200"
             >
-              Raccolta firme terminata
-              <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
+              Raccolta terminata
+              <ArrowTopRightOnSquareIcon className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
             </a>
           )}
 
           <!-- Tasto Condividi -->
-          <ShareButton
-            url={currentUrl}
-            title={title}
-            description={description}
-            client:load
-          />
+          <div class="flex-1 sm:flex-none">
+            <ShareButton
+              url={currentUrl}
+              title={title}
+              description={description}
+              client:load
+            />
+          </div>
         </div>
 
 
         <!-- Stats -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div class="flex items-center p-4 bg-gray-50 rounded-lg">
-            <CalendarIcon className="w-8 h-8 text-gray-600 mr-4" />
-            <div>
-              <p class="text-sm text-gray-600">Data apertura</p>
-              <p class="text-lg font-semibold text-gray-900">{formatDate(initiative.dataApertura)}</p>
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
+          <div class="flex items-center p-3 sm:p-4 bg-gray-50 rounded-lg">
+            <CalendarIcon className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 mr-2 sm:mr-4 flex-shrink-0" />
+            <div class="min-w-0">
+              <p class="text-xs sm:text-sm text-gray-600">Data apertura</p>
+              <p class="text-sm sm:text-lg font-semibold text-gray-900 leading-tight">{formatDate(initiative.dataApertura)}</p>
             </div>
           </div>
 
           {initiative.dataFineRaccolta && (
-            <div class="flex items-center p-4 bg-orange-50 rounded-lg">
-              <CalendarIcon className="w-8 h-8 text-orange-600 mr-4" />
-              <div>
-                <p class="text-sm text-orange-600">Scadenza raccolta firme</p>
-                <p class="text-lg font-semibold text-orange-900">{formatDate(initiative.dataFineRaccolta)}</p>
+            <div class="flex items-center p-3 sm:p-4 bg-orange-50 rounded-lg">
+              <CalendarIcon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600 mr-2 sm:mr-4 flex-shrink-0" />
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm text-orange-600">Scadenza raccolta</p>
+                <p class="text-sm sm:text-lg font-semibold text-orange-900 leading-tight">{formatDate(initiative.dataFineRaccolta)}</p>
               </div>
             </div>
           )}
 
           {initiative.sostenitori !== undefined && (
-            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
-              <UserGroupIcon className="w-8 h-8 text-gray-600 mr-4" />
-              <div>
-                <p class="text-sm text-gray-600">Sostenitori</p>
-                <p class="text-lg font-semibold text-gray-900">{formatNumber(initiative.sostenitori)}</p>
+            <div class="flex items-center p-3 sm:p-4 bg-gray-50 rounded-lg">
+              <UserGroupIcon className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 mr-2 sm:mr-4 flex-shrink-0" />
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm text-gray-600">Sostenitori</p>
+                <p class="text-sm sm:text-lg font-semibold text-gray-900 leading-tight">{formatNumber(initiative.sostenitori)}</p>
               </div>
             </div>
           )}
 
           {initiative.quorum !== undefined && (
-            <div class="flex items-center p-4 bg-blue-50 rounded-lg">
-              <UserGroupIcon className="w-8 h-8 text-blue-600 mr-4" />
-              <div>
-                <p class="text-sm text-blue-600">Quorum</p>
-                <p class="text-lg font-semibold text-blue-900">{formatNumber(initiative.quorum)}</p>
+            <div class="flex items-center p-3 sm:p-4 bg-blue-50 rounded-lg">
+              <UserGroupIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-4 flex-shrink-0" />
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm text-blue-600">Quorum</p>
+                <p class="text-sm sm:text-lg font-semibold text-blue-900 leading-tight">{formatNumber(initiative.quorum)}</p>
               </div>
             </div>
           )}
@@ -182,8 +184,8 @@ const currentUrl = `${Astro.site}${Astro.url.pathname}`;
       </div>
 
       <!-- Description -->
-      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Descrizione</h2>
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8 mb-6 sm:mb-8">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">Descrizione</h2>
 
         {initiative.descrizione ? (
           <div class="w-full">
@@ -206,8 +208,8 @@ const currentUrl = `${Astro.site}${Astro.url.pathname}`;
 
       <!-- Links -->
       {officialUrl && (
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-          <h2 class="text-xl font-semibold text-gray-900 mb-4">Link utili</h2>
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">Link utili</h2>
           <div class="space-y-3">
             <a
               href={officialUrl}
