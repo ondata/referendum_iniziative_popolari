@@ -1,5 +1,20 @@
 ---
 // Footer component riutilizzabile
+import fs from 'fs';
+import path from 'path';
+
+// Leggi la data di aggiornamento dal file check_date.txt
+let lastUpdateDate = '';
+try {
+  const checkDatePath = path.join(process.cwd(), 'data', 'check_date.txt');
+  const dateString = fs.readFileSync(checkDatePath, 'utf-8').trim();
+  // Converte da YYYY-MM-DD a DD/MM/YYYY
+  const [year, month, day] = dateString.split('-');
+  lastUpdateDate = `${day}/${month}/${year}`;
+} catch (error) {
+  // Fallback alla data corrente se il file non esiste
+  lastUpdateDate = new Date().toLocaleDateString('it-IT');
+}
 ---
 
 <footer class="bg-white border-t border-gray-200 mt-16">
@@ -32,7 +47,7 @@
         </a>
       </p>
       <p class="mt-2 text-sm">
-        Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}
+        Ultimo aggiornamento: {lastUpdateDate}
       </p>
     </div>
   </div>
