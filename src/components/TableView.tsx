@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import type { Initiative } from '../types/initiative';
 import { formatNumber } from '../lib/initiatives';
-import HamburgerMenu from './HamburgerMenu';
+import HamburgerMenuReact from './HamburgerMenuReact';
 import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface TableViewProps {
@@ -358,7 +358,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                 Torna alle iniziative
               </a>
             </div>
-            <HamburgerMenu baseUrl={baseUrl} />
+            <HamburgerMenuReact baseUrl={baseUrl} />
           </div>
         </div>
       </header>

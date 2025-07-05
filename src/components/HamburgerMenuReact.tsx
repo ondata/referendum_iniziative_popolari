@@ -1,14 +1,18 @@
 import { useState } from 'react';
 
-interface HamburgerMenuProps {
+interface HamburgerMenuReactProps {
   baseUrl: string;
 }
 
-export default function HamburgerMenu({ baseUrl }: HamburgerMenuProps) {
+export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -41,7 +45,7 @@ export default function HamburgerMenu({ baseUrl }: HamburgerMenuProps) {
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={toggleMenu}
+          onClick={closeMenu}
         />
       )}
 
@@ -57,7 +61,7 @@ export default function HamburgerMenu({ baseUrl }: HamburgerMenuProps) {
           <a
             href={baseUrl}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           >
             <div className="flex items-center">
               <svg className="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +74,7 @@ export default function HamburgerMenu({ baseUrl }: HamburgerMenuProps) {
           <a
             href={`${baseUrl.replace(/\/$/, '')}/tabella`}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           >
             <div className="flex items-center">
               <svg className="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +87,7 @@ export default function HamburgerMenu({ baseUrl }: HamburgerMenuProps) {
           <a
             href={`${baseUrl.replace(/\/$/, '')}/info`}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           >
             <div className="flex items-center">
               <svg className="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
