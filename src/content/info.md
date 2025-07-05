@@ -16,7 +16,7 @@ La democrazia non si esercita solo durante le elezioni. **I referendum e le iniz
 ## Come funziona il sito?
 
 ### 🔍 **Esplora le iniziative**
-Naviga tra tutte le iniziative attive, filtra per categoria (ambiente, salute, diritti, economia...) e trova quelle che ti interessano di più.
+Naviga tra [tutte le iniziative attive](/?stato=IN+RACCOLTA+FIRME), filtra per categoria (ambiente, salute, diritti, economia...) e trova quelle che ti interessano di più.
 
 ### 📊 **Informazioni complete**
 Per ogni iniziativa trovi:

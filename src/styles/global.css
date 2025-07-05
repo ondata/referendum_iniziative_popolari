@@ -23,19 +23,3 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-/* Prose styling for long text */
-.prose {
-  color: #374151;
-  max-width: 65ch;
-}
-
-.prose p {
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
-
-.prose strong {
-  color: #111827;
-  font-weight: 600;
-}
