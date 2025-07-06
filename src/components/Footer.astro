@@ -20,8 +20,13 @@ try {
 
 <footer class="bg-white border-t border-gray-200 mt-16">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="relative">
-      <!-- Contenuto principale centrato -->
+    <!-- Layout responsivo: 3 colonne su desktop, stack su mobile -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4 items-center">
+
+      <!-- Colonna sinistra: vuota su desktop, nascosta su mobile -->
+      <div class="hidden lg:block"></div>
+
+      <!-- Colonna centrale: testo sempre centrato -->
       <div class="text-center text-gray-600">
         <p>
           Un'idea dell'associazione{' '}
@@ -35,10 +40,7 @@ try {
           </a>
         </p>
 
-        <!-- Linea separatrice -->
-        <hr class="w-96 mx-auto my-4 border-gray-300" />
-
-        <p>
+        <p class="mt-2">
           Fonte dati:{' '}
           <a
             href="https://firmereferendum.giustizia.it"
@@ -54,8 +56,8 @@ try {
         </p>
       </div>
 
-      <!-- Icone in basso a destra -->
-      <div class="absolute bottom-0 right-0 flex space-x-4">
+      <!-- Colonna destra: icone a destra su desktop, centrate su mobile -->
+      <div class="flex justify-center lg:justify-end space-x-4">
         <!-- Icona GitHub -->
         <a
           href="https://github.com/ondata/referendum_iniziative_popolari"
