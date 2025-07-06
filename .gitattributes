@@ -1,0 +1,40 @@
+# Git attributes configuration
+
+# Normalize line endings for text files
+* text=auto
+
+# Specific handling for data files - normalize line endings
+*.csv text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+
+# Additional data formats that might be present
+*.tsv text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+
+# Web files
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.astro text eol=lf
+
+# Configuration files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+
+# Binary files - do not normalize
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
