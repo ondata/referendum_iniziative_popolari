@@ -5,9 +5,9 @@ on:
   push:
     branches: [ main ]
 
-  # Deploy automatico ogni giorno alle 6:00 UTC (8:00 CET)
+  # Deploy automatico 4 volte al giorno: 8:00, 12:00, 16:00, 20:00 UTC
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 8,12,16,20 * * *'
 
   # Permetti di lanciare manualmente dalla UI GitHub
   workflow_dispatch:
