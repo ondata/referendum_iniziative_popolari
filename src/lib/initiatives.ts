@@ -106,3 +106,39 @@ export function isSigningActive(initiative: Initiative): boolean {
     return true;
   }
 }
+
+export function normalizeUrl(url: string | undefined): string | undefined {
+  if (!url || typeof url !== 'string') return undefined;
+
+  // Rimuovi spazi bianchi all'inizio e alla fine
+  const trimmedUrl = url.trim();
+  if (!trimmedUrl) return undefined;
+
+  // Se l'URL inizia già con http:// o https://, restituiscilo così com'è
+  if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
+    return trimmedUrl;
+  }
+
+  // Se l'URL inizia con "https:" ma manca il "//" (errore comune), correggilo
+  if (trimmedUrl.startsWith('https:') && !trimmedUrl.startsWith('https://')) {
+    return trimmedUrl.replace('https:', 'https://');
+  }
+
+  // Se l'URL inizia con "http:" ma manca il "//" (errore comune), correggilo
+  if (trimmedUrl.startsWith('http:') && !trimmedUrl.startsWith('http://')) {
+    return trimmedUrl.replace('http:', 'http://');
+  }
+
+  // Se l'URL inizia con "www.", aggiungi https://
+  if (trimmedUrl.startsWith('www.')) {
+    return `https://${trimmedUrl}`;
+  }
+
+  // Se l'URL sembra un dominio valido (contiene un punto), aggiungi https://
+  if (trimmedUrl.includes('.') && !trimmedUrl.includes(' ')) {
+    return `https://${trimmedUrl}`;
+  }
+
+  // Se non riusciamo a identificare il formato, restituiamo undefined
+  return undefined;
+}

@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import HamburgerMenuNative from '../../components/HamburgerMenuNative.astro';
 import ShareButton from '../../components/ShareButton';
 import Footer from '../../components/Footer.astro';
-import { fetchInitiatives, formatDate, formatNumber, isSigningActive } from '../../lib/initiatives';
+import { fetchInitiatives, formatDate, formatNumber, isSigningActive, normalizeUrl } from '../../lib/initiatives';
 import type { Initiative } from '../../types/initiative';
 import {
   ArrowLeftIcon,
@@ -237,9 +237,9 @@ const currentUrl = (() => {
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8">
         <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">Link utili</h2>
         <div class="space-y-3">
-          {initiative.sito && (
+          {normalizeUrl(initiative.sito) && (
             <a
-              href={initiative.sito}
+              href={normalizeUrl(initiative.sito)}
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
