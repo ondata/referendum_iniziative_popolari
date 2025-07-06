@@ -2,6 +2,11 @@
 
 # Script per scaricare e processare i dati delle iniziative da firmereferendum.giustizia.it
 # Scarica i dati JSON, li converte in JSONL e aggiorna la timeline delle firme
+#
+# REQUISITI SOFTWARE:
+# - curl: per scaricare i dati dall'API
+# - jq: per processare i dati JSON
+# - miller (mlr): per manipolare e convertire i dati
 
 # Configurazione bash per errori e debug
 set -x  # stampa ogni comando eseguito
