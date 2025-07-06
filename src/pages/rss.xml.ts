@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import fs from 'fs';
 import path from 'path';
+import { getBasePath } from '../lib/paths';
 
 interface Initiative {
   id: string;
@@ -28,23 +29,10 @@ export async function GET(context: APIContext) {
       .map(line => JSON.parse(line))
       .sort((a, b) => new Date(b.dataApertura).getTime() - new Date(a.dataApertura).getTime());
 
-    // Costruisci il site URL corretto come fanno le altre pagine
-    const siteUrl = (() => {
-      const site = context.site?.toString() || '';
-      const baseUrl = import.meta.env.BASE_URL || '/';
-
-      // Rimuovi trailing slash dal site
-      const cleanSite = site.replace(/\/$/, '');
-
-      // Gestisci il base URL: se è solo '/', non aggiungerlo
-      let cleanBase = '';
-      if (baseUrl !== '/') {
-        cleanBase = baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
-        cleanBase = cleanBase.endsWith('/') ? cleanBase.slice(0, -1) : cleanBase;
-      }
-
-      return `${cleanSite}${cleanBase}`;
-    })();
+    // Costruisci il site URL utilizzando le utility esistenti
+    const site = context.site?.toString().replace(/\/$/, '') || '';
+    const basePath = getBasePath();
+    const siteUrl = `${site}${basePath}`;
 
     return rss({
       title: 'Referendum e Iniziative Popolari - Ultime Iniziative',
@@ -77,23 +65,10 @@ export async function GET(context: APIContext) {
   } catch (error) {
     console.error('Errore nella generazione del feed RSS:', error);
 
-    // Costruisci il site URL corretto anche per l'errore
-    const siteUrl = (() => {
-      const site = context.site?.toString() || '';
-      const baseUrl = import.meta.env.BASE_URL || '/';
-
-      // Rimuovi trailing slash dal site
-      const cleanSite = site.replace(/\/$/, '');
-
-      // Gestisci il base URL: se è solo '/', non aggiungerlo
-      let cleanBase = '';
-      if (baseUrl !== '/') {
-        cleanBase = baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
-        cleanBase = cleanBase.endsWith('/') ? cleanBase.slice(0, -1) : cleanBase;
-      }
-
-      return `${cleanSite}${cleanBase}`;
-    })();
+    // Costruisci il site URL utilizzando le utility esistenti anche per l'errore
+    const site = context.site?.toString().replace(/\/$/, '') || '';
+    const basePath = getBasePath();
+    const siteUrl = `${site}${basePath}`;
 
     // Ritorna un feed vuoto in caso di errore
     return rss({
