@@ -34,4 +34,4 @@ check_date=$(date +%Y-%m-%d)
 mlr --jsonl filter '${idDecStatoIniziativa.id}==2' then cut -f id,sostenitori then put '$data="'"${check_date}"'"' then reorder -f id,data,sostenitori "${folder}"/../data/source.jsonl >>"${folder}"/../data/time_line.jsonl
 
 # Rimuove duplicati dalla timeline e riordina per data e ID
-mlr -I --jsonl top -f sostenitori -g id,data then sort -t data,id then cut -x -f top_idx then rename sostenitori_top,sostenitori ../data/time_line.jsonl
+mlr -I --jsonl top -f sostenitori -g id,data then sort -t data,id then cut -x -f top_idx then rename sostenitori_top,sostenitori "${folder}"/../data/time_line.jsonl
