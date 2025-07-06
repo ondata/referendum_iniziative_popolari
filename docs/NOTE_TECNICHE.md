@@ -6,6 +6,7 @@ Questo documento contiene note tecniche utili per la gestione e manutenzione del
 - [Immagini OpenGraph](#immagini-opengraph)
 - [Sviluppo e Deploy](#sviluppo-e-deploy)
 - [Configurazione Path](#configurazione-path)
+- [Gestione Percorsi con Utility](#gestione-percorsi-con-utility)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -112,6 +113,80 @@ const ogImageUrl = (() => {
   return `${cleanSite}${cleanBase}og-images/${ogImage}`;
 })();
 ```
+
+---
+
+## Gestione Percorsi con Utility
+
+### Gestione BASE_URL tra sviluppo e produzione
+
+Il progetto è configurato per funzionare sia in sviluppo locale che su GitHub Pages. La differenza principale è il BASE_URL:
+
+- **Sviluppo**: `/` (root del localhost)
+- **Produzione**: `/referendum_iniziative_popolari/` (subdirectory su GitHub Pages)
+
+### Utility per gestione percorsi
+
+Il file `src/lib/paths.ts` contiene utility essenziali per gestire correttamente i percorsi:
+
+```typescript
+// Ottiene il base path normalizzato
+getBasePath(): string
+// Crea un percorso completo aggiungendo il base path
+createPath(path: string): string
+// Normalizza un base URL rimuovendo trailing slash
+normalizeBaseUrl(baseUrl: string): string
+```
+
+### Uso corretto delle utility
+
+**❌ NON fare così:**
+
+```typescript
+// Concatenazione manuale - rischio di errori
+const url = import.meta.env.BASE_URL + '/rss.xml';
+const siteUrl = context.site + import.meta.env.BASE_URL;
+```
+
+**✅ Fare così:**
+
+```typescript
+import { getBasePath } from '../lib/paths';
+
+// Per costruire URL interni
+const rssUrl = `${getBasePath()}/rss.xml`;
+
+// Per costruire site URL completi
+const site = context.site?.toString().replace(/\/$/, '') || '';
+const basePath = getBasePath();
+const siteUrl = `${site}${basePath}`;
+```
+
+### Esempi pratici
+
+**Link interni nei componenti Astro:**
+
+```astro
+<a href={`${import.meta.env.BASE_URL}info`}>Info</a>
+<!-- Oppure usando le utility -->
+<a href={createPath('/info')}>Info</a>
+```
+
+**Feed RSS e API endpoints:**
+
+```typescript
+// Sempre usare le utility per coerenza
+const site = context.site?.toString().replace(/\/$/, '') || '';
+const basePath = getBasePath();
+const siteUrl = `${site}${basePath}`;
+```
+
+**Vantaggi delle utility:**
+
+- **Coerenza**: Stesso comportamento in tutto il progetto
+- **Manutenibilità**: Cambiamenti centralizzati
+- **Affidabilità**: Gestione corretta di casi edge (slash multipli, URL vuoti)
+- **Testing**: Logica testabile e isolata
 
 ---
 
