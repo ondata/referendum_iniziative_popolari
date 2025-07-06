@@ -51,30 +51,22 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Install dependencies for data processing
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq miller
+
       - name: Download and save API data
         run: |
-          # Crea la cartella data se non esiste
-          mkdir -p data
+          # Rendi eseguibile lo script di download
+          chmod +x scripts/download_data.sh
 
-          # Scarica i dati dall'API e salvali come source.json
-          # Questo file servirà come backup locale nel repository
-          curl -s "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public?v=1751271726271" \
-            -H "Accept: application/json" \
-            -H "User-Agent: Mozilla/5.0 (compatible; referendum-astro-bot/1.0)" \
-            -o data/source.json
+          # Esegui lo script di download
+          ./scripts/download_data.sh
 
-          # Verifica che il file sia stato scaricato correttamente
-          if [ -f "data/source.json" ] && [ -s "data/source.json" ]; then
-            echo "✅ API data downloaded successfully to data/source.json"
-            echo "File size: $(wc -c < data/source.json) bytes"
-
-            # Crea il file check_date.txt con la data di scarico
-            date '+%Y-%m-%d' > data/check_date.txt
-            echo "📅 Created check_date.txt with download date: $(cat data/check_date.txt)"
-          else
-            echo "❌ Failed to download API data"
-            exit 1
-          fi
+          # Crea il file check_date.txt con la data di scarico
+          date '+%Y-%m-%d' > data/check_date.txt
+          echo "📅 Created check_date.txt with download date: $(cat data/check_date.txt)"
 
       - name: Commit and push updated data
         run: |
@@ -82,15 +74,15 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Aggiungi il file se è cambiato
-          git add data/source.json data/check_date.txt
+          # Aggiungi i file se sono cambiati
+          git add data/source.json data/source.jsonl data/check_date.txt
 
           # Verifica se ci sono cambiamenti da committare
           if git diff --staged --quiet; then
-            echo "📝 No changes in source.json"
+            echo "📝 No changes in data files"
           else
-            echo "📝 Committing updated source.json"
-            git commit -m "chore: update source.json with latest API data [skip ci]"
+            echo "📝 Committing updated data files"
+            git commit -m "chore: update data files with latest API data [skip ci]"
             git push
           fi
 
