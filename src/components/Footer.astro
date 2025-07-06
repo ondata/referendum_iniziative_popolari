@@ -2,6 +2,7 @@
 // Footer component riutilizzabile
 import fs from 'fs';
 import path from 'path';
+import { createPath } from '../lib/paths';
 
 // Leggi la data di aggiornamento dal file check_date.txt
 let lastUpdateDate = '';
@@ -75,7 +76,7 @@ try {
 
         <!-- Icona RSS -->
         <a
-          href={`${import.meta.env.BASE_URL}rss.xml`}
+          href={createPath('/rss.xml')}
           target="_blank"
           rel="noopener noreferrer"
           class="text-gray-400 hover:text-orange-500 transition-colors duration-200"
