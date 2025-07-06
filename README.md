@@ -16,7 +16,7 @@ Un sito web moderno per visualizzare e esplorare referendum e iniziative popolar
 
 Il sito è pubblicato automaticamente su GitHub Pages ad ogni push al branch main.
 
-**URL**: `https://aborruso.github.io/referendum_astro/`
+**URL**: `https://ondata.github.io/referendum_astro/`
 
 ## 🛠️ Tecnologie
 
