@@ -197,6 +197,8 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 - **Test di compatibilità:** Verificare la compatibilità con diversi browser e dispositivi.
 - **Test di performance:** Assicurarsi che il sito si carichi rapidamente e sia reattivo.
 
+Nota bene: al momento non sono implementati.
+
 ## 9. Criteri di Accettazione
 
 - Tutte le funzionalità devono essere implementate secondo le specifiche.
