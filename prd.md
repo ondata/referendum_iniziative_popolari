@@ -98,6 +98,43 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 - Come fallback per desktop, deve fornire opzioni di condivisione per le principali piattaforme (WhatsApp, Telegram, Twitter, Facebook, LinkedIn).
 - L'URL condiviso deve includere i metadati OpenGraph ottimizzati per una preview ricca sui social.
 
+### Feed RSS
+
+- Il sito deve generare automaticamente un feed RSS (`/rss.xml`) contenente le ultime iniziative.
+- Il feed deve includere:
+  - **Titolo dell'iniziativa:** `titolo`
+  - **Descrizione:** Composta da tipologia, categoria e descrizione nel formato `"{tipologia} - {categoria}: {descrizione}"`
+  - **Data di pubblicazione:** `dataApertura`
+  - **Link:** URL ufficiale dell'iniziativa su firmereferendum.giustizia.it
+  - **GUID univoco:** Basato sull'ID dell'iniziativa (`initiative-{id}`)
+- Il feed deve essere limitato alle prime 10 iniziative ordinate per data di apertura (più recenti prima).
+- Il feed deve essere accessibile tramite icona RSS nel footer del sito.
+- Auto-aggiornamento: Il feed si aggiorna automaticamente ad ogni deploy con i nuovi dati.
+
+### Timeline Sostenitori
+
+- Il sistema deve tracciare l'evoluzione nel tempo del numero di sostenitori per ogni iniziativa.
+- **Raccolta dati automatica:**
+  - Durante ogni aggiornamento dei dati (4 volte al giorno), il sistema deve salvare:
+    - **ID dell'iniziativa:** `id`
+    - **Numero di sostenitori corrente:** `sostenitori`
+    - **Data di rilevamento:** formato `YYYY-MM-DD`
+  - Salvare solo le iniziative in stato "IN RACCOLTA FIRME" (`idDecStatoIniziativa.id == 2`)
+- **Gestione duplicati:** Il sistema deve eliminare automaticamente i duplicati per evitare multiple entry nella stessa giornata per la stessa iniziativa.
+- **File di output:** I dati della timeline devono essere salvati in `data/time_line.jsonl` in formato JSONL.
+- **Struttura dati timeline:**
+
+  ```json
+  {"id": "123456", "sostenitori": 1500, "data": "2025-01-15"}
+  {"id": "123456", "sostenitori": 1750, "data": "2025-01-16"}
+  ```
+
+- **Utilizzo futuro:** Questi dati possono essere utilizzati per:
+  - Creare grafici dell'andamento delle firme nel tempo
+  - Mostrare statistiche di crescita giornaliera/settimanale
+  - Identificare iniziative con maggiore momentum
+  - Analisi predittive sul raggiungimento del quorum
+
 ## 4. Wireframes/Mockups
 
 - **Pagina Principale:**
@@ -137,6 +174,17 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 - **Responsività:** Utilizzo di Tailwind CSS per garantire la responsività e un design moderno.
 - **Paginazione:** Implementazione client-side per la navigazione tra le card.
 - **Hosting:** Il sito sarà ospitato su **GitHub Pages** con supporto per siti statici Astro.
+- **Automazione dati:**
+  - Utilizzo di **GitHub Actions** per l'aggiornamento automatico dei dati 4 volte al giorno (ore 8, 12, 16, 20 UTC).
+  - Script bash per download e processamento dati utilizzando `jq` e `miller` (mlr).
+  - Commit automatico dei dati aggiornati nel repository.
+- **Feed RSS:**
+  - Generazione automatica tramite `@astrojs/rss` come endpoint Astro (`/rss.xml`).
+  - Lettura diretta del file `data/source.jsonl` per performance ottimali.
+- **Timeline sostenitori:**
+  - Processamento automatico durante il download dei dati.
+  - Utilizzo di `miller` per filtraggio, trasformazione e deduplicazione.
+  - Accumulo progressivo dei dati storici in `data/time_line.jsonl`.
 - **SEO:**
   - Ottimizzazione per i motori di ricerca (meta description, titoli, URL amichevoli).
   - Ottimizzazione OpenGraph per ogni single page, con immagine di anteprima e link diretto alla pagina ufficiale dell'iniziativa.
