@@ -28,10 +28,28 @@ export async function GET(context: APIContext) {
       .map(line => JSON.parse(line))
       .sort((a, b) => new Date(b.dataApertura).getTime() - new Date(a.dataApertura).getTime());
 
+    // Costruisci il site URL corretto come fanno le altre pagine
+    const siteUrl = (() => {
+      const site = context.site?.toString() || '';
+      const baseUrl = import.meta.env.BASE_URL || '/';
+
+      // Rimuovi trailing slash dal site
+      const cleanSite = site.replace(/\/$/, '');
+
+      // Gestisci il base URL: se è solo '/', non aggiungerlo
+      let cleanBase = '';
+      if (baseUrl !== '/') {
+        cleanBase = baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
+        cleanBase = cleanBase.endsWith('/') ? cleanBase.slice(0, -1) : cleanBase;
+      }
+
+      return `${cleanSite}${cleanBase}`;
+    })();
+
     return rss({
       title: 'Referendum e Iniziative Popolari - Ultime Iniziative',
       description: 'Feed RSS delle ultime iniziative e referendum popolari in Italia',
-      site: context.site ?? 'https://ondata.github.io/referendum_astro/',
+      site: siteUrl,
       items: initiatives.map((initiative) => {
         const officialUrl = `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
 
@@ -59,11 +77,29 @@ export async function GET(context: APIContext) {
   } catch (error) {
     console.error('Errore nella generazione del feed RSS:', error);
 
+    // Costruisci il site URL corretto anche per l'errore
+    const siteUrl = (() => {
+      const site = context.site?.toString() || '';
+      const baseUrl = import.meta.env.BASE_URL || '/';
+
+      // Rimuovi trailing slash dal site
+      const cleanSite = site.replace(/\/$/, '');
+
+      // Gestisci il base URL: se è solo '/', non aggiungerlo
+      let cleanBase = '';
+      if (baseUrl !== '/') {
+        cleanBase = baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
+        cleanBase = cleanBase.endsWith('/') ? cleanBase.slice(0, -1) : cleanBase;
+      }
+
+      return `${cleanSite}${cleanBase}`;
+    })();
+
     // Ritorna un feed vuoto in caso di errore
     return rss({
       title: 'Referendum e Iniziative Popolari - Feed non disponibile',
       description: 'Errore nel caricamento delle iniziative',
-      site: context.site ?? 'https://ondata.github.io/referendum_astro/',
+      site: siteUrl,
       items: [],
     });
   }
