@@ -143,7 +143,7 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 - **Pagina di Dettaglio:**
   - Header: Titolo dell'elemento.
   - Contenuto: Visualizzazione formattata di tutti i campi del JSON.
-  - Footer: Link per tornare alla pagina principale.
+  - Footer: Link per aprire pagina ufficiale iniziativa (se c'è) e link alla pagina ufficiale dell'iniziativa sul sito del Ministero.
 
 ## 5. Design (UI)
 
