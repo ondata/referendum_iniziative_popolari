@@ -73,6 +73,28 @@ export function formatNumber(num: number | undefined): string {
   return num.toLocaleString('it-IT');
 }
 
+/**
+ * Normalizza un titolo per l'ordinamento alfabetico rimuovendo:
+ * - Caratteri non alfabetici all'inizio del titolo (virgolette, simboli, etc.)
+ * - Accenti e caratteri speciali
+ * - Spazi extra
+ */
+export function normalizeForSorting(title: string): string {
+  if (!title) return '';
+
+  // Rimuovi spazi all'inizio e alla fine
+  let normalized = title.trim();
+
+  // Rimuovi caratteri non alfabetici all'inizio del titolo
+  // Questa regex rimuove tutto quello che non è una lettera o un numero all'inizio
+  normalized = normalized.replace(/^[^\p{L}\p{N}]+/u, '');
+
+  // Converti in minuscolo e rimuovi accenti
+  normalized = normalized.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  return normalized;
+}
+
 export function generateSlug(title: string, id: number): string {
   // Usa solo l'ID come slug
   return `${id}`;

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Initiative } from '../types/initiative';
+import { normalizeForSorting } from '../lib/initiatives';
 
 interface SearchAndFiltersProps {
   initiatives: Initiative[];
@@ -248,13 +249,10 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'titolo':
-          // Pulisci e normalizza i titoli per l'ordinamento
-          const titleA = (a.titolo || '');
-          const titleB = (b.titolo || '');
-          const cleanA = titleA.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-          const cleanB = titleB.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-          return cleanA.localeCompare(cleanB);
+          // Usa la funzione normalizeForSorting per rimuovere caratteri non alfabetici iniziali
+          const normalizedA = normalizeForSorting(a.titolo || '');
+          const normalizedB = normalizeForSorting(b.titolo || '');
+          return normalizedA.localeCompare(normalizedB, 'it-IT');
         case 'sostenitori':
           return (b.sostenitori || 0) - (a.sostenitori || 0);
         case 'dataApertura':

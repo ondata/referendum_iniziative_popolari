@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import type { Initiative } from '../types/initiative';
-import { formatDate, formatNumber, isSigningActive } from '../lib/initiatives';
+import { formatDate, formatNumber, isSigningActive, normalizeForSorting } from '../lib/initiatives';
 import { normalizeBaseUrl } from '../lib/paths';
 import HamburgerMenuReact from './HamburgerMenuReact';
 import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -270,8 +270,8 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
 
       switch (sortColumn) {
         case 'titolo':
-          aValue = a.titolo || '';
-          bValue = b.titolo || '';
+          aValue = normalizeForSorting(a.titolo || '');
+          bValue = normalizeForSorting(b.titolo || '');
           break;
         case 'tipologia':
           aValue = (() => {
@@ -306,8 +306,8 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
           bValue = new Date(b.dataApertura || 0).getTime();
           break;
         default:
-          aValue = a.titolo || '';
-          bValue = b.titolo || '';
+          aValue = normalizeForSorting(a.titolo || '');
+          bValue = normalizeForSorting(b.titolo || '');
       }
 
       if (sortColumn === 'sostenitori' || sortColumn === 'dataApertura' || sortColumn === 'quorum') {
