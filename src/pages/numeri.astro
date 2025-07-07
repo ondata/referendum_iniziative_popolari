@@ -8,6 +8,37 @@ import { normalizeBaseUrl, createPath } from '../lib/paths';
 // Carica i dati delle iniziative
 const initiatives = await fetchInitiatives();
 
+// Carica i dati della media sostenitori giornalieri
+async function loadMediaSostenitori() {
+  try {
+    const mediaData = await import('../../data/media_sostenitori_giornaliera.jsonl?raw');
+    const lines = mediaData.default.trim().split('\n');
+    return lines.map(line => JSON.parse(line));
+  } catch (error) {
+    console.warn('Error loading media sostenitori data:', error);
+    return [];
+  }
+}
+
+const mediaSostenitori = await loadMediaSostenitori();
+
+// Unisci i dati delle iniziative con i dati della media sostenitori
+const initiativesWithMedia = initiatives.map(initiative => {
+  const mediaData = mediaSostenitori.find(m => m.id === initiative.id);
+  return {
+    ...initiative,
+    sostenitori_delta_mean: mediaData?.sostenitori_delta_mean || 0
+  };
+});
+
+// Top 10 iniziative per sostenitori_delta_mean
+const top10ByMedia = initiativesWithMedia
+  .filter(init => init.sostenitori_delta_mean > 0)
+  .sort((a, b) => b.sostenitori_delta_mean - a.sostenitori_delta_mean)
+  .slice(0, 10);
+
+const maxMediaValue = Math.max(...top10ByMedia.map(init => init.sostenitori_delta_mean));
+
 // Calcola il numero di iniziative per categoria
 const categoryCounts = initiatives.reduce((acc, initiative) => {
   const categoria = initiative.idDecCatIniziativa?.nome || 'Senza categoria';
@@ -30,8 +61,6 @@ const activeInitiatives = initiatives.filter(initiative =>
 
 // Gestione robusta dei percorsi usando le utility
 const baseUrl = import.meta.env.BASE_URL;
-const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
-const homePath = normalizedBaseUrl || '/';
 ---
 
 <Layout title="Numeri - Iniziative Referendum" description="Statistiche e numeri delle iniziative referendarie">
@@ -41,7 +70,7 @@ const homePath = normalizedBaseUrl || '/';
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
-            <a href={homePath} class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+            <a href={createPath('/')} class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18" />
               </svg>
@@ -57,8 +86,13 @@ const homePath = normalizedBaseUrl || '/';
     <div class="bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="text-center">
-          <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Numeri
+          <h1 id="numeri" class="text-3xl font-bold text-gray-900 sm:text-4xl scroll-mt-20">
+            <a href="#numeri" class="group hover:text-blue-600 transition-colors duration-200">
+              Numeri
+              <svg class="w-6 h-6 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+            </a>
           </h1>
           <p class="mt-2 text-lg text-gray-600">
             Un po' di numeri di riepilogo sulle iniziative
@@ -70,15 +104,20 @@ const homePath = normalizedBaseUrl || '/';
     <!-- Main content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="bg-white rounded-lg shadow-sm p-6">
-        <h2 class="text-2xl font-semibold text-gray-900 mb-6">
-          Numero di iniziative per categoria
+        <h2 id="iniziative-per-categoria" class="text-2xl font-semibold text-gray-900 mb-6 scroll-mt-20">
+          <a href="#iniziative-per-categoria" class="group flex items-center hover:text-blue-600 transition-colors duration-200">
+            Numero di iniziative per categoria
+            <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+          </a>
         </h2>
 
         <!-- Istogramma orizzontale -->
         <div class="space-y-4">
           {sortedCategories.map(({ nome, count }) => {
             const percentage = (count / maxCount) * 100;
-            const categoryUrl = `${homePath}?categoria=${encodeURIComponent(nome)}`;
+            const categoryUrl = `${createPath('/')}?categoria=${encodeURIComponent(nome)}`;
             return (
               <div class="relative">
                 <!-- Etichetta categoria cliccabile -->
@@ -165,9 +204,88 @@ const homePath = normalizedBaseUrl || '/';
           </p>
           <p class="text-sm text-gray-600 mt-2">
             <strong>Tip:</strong> Clicca sul nome di una categoria per visualizzare tutte le iniziative di quella categoria.
+            Puoi anche cliccare sui titoli delle sezioni per ottenere un link diretto a quella sezione.
           </p>
         </div>
       </div>
+
+      <!-- Grafico Lollipop Top 10 Media Sostenitori -->
+      {top10ByMedia.length > 0 && (
+        <div class="bg-white rounded-lg shadow-sm p-6 mt-8">
+          <h2 id="top-media-sostenitori" class="text-2xl font-semibold text-gray-900 mb-6 scroll-mt-20">
+            <a href="#top-media-sostenitori" class="group flex items-center hover:text-blue-600 transition-colors duration-200">
+              Top 10 - Media sostenitori giornalieri
+              <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+            </a>
+          </h2>
+
+          <!-- Grafico Lollipop orizzontale -->          <div class="space-y-6">
+            {top10ByMedia.map((initiative, index) => {
+              const percentage = (initiative.sostenitori_delta_mean / maxMediaValue) * 100;
+              const initiativeUrl = createPath(`/initiative/${initiative.id}`);
+
+              return (
+                <div class="relative flex items-center">
+                  <!-- ID cliccabile con tooltip -->
+                  <div class="w-20 flex-shrink-0">
+                    <a
+                      href={initiativeUrl}
+                      class="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer hover:underline"
+                      title={initiative.titolo}
+                      data-tooltip={initiative.titolo}
+                    >
+                      {initiative.id}
+                    </a>
+                  </div>
+
+                  <!-- Linea e pallino del lollipop -->
+                  <div class="flex-1 relative">
+                    <!-- Linea di base -->
+                    <div class="w-full h-0.5 bg-gray-200 relative">
+                      <!-- Linea colorata -->
+                      <div
+                        class="h-0.5 bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-1000 ease-out"
+                        style={`width: ${percentage}%`}
+                        data-target-width={percentage}
+                      ></div>
+
+                      <!-- Pallino del lollipop -->
+                      <div
+                        class="absolute top-1/2 transform -translate-y-1/2 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md transition-all duration-1000 ease-out"
+                        style={`left: ${percentage}%`}
+                        data-target-left={percentage}
+                      ></div>
+                    </div>
+
+                    <!-- Valore numerico -->
+                    <div
+                      class="absolute top-2 text-sm font-medium text-gray-700 transition-all duration-1000 ease-out"
+                      style={`left: ${percentage}%`}
+                      data-target-left={percentage}
+                    >
+                      {initiative.sostenitori_delta_mean}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- Legenda e note -->
+          <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+            <p class="text-sm text-gray-600">
+              <strong>Nota:</strong> Il grafico mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno.
+              Passa il mouse sull'ID per vedere il titolo completo dell'iniziativa.
+            </p>
+            <p class="text-sm text-gray-600 mt-2">
+              <strong>Tip:</strong> Clicca sull'ID per accedere alla pagina di dettaglio dell'iniziativa.
+              Clicca sul titolo della sezione per ottenere un link diretto a questo grafico.
+            </p>
+          </div>
+        </div>
+      )}
     </main>
 
     <!-- Footer -->
@@ -189,6 +307,54 @@ const homePath = normalizedBaseUrl || '/';
       width: var(--target-width);
     }
   }
+
+  /* Tooltip personalizzato */
+  [data-tooltip] {
+    position: relative;
+  }
+
+  [data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+  }
+
+  /* Animazioni per il lollipop */
+  .lollipop-line {
+    transition: width 1s ease-out;
+  }
+
+  .lollipop-dot {
+    transition: left 1s ease-out;
+  }
+
+  .lollipop-value {
+    transition: left 1s ease-out;
+  }
 </style>
 
 <script>
@@ -204,5 +370,43 @@ const homePath = normalizedBaseUrl || '/';
         element.style.width = targetWidth;
       }, index * 100);
     });
+
+    // Animazione per i grafici lollipop
+    const lollipopLines = document.querySelectorAll('[data-target-width]');
+    const lollipopDots = document.querySelectorAll('[data-target-left]');
+
+    // Inizializza le posizioni a 0
+    lollipopLines.forEach((line) => {
+      const element = line as HTMLElement;
+      element.style.width = '0%';
+    });
+
+    lollipopDots.forEach((dot) => {
+      const element = dot as HTMLElement;
+      element.style.left = '0%';
+    });
+
+    // Anima verso le posizioni target
+    setTimeout(() => {
+      lollipopLines.forEach((line, index) => {
+        const element = line as HTMLElement;
+        const targetWidth = element.getAttribute('data-target-width');
+        if (targetWidth) {
+          setTimeout(() => {
+            element.style.width = `${targetWidth}%`;
+          }, index * 150);
+        }
+      });
+
+      lollipopDots.forEach((dot, index) => {
+        const element = dot as HTMLElement;
+        const targetLeft = element.getAttribute('data-target-left');
+        if (targetLeft) {
+          setTimeout(() => {
+            element.style.left = `${targetLeft}%`;
+          }, index * 150);
+        }
+      });
+    }, 500); // Ritardo iniziale per permettere il caricamento
   });
 </script>

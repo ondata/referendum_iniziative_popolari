@@ -77,7 +77,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           # Aggiungi i file se sono cambiati
-          git add data/source.json data/source.jsonl data/time_line.jsonl data/check_date.txt
+          git add data/source.json data/source.jsonl data/time_line.jsonl data/media_sostenitori_giornaliera.jsonl data/check_date.txt
 
           # Verifica se ci sono cambiamenti da committare
           if git diff --staged --quiet; then
