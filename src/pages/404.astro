@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ArrowLeftIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
+
+const title = 'Pagina non trovata - 404';
+const description = 'Ops! La pagina che stai cercando non esiste.';
+---
+
+<Layout title={title} description={description}>
+  <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full text-center">
+      <!-- Icona e numero 404 -->
+      <div class="mb-8">
+        <FaceFrownIcon className="mx-auto h-24 w-24 text-gray-400 mb-6" />
+        <h1 class="text-9xl font-bold text-gray-300 mb-4">404</h1>
+      </div>
+
+      <!-- Testo spiritoso -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Ops! Questa pagina si è persa
+        </h2>
+        <p class="text-lg text-gray-600 mb-4">
+          Sembra che questa pagina abbia deciso di fare una pausa dalle proteste e sia sparita! 🏃‍♂️
+        </p>
+        <p class="text-gray-500">
+          Non preoccuparti, anche le migliori iniziative popolari a volte prendono strade diverse.
+          Torniamo alla home e riproviamo ...
+        </p>
+      </div>
+
+      <!-- Pulsante per tornare alla home -->
+      <div class="space-y-4">
+        <a
+          href={import.meta.env.BASE_URL}
+          class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+        >
+          <ArrowLeftIcon className="w-5 h-5 mr-2" />
+          Torna alla home
+        </a>
+
+        <!-- Link secondario -->
+        <div>
+          <button
+            onclick="history.back()"
+            class="text-blue-600 hover:text-blue-700 font-medium underline"
+          >
+            Oppure torna indietro
+          </button>
+        </div>
+      </div>
+
+      <!-- Messaggio aggiuntivo spiritoso -->
+      <div class="mt-12 p-4 bg-blue-50 rounded-lg">
+        <p class="text-sm text-blue-700">
+          <strong>Curiosità:</strong> Sapevi che il codice 404 prende il nome dalla stanza 404 del CERN dove si trovava il primo server web?
+          Almeno questa pagina ha una storia più interessante dei referendum! 📚
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
