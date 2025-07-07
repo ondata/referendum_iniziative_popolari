@@ -7,6 +7,9 @@
 * Integrazione di Heroicons per le icone.
 * Aggiunta gestione dei percorsi normalizzati nel menu hamburger.
 * Creata pagina Numeri con statistiche e grafici delle iniziative.
+* Aggiunto grafico lollipop orizzontale nella pagina Numeri per visualizzare le top 10 iniziative con più alta media di sostenitori giornalieri.
+* Implementate ancore cliccabili per i titoli delle sezioni grafiche per consentire link diretti.
+* Applicata conformità alle best practices per la gestione dei percorsi usando le utility centralizzate.
 * Migliorata la UI della vista a griglia: i box delle iniziative con stato "CHIUSA" ora appaiono con colori più spenti per distinguerli visivamente.
 
 ## 2025-07-06
