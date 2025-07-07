@@ -5,6 +5,7 @@
 * Aggiunta pagina 404 personalizzata.
 * Aggiunta gestione centralizzata del menu di navigazione.
 * Integrazione di Heroicons per le icone.
+* Aggiunta gestione dei percorsi normalizzati nel menu hamburger.
 
 ## 2025-07-06
 
@@ -19,6 +20,10 @@
 * Migliorato il layout del footer con una griglia responsiva.
 * Aggiunta la funzione `normalizeUrl` per la gestione degli URL.
 * Aggiunta la funzione `normalizeForSorting` per migliorare l'ordinamento dei titoli.
+* Aggiornato il footer della pagina di dettaglio per includere link ufficiali dell'iniziativa.
+* Corretti URL nel README per riflettere il nome corretto del progetto.
+* Aggiunti attributi title alle icone nel footer.
+* Migliorata la timeline delle firme con filtraggio e ordinamento.
 
 ## 2025-07-05
 
