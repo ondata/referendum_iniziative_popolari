@@ -7,6 +7,7 @@
 * Integrazione di Heroicons per le icone.
 * Aggiunta gestione dei percorsi normalizzati nel menu hamburger.
 * Creata pagina Numeri con statistiche e grafici delle iniziative.
+* Migliorata la UI della vista a griglia: i box delle iniziative con stato "CHIUSA" ora appaiono con colori più spenti per distinguerli visivamente.
 
 ## 2025-07-06
 

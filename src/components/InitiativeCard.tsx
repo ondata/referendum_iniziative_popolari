@@ -13,10 +13,16 @@ interface InitiativeCardProps {
 }
 
 export default function InitiativeCard({ initiative }: InitiativeCardProps) {
+  const isChiusa = initiative.idDecStatoIniziativa?.nome?.includes('CHIUSA');
+
   return (
     <a
       href={createPath(`/initiative/${initiative.id}/`)}
-      className="card-shadow bg-white rounded-lg p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer border border-gray-200 block no-underline"
+      className={`card-shadow rounded-lg p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer border block no-underline ${
+        isChiusa
+          ? 'bg-gray-50 border-gray-300 opacity-75'
+          : 'bg-white border-gray-200'
+      }`}
     >
       {/* Header con categoria e stato */}
       <div className="flex flex-wrap gap-2 mb-4">
@@ -27,6 +33,8 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
           initiative.idDecStatoIniziativa?.nome?.includes('RACCOLTA')
             ? 'bg-green-100 text-green-800'
+            : isChiusa
+            ? 'bg-gray-200 text-gray-600'
             : 'bg-gray-100 text-gray-800'
         }`}>
           <ClockIcon className="w-3 h-3 mr-1" />
@@ -35,13 +43,17 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
       </div>
 
       {/* Titolo */}
-      <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2" title={initiative.titolo}>
+      <h3 className={`text-lg font-semibold mb-3 line-clamp-2 ${
+        isChiusa ? 'text-gray-500' : 'text-gray-900'
+      }`} title={initiative.titolo}>
         {initiative.titolo}
       </h3>
 
       {/* Descrizione breve */}
       {initiative.descrizioneBreve && (
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+        <p className={`text-sm mb-4 line-clamp-3 ${
+          isChiusa ? 'text-gray-500' : 'text-gray-600'
+        }`}>
           {initiative.descrizioneBreve}
         </p>
       )}
@@ -63,7 +75,11 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
 
       {/* Footer */}
       <div className="mt-4 pt-4 border-t border-gray-100">
-        <span className="text-blue-600 text-sm font-medium hover:text-blue-700">
+        <span className={`text-sm font-medium ${
+          isChiusa
+            ? 'text-gray-500 hover:text-gray-600'
+            : 'text-blue-600 hover:text-blue-700'
+        }`}>
           Visualizza dettagli →
         </span>
       </div>
