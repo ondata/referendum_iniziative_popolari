@@ -1,0 +1,208 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
+import Footer from '../components/Footer.astro';
+import { fetchInitiatives } from '../lib/initiatives';
+import { normalizeBaseUrl, createPath } from '../lib/paths';
+
+// Carica i dati delle iniziative
+const initiatives = await fetchInitiatives();
+
+// Calcola il numero di iniziative per categoria
+const categoryCounts = initiatives.reduce((acc, initiative) => {
+  const categoria = initiative.idDecCatIniziativa?.nome || 'Senza categoria';
+  acc[categoria] = (acc[categoria] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+
+// Ordina per valori decrescenti
+const sortedCategories = Object.entries(categoryCounts)
+  .sort(([, a], [, b]) => b - a)
+  .map(([nome, count]) => ({ nome, count }));
+
+// Calcola il valore massimo per la scala
+const maxCount = Math.max(...Object.values(categoryCounts));
+
+// Calcola le iniziative attive (in raccolta firme)
+const activeInitiatives = initiatives.filter(initiative =>
+  initiative.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME'
+).length;
+
+// Gestione robusta dei percorsi usando le utility
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+const homePath = normalizedBaseUrl || '/';
+---
+
+<Layout title="Numeri - Iniziative Referendum" description="Statistiche e numeri delle iniziative referendarie">
+  <div class="min-h-screen bg-gray-50">
+    <!-- Header con pulsante torna alle iniziative e menu hamburger -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href={homePath} class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18" />
+              </svg>
+              Torna alle iniziative
+            </a>
+          </div>
+          <HamburgerMenuNative baseUrl={baseUrl} />
+        </div>
+      </div>
+    </header>
+
+    <!-- Title Section -->
+    <div class="bg-white border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="text-center">
+          <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+            Numeri
+          </h1>
+          <p class="mt-2 text-lg text-gray-600">
+            Un po' di numeri di riepilogo sulle iniziative
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">
+          Numero di iniziative per categoria
+        </h2>
+
+        <!-- Istogramma orizzontale -->
+        <div class="space-y-4">
+          {sortedCategories.map(({ nome, count }) => {
+            const percentage = (count / maxCount) * 100;
+            const categoryUrl = `${homePath}?categoria=${encodeURIComponent(nome)}`;
+            return (
+              <div class="relative">
+                <!-- Etichetta categoria cliccabile -->
+                <div class="flex justify-between items-center mb-2">
+                  <a
+                    href={categoryUrl}
+                    class="text-sm font-medium text-blue-600 hover:text-blue-800 capitalize transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                    title={`Visualizza tutte le iniziative della categoria: ${nome}`}
+                  >
+                    {nome.toLowerCase()}
+                  </a>
+                  <span class="text-sm font-bold text-gray-900">
+                    {count}
+                  </span>
+                </div>
+
+                <!-- Barra dell'istogramma -->
+                <div class="w-full bg-gray-200 rounded-full h-8 relative overflow-hidden">
+                  <div
+                    class="bg-gradient-to-r from-blue-500 to-blue-600 h-8 rounded-full flex items-center justify-end pr-3 transition-all duration-700 ease-out"
+                    style={`width: ${percentage}%`}
+                  >
+                    <span class="text-white text-xs font-medium">
+                      {count > 0 && percentage > 15 ? count : ''}
+                    </span>
+                  </div>
+
+                  <!-- Numero fuori dalla barra se è troppo piccola -->
+                  {percentage <= 15 && (
+                    <span class="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs font-medium text-gray-700">
+                      {count}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Statistiche aggiuntive -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-blue-50 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-blue-600">
+              {initiatives.length}
+            </div>
+            <div class="text-sm text-blue-800">
+              Totale iniziative
+            </div>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-green-600">
+              {activeInitiatives}
+            </div>
+            <div class="text-sm text-green-800">
+              Iniziative attive
+            </div>
+          </div>
+
+          <div class="bg-orange-50 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-orange-600">
+              {sortedCategories.length}
+            </div>
+            <div class="text-sm text-orange-800">
+              Categorie attive
+            </div>
+          </div>
+
+          <div class="bg-purple-50 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-purple-600">
+              {initiatives.reduce((sum, init) => sum + (init.sostenitori || 0), 0).toLocaleString('it-IT')}
+            </div>
+            <div class="text-sm text-purple-800">
+              Totale sostenitori
+            </div>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+          <p class="text-sm text-gray-600">
+            <strong>Nota:</strong> I dati sono ordinati per numero decrescente di iniziative per categoria.
+            L'istogramma mostra la distribuzione delle {initiatives.length} iniziative totali presenti nella piattaforma.
+          </p>
+          <p class="text-sm text-gray-600 mt-2">
+            <strong>Tip:</strong> Clicca sul nome di una categoria per visualizzare tutte le iniziative di quella categoria.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  /* Animazione per le barre */
+  .bg-gradient-to-r {
+    animation: slideIn 0.8s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      width: 0%;
+    }
+    to {
+      width: var(--target-width);
+    }
+  }
+</style>
+
+<script>
+  // Aggiungi animazione alle barre quando la pagina è caricata
+  document.addEventListener('DOMContentLoaded', () => {
+    const bars = document.querySelectorAll('.bg-gradient-to-r');
+    bars.forEach((bar, index) => {
+      const element = bar as HTMLElement;
+      const targetWidth = element.style.width;
+      element.style.width = '0%';
+
+      setTimeout(() => {
+        element.style.width = targetWidth;
+      }, index * 100);
+    });
+  });
+</script>
