@@ -135,6 +135,25 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
   - Identificare iniziative con maggiore momentum
   - Analisi predittive sul raggiungimento del quorum
 
+### Pagina 404 Personalizzata
+
+- Il sito deve avere una pagina 404 personalizzata e coinvolgente per gestire gli errori di navigazione.
+- **Contenuti richiesti:**
+  - Messaggio di errore spiritoso e in tema con il contesto delle iniziative popolari e referendum
+  - Icona visiva appropriata (es. emoji o icona triste)
+  - Numero "404" ben visibile e stilizzato
+  - Spiegazione amichevole dell'errore
+- **Funzionalità di navigazione:**
+  - Pulsante principale per tornare alla home page
+  - Pulsante secondario per tornare alla pagina precedente (tramite `history.back()`)
+- **Contenuti aggiuntivi:**
+  - Curiosità o informazione divertente correlata al tema del sito
+  - Design coerente con il resto del sito utilizzando lo stesso layout e componenti
+- **Comportamento:**
+  - La pagina deve essere automaticamente servita da Astro per tutte le URL non trovate
+  - Deve mantenere la struttura responsive del sito
+  - Deve essere ottimizzata per tutti i dispositivi (desktop, tablet, mobile)
+
 ## 4. Wireframes/Mockups
 
 - **Pagina Principale:**
