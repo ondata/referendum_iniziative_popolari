@@ -1,4 +1,10 @@
 import { useState } from 'react';
+import {
+  HomeIcon,
+  ChartBarIcon,
+  TableCellsIcon,
+  InformationCircleIcon
+} from '@heroicons/react/24/outline';
 import { normalizeBaseUrl } from '../lib/paths';
 import { menuItems, getMenuItemUrl } from '../config/navigation';
 
@@ -11,6 +17,14 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
 
   // Normalizza il baseUrl per gestire correttamente dev e produzione
   const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+
+  // Mappa delle icone Heroicons
+  const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+    'HomeIcon': HomeIcon,
+    'ChartBarIcon': ChartBarIcon,
+    'TableCellsIcon': TableCellsIcon,
+    'InformationCircleIcon': InformationCircleIcon,
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -63,21 +77,22 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
         }`}
       >
         <div className="py-2">
-          {menuItems.map((item) => (
-            <a
-              key={item.href}
-              href={getMenuItemUrl(item, baseUrl)}
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
-              onClick={closeMenu}
-            >
-              <div className="flex items-center">
-                <svg className="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                </svg>
-                {item.label}
-              </div>
-            </a>
-          ))}
+          {menuItems.map((item) => {
+            const IconComponent = iconMap[item.icon];
+            return (
+              <a
+                key={item.href}
+                href={getMenuItemUrl(item, baseUrl)}
+                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+                onClick={closeMenu}
+              >
+                <div className="flex items-center">
+                  {IconComponent && <IconComponent className="w-5 h-5 mr-3 text-gray-500" />}
+                  {item.label}
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>
