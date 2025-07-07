@@ -80,6 +80,101 @@ function getCategoryColor(category: string): string {
   return colors[category.toUpperCase()] || '#3b82f6'; // default blue-500
 }
 
+// Funzione per generare l'immagine OG della pagina Numeri
+export async function generateNumeriOGImage(outputPath: string, options: OGImageOptions = {}): Promise<void> {
+  const opts = { ...defaultOptions, ...options };
+
+  const title = 'Numeri';
+  const subtitle = 'Statistiche e analisi delle iniziative referendarie';
+  const titleFontSize = 80;
+  const subtitleFontSize = 36;
+  const titleY = opts.height / 2 - 50;
+  const subtitleY = opts.height / 2 + 20;
+  const brandText = "Un'idea di onData";
+
+  const svgTemplate = `
+    <svg width="${opts.width}" height="${opts.height}" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sfondo gradiente -->
+      <defs>
+        <linearGradient id="numericBg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#3730a3;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#numericBg)" />
+
+      <!-- Elementi grafici decorativi -->
+      <!-- Barre istogramma stilizzate -->
+      <rect x="80" y="120" width="200" height="20" rx="10" fill="rgba(16, 185, 129, 0.6)" />
+      <rect x="80" y="160" width="300" height="20" rx="10" fill="rgba(59, 130, 246, 0.6)" />
+      <rect x="80" y="200" width="150" height="20" rx="10" fill="rgba(139, 92, 246, 0.6)" />
+
+      <!-- Lollipop chart stilizzato -->
+      <line x1="900" y1="400" x2="1100" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+      <circle cx="1100" cy="400" r="12" fill="#10b981" opacity="0.8"/>
+      <line x1="900" y1="450" x2="1050" y2="450" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+      <circle cx="1050" cy="450" r="12" fill="#3b82f6" opacity="0.8"/>
+      <line x1="900" y1="500" x2="980" y2="500" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+      <circle cx="980" cy="500" r="12" fill="#8b5cf6" opacity="0.8"/>
+
+      <!-- Icone numeriche -->
+      <text x="900" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="rgba(255,255,255,0.2)">123</text>
+      <text x="950" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="rgba(255,255,255,0.15)">45%</text>
+
+      <!-- Titolo principale -->
+      <text x="60" y="${titleY}"
+            font-family="system-ui, -apple-system, sans-serif"
+            font-size="${titleFontSize}"
+            font-weight="900"
+            fill="${opts.textColor}">
+        ${title}
+      </text>
+
+      <!-- Sottotitolo -->
+      <text x="60" y="${subtitleY}"
+            font-family="system-ui, -apple-system, sans-serif"
+            font-size="${subtitleFontSize}"
+            font-weight="400"
+            fill="rgba(255,255,255,0.9)">
+        ${subtitle}
+      </text>
+
+      <!-- Logo/Brand text -->
+      <text x="${opts.width - 60}" y="${opts.height - 40}"
+            text-anchor="end"
+            font-family="system-ui, -apple-system, sans-serif"
+            font-size="20"
+            font-weight="500"
+            fill="rgba(255,255,255,0.7)">
+        ${brandText}
+      </text>
+
+      <!-- Elemento decorativo angolare -->
+      <polygon points="0,0 100,0 0,100" fill="rgba(255,255,255,0.05)" />
+      <polygon points="${opts.width},${opts.height} ${opts.width-100},${opts.height} ${opts.width},${opts.height-100}" fill="rgba(255,255,255,0.05)" />
+    </svg>
+  `;
+
+  try {
+    const pngBuffer = await sharp(Buffer.from(svgTemplate))
+      .png({
+        quality: 90,
+        compressionLevel: 6
+      })
+      .toBuffer();
+
+    const dir = outputPath.substring(0, outputPath.lastIndexOf('/'));
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(outputPath, pngBuffer);
+
+    console.log(`✅ Immagine OG Numeri generata: ${outputPath}`);
+  } catch (error) {
+    console.error(`❌ Errore nella generazione dell'immagine Numeri:`, error);
+    throw error;
+  }
+}
+
 export async function generateOGImage(
   initiative: Initiative,
   outputPath: string,
@@ -267,6 +362,9 @@ export async function generateAllOGImages(initiatives: Initiative[], outputDir: 
     defaultInitiative,
     join(outputDir, 'og-default.png')
   );
+
+  // Genero l'immagine dedicata per la pagina Numeri
+  await generateNumeriOGImage(join(outputDir, 'og-numeri.png'));
 
   // Genero le immagini per ogni iniziativa
   const promises = initiatives.map(initiative =>

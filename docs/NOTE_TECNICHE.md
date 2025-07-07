@@ -27,6 +27,7 @@ npm run generate-og-images
 - Le immagini vengono salvate in `public/og-images/`
 - Ogni iniziativa ha un'immagine con nome `og-{id}.png`
 - L'immagine di default è `og-default.png`
+- L'immagine per la pagina Numeri è `og-numeri.png`
 - Le immagini sono 1200x630px (formato ottimale per social media)
 
 ### Verifica immagini OpenGraph
