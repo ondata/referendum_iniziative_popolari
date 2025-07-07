@@ -7,6 +7,7 @@ Questo documento contiene note tecniche utili per la gestione e manutenzione del
 - [Sviluppo e Deploy](#sviluppo-e-deploy)
 - [Configurazione Path](#configurazione-path)
 - [Gestione Percorsi con Utility](#gestione-percorsi-con-utility)
+- [Gestione Menu di Navigazione](#gestione-menu-di-navigazione)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -208,6 +209,142 @@ const siteUrl = `${site}${basePath}`;
 - **Manutenibilità**: Cambiamenti centralizzati
 - **Affidabilità**: Gestione corretta di casi edge (slash multipli, URL vuoti)
 - **Testing**: Logica testabile e isolata
+
+---
+
+## Gestione Menu di Navigazione
+
+### Configurazione Centralizzata
+
+Il menu di navigazione è ora gestito tramite un file di configurazione centralizzato che elimina la duplicazione del codice tra i diversi componenti menu.
+
+**File di configurazione:** `src/config/navigation.ts`
+
+```typescript
+export interface MenuItem {
+  href: string;
+  label: string;
+  icon: string; // SVG path
+  external?: boolean;
+}
+
+export const menuItems: MenuItem[] = [
+  {
+    href: '/',
+    label: 'Home',
+    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  },
+  {
+    href: '/numeri',
+    label: 'Numeri',
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+  },
+  {
+    href: '/tabella',
+    label: 'Tabella',
+    icon: 'M3 10h18M3 14h18m-9-4v8m-7 0V4a2 2 0 012-2h14a2 2 0 012 2v16a2 2 0 01-2 2H5a2 2 0 01-2-2z',
+  },
+  {
+    href: '/info',
+    label: 'Info',
+    icon: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  }
+];
+
+// Funzione helper per ottenere l'URL completo di una voce di menu
+export function getMenuItemUrl(item: MenuItem, baseUrl: string): string {
+  if (item.external || item.href.startsWith('http')) {
+    return item.href;
+  }
+  
+  const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  return item.href === '/' ? (normalizedBaseUrl || '/') : `${normalizedBaseUrl}${item.href}`;
+}
+```
+
+### Componenti Menu
+
+Il progetto utilizza due componenti menu:
+
+1. **HamburgerMenuNative.astro**: Menu nativo Astro (utilizzato nelle pagine principali)
+2. **HamburgerMenuReact.tsx**: Menu React (utilizzato nelle pagine con componenti React pesanti)
+
+Entrambi ora utilizzano la configurazione centralizzata:
+
+**Esempio utilizzo in HamburgerMenuNative.astro:**
+
+```astro
+---
+import { menuItems, getMenuItemUrl } from '../config/navigation';
+const { baseUrl } = Astro.props;
+---
+
+<nav class="menu-dropdown">
+  <div class="menu-content">
+    {menuItems.map((item) => (
+      <a href={getMenuItemUrl(item, baseUrl)} class="menu-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+        </svg>
+        {item.label}
+      </a>
+    ))}
+  </div>
+</nav>
+```
+
+**Esempio utilizzo in HamburgerMenuReact.tsx:**
+
+```tsx
+import { menuItems, getMenuItemUrl } from '../config/navigation';
+
+export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps) {
+  return (
+    <div className="py-2">
+      {menuItems.map((item) => (
+        <a
+          key={item.href}
+          href={getMenuItemUrl(item, baseUrl)}
+          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+          onClick={closeMenu}
+        >
+          <div className="flex items-center">
+            <svg className="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
+            </svg>
+            {item.label}
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
+```
+
+### Vantaggi della Centralizzazione
+
+- **Single Source of Truth**: Tutte le voci di menu definite in un solo posto
+- **Coerenza**: Stesso ordine e struttura in tutti i menu
+- **Manutenibilità**: Aggiungere/rimuovere voci modificando solo il file di configurazione
+- **Type Safety**: TypeScript garantisce la struttura corretta delle voci di menu
+- **Gestione URL**: Funzione helper per gestire correttamente i percorsi in sviluppo e produzione
+
+### Aggiungere una Nuova Voce di Menu
+
+Per aggiungere una nuova voce al menu:
+
+1. Aprire `src/config/navigation.ts`
+2. Aggiungere la nuova voce all'array `menuItems`:
+
+```typescript
+{
+  href: '/nuova-pagina',
+  label: 'Nuova Pagina',
+  icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+}
+```
+
+3. I menu verranno automaticamente aggiornati in tutte le pagine
 
 ---
 
