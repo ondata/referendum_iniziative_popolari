@@ -72,6 +72,13 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 - **Gestione stato vuoto:** Messaggio informativo quando non ci sono risultati con opzione per rimuovere i filtri.
 - Accessibile tramite link nel menu di navigazione principale.
 
+#### Pagina Numeri
+
+- Una pagina dedicata alle statistiche e ai numeri di riepilogo delle iniziative.
+- Deve presentare i dati in forma di istogrammi e visualizzazioni grafiche.
+- Include metriche aggregate come totali per categoria, stato delle iniziative e trend.
+- Accessibile tramite link nel menu di navigazione principale.
+
 ### Informazioni da visualizzare nelle card
 
 - **Titolo:** `titolo`
