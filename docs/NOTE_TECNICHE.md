@@ -162,6 +162,27 @@ const basePath = getBasePath();
 const siteUrl = `${site}${basePath}`;
 ```
 
+### Gestione menu di navigazione
+
+**❌ NON fare così:**
+
+```astro
+<!-- Gestione manuale dei percorsi -->
+<a href={`${baseUrl.replace(/\/$/, '')}/numeri`}>Numeri</a>
+```
+
+**✅ Fare così:**
+
+```astro
+---
+import { normalizeBaseUrl } from '../lib/paths';
+const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+---
+
+<!-- Uso della utility per coerenza -->
+<a href={`${normalizedBaseUrl}/numeri`}>Numeri</a>
+```
+
 ### Esempi pratici
 
 **Link interni nei componenti Astro:**
