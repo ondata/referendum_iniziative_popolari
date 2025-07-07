@@ -6,6 +6,7 @@
 * Aggiunta gestione centralizzata del menu di navigazione.
 * Integrazione di Heroicons per le icone.
 * Aggiunta gestione dei percorsi normalizzati nel menu hamburger.
+* Creata pagina Numeri con statistiche e grafici delle iniziative.
 
 ## 2025-07-06
 
