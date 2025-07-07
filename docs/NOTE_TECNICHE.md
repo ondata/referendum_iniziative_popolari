@@ -256,7 +256,7 @@ export function getMenuItemUrl(item: MenuItem, baseUrl: string): string {
   if (item.external || item.href.startsWith('http')) {
     return item.href;
   }
-  
+
   const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
   return item.href === '/' ? (normalizedBaseUrl || '/') : `${normalizedBaseUrl}${item.href}`;
 }
