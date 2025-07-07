@@ -221,22 +221,73 @@ const baseUrl = import.meta.env.BASE_URL;
             </a>
           </h2>
 
-          <!-- Grafico Lollipop orizzontale -->          <div class="space-y-6">
+          <!-- Grafico Lollipop orizzontale (desktop) / Tabella (mobile) -->
+
+          <!-- Versione mobile: Tabella semplice -->
+          <div class="md:hidden">
+            <div class="overflow-hidden bg-white shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Iniziativa
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Media/giorno
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  {top10ByMedia.map((initiative, index) => {
+                    const initiativeUrl = createPath(`/initiative/${initiative.id}`);
+                    const truncatedTitle = initiative.titolo.length > 40
+                      ? initiative.titolo.substring(0, 40) + '...'
+                      : initiative.titolo;
+
+                    return (
+                      <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3">
+                          <a
+                            href={initiativeUrl}
+                            class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+                            title={initiative.titolo}
+                          >
+                            {truncatedTitle}
+                          </a>
+                        </td>
+                        <td class="px-4 py-3 text-right">
+                          <span class="text-sm font-semibold text-gray-900">
+                            {initiative.sostenitori_delta_mean}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Versione desktop: Grafico Lollipop -->
+          <div class="hidden md:block space-y-6">
             {top10ByMedia.map((initiative, index) => {
               const percentage = (initiative.sostenitori_delta_mean / maxMediaValue) * 100;
               const initiativeUrl = createPath(`/initiative/${initiative.id}`);
+              const truncatedTitle = initiative.titolo.length > 40
+                ? initiative.titolo.substring(0, 40) + '...'
+                : initiative.titolo;
 
               return (
                 <div class="relative flex items-center">
-                  <!-- ID cliccabile con tooltip -->
-                  <div class="w-20 flex-shrink-0">
+                  <!-- Titolo troncato su desktop -->
+                  <div class="w-80 flex-shrink-0">
                     <a
                       href={initiativeUrl}
                       class="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer hover:underline"
                       title={initiative.titolo}
                       data-tooltip={initiative.titolo}
                     >
-                      {initiative.id}
+                      {truncatedTitle}
                     </a>
                   </div>
 
@@ -276,11 +327,12 @@ const baseUrl = import.meta.env.BASE_URL;
           <!-- Legenda e note -->
           <div class="mt-6 p-4 bg-gray-50 rounded-lg">
             <p class="text-sm text-gray-600">
-              <strong>Nota:</strong> Il grafico mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno.
-              Passa il mouse sull'ID per vedere il titolo completo dell'iniziativa.
+              <strong>Nota:</strong> Mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno.
+              Passa il mouse sulla voce per vedere il titolo completo dell'iniziativa.
             </p>
             <p class="text-sm text-gray-600 mt-2">
-              <strong>Tip:</strong> Clicca sull'ID per accedere alla pagina di dettaglio dell'iniziativa.
+              <strong>Tip:</strong> Clicca sulla voce per accedere alla pagina di dettaglio dell'iniziativa.
+              Su desktop viene mostrato un grafico lollipop, su mobile una tabella compatta.
               Clicca sul titolo della sezione per ottenere un link diretto a questo grafico.
             </p>
           </div>

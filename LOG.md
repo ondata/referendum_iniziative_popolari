@@ -8,8 +8,12 @@
 * Aggiunta gestione dei percorsi normalizzati nel menu hamburger.
 * Creata pagina Numeri con statistiche e grafici delle iniziative.
 * Aggiunto grafico lollipop orizzontale nella pagina Numeri per visualizzare le top 10 iniziative con più alta media di sostenitori giornalieri.
-* Implementate ancore cliccabili per i titoli delle sezioni grafiche per consentire link diretti.
-* Applicata conformità alle best practices per la gestione dei percorsi usando le utility centralizzate.
+* Implementata visualizzazione responsive per il grafico lollipop: su desktop viene mostrato il grafico, su mobile una tabella compatta con titoli troncati.
+* Aggiunta logica per caricare e unire i dati da `media_sostenitori_giornaliera.jsonl` con le iniziative esistenti.
+* Implementate ancore cliccabili per i titoli delle sezioni grafiche per consentire link diretti e navigazione SEO-friendly.
+* Applicata conformità alle best practices per la gestione dei percorsi usando le utility centralizzate (`createPath`).
+* Creata immagine OpenGraph dedicata per la pagina Numeri (`og-numeri.png`) e aggiornato il generatore di immagini OG.
+* Aggiornate le note esplicative nella pagina Numeri per riflettere le nuove funzionalità di visualizzazione dati.
 * Migliorata la UI della vista a griglia: i box delle iniziative con stato "CHIUSA" ora appaiono con colori più spenti per distinguerli visivamente.
 
 ## 2025-07-06
