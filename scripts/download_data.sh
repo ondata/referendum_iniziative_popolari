@@ -36,5 +36,6 @@ mlr --jsonl filter '${idDecStatoIniziativa.id}==2' then cut -f id,sostenitori th
 # Rimuove duplicati dalla timeline e riordina per data e ID
 mlr -I --jsonl top -f sostenitori -g id,data then sort -t data,id then cut -x -f top_idx then rename sostenitori_top,sostenitori "${folder}"/../data/time_line.jsonl
 
-# media sostenitori giornaliera per iniziativa
+# media sostenitori giornaliera per iniziativa, escludendo il giorno corrente
+# per evitare valori parziali che falserebbero la statistica
 mlr --jsonl filter -x '$data=="'"${check_date}"'"' then sort -t id,data then step -a delta -f sostenitori -g id then cat -n -g id then filter -x '$n==1' then stats1 -a mean -g id -f sostenitori_delta then sort -t id "${folder}"/../data/time_line.jsonl >"${folder}"/../data/media_sostenitori_giornaliera.jsonl
