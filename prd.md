@@ -241,4 +241,4 @@ Nota bene: al momento non sono implementati.
 
 ## 10. Tempi e Budget
 
-- (Da definire)
+Non applicabile.
