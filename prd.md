@@ -142,6 +142,13 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
   - Identificare iniziative con maggiore momentum
   - Analisi predittive sul raggiungimento del quorum
 
+### Trasparenza dei Dati
+
+- **Accessibilità dei dati grezzi:** Quando il sito pubblica grafici, statistiche o visualizzazioni basate sui dati, deve sempre fornire un link diretto ai dati grezzi utilizzati.
+- **Posizionamento dei link:** I link ai dati grezzi devono essere chiaramente visibili nelle sezioni delle note o legenda di ogni grafico/statistica.
+- **Formato dei dati:** I dati grezzi devono essere accessibili in formato JSONL per garantire interoperabilità e facilità di elaborazione.
+- **Link persistenti:** I link devono puntare a repository pubblici (es. GitHub) per garantire persistenza e versionamento dei dati.
+
 ### Pagina 404 Personalizzata
 
 - Il sito deve avere una pagina 404 personalizzata e coinvolgente per gestire gli errori di navigazione.

@@ -1,5 +1,12 @@
 # Log delle modifiche
 
+## 2025-07-08
+
+* Implementato il requisito di trasparenza dei dati: aggiunti link ai dati grezzi nella pagina Numeri.
+* Aggiunto link al file `source.jsonl` per la sezione "Numero di iniziative per categoria".
+* Aggiunto link al file `time_line.jsonl` per la sezione "Top 10 - Media sostenitori giornalieri".
+* I link ai dati grezzi sono posizionati nelle note di ciascuna sezione per garantire trasparenza e accessibilità.
+
 ## 2025-07-07
 
 * Aggiunta pagina 404 personalizzata.
