@@ -211,6 +211,7 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
   - Utilizzo di **GitHub Actions** per l'aggiornamento automatico dei dati 4 volte al giorno (ore 8, 12, 16, 20 UTC).
   - Script bash per download e processamento dati utilizzando `jq` e `miller` (mlr).
   - Commit automatico dei dati aggiornati nel repository.
+  - **Deploy selettivo:** Il deploy automatico deve essere escluso per modifiche ai soli file di documentazione (`prd.md`, `LOG.md`, `README.md`, file nella cartella `docs/`) per ottimizzare le risorse e evitare build non necessarie.
 - **Feed RSS:**
   - Generazione automatica tramite `@astrojs/rss` come endpoint Astro (`/rss.xml`).
   - Lettura diretta del file `data/source.jsonl` per performance ottimali.

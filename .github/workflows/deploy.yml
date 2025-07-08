@@ -1,9 +1,14 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger su push al branch main
+  # Trigger su push al branch main, ma escludi file di documentazione
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'prd.md'
+      - 'LOG.md'
+      - 'README.md'
+      - 'docs/**'
 
   # Deploy automatico 5 volte al giorno: 8:00, 12:00, 16:00, 19:30, 20:00 UTC
   # 21:30 UTC = 23:30 ora italiana (considerando ora legale)
