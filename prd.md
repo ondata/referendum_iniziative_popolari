@@ -5,7 +5,7 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 ## 1. Introduzione
 
 - **Scopo del documento:** Definire i requisiti per lo sviluppo di un sito web che visualizza informazioni estratte da un dataset JSON fornito, utilizzando un formato a card per una presentazione chiara e coinvolgente.
-- **Pubblico di riferimento:** Sviluppatori web, designer UX/UI, stakeholder del progetto.
+- **Pubblico di riferimento:** Persone che vogliono partecipare alla vita democratica e in generale tutte le persone interessate a conoscere e sostenere le iniziative referendarie e proposte di legge.
 
 ## 2. Obiettivi
 
