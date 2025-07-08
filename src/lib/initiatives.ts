@@ -2,7 +2,7 @@ import type { Initiative } from '../types/initiative';
 import sampleData from '../data/sample-initiatives.json';
 
 export async function fetchInitiatives(): Promise<Initiative[]> {
-  const url = 'https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public?v=1751271726271';
+  const url = 'https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public';
 
   try {
     const response = await fetch(url);

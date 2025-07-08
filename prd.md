@@ -1,6 +1,6 @@
 # Product Requirements Document (PRD)
 
-L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public?v=1751271726271](https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public?v=1751271726271)
+L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public](https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public)
 
 ## 1. Introduzione
 

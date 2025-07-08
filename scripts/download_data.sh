@@ -19,7 +19,7 @@ folder="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Scarica i dati JSON dall'API ufficiale del Ministero della Giustizia
 # Il parametro v= sembra essere un timestamp per cache-busting
-curl -s "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public?v=1751271726271" \
+curl -s "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public" \
   -H "Accept: application/json" \
   -H "User-Agent: Mozilla/5.0 (compatible; referendum-astro-bot/1.0)" >"${folder}"/../data/source.json
 
