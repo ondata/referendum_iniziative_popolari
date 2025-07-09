@@ -38,7 +38,7 @@ if (!initiative) {
 }
 
 const timeLineRaw = fs.readFileSync('data/time_line.jsonl', 'utf8');
-const timeLineData = timeLineRaw.trim().split('\n').map(JSON.parse);
+const timeLineData = timeLineRaw.trim().split('\n').map(line => JSON.parse(line));
 const initiativeTimeLine = timeLineData.filter(d => d.id === initiative.id);
 const hasTimeLineData = initiativeTimeLine.length > 0;
 
