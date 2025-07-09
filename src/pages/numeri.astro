@@ -4,6 +4,7 @@ import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
 import Footer from '../components/Footer.astro';
 import { fetchInitiatives } from '../lib/initiatives';
 import { normalizeBaseUrl, createPath } from '../lib/paths';
+import { readFileSync } from 'node:fs';
 
 // Carica i dati delle iniziative
 const initiatives = await fetchInitiatives();
@@ -22,12 +23,50 @@ async function loadMediaSostenitori() {
 
 const mediaSostenitori = await loadMediaSostenitori();
 
-// Unisci i dati delle iniziative con i dati della media sostenitori
+// --- LOGICA PER L'ACCELERAZIONE ---
+// Carica i dati storici completi
+const timeLineRaw = readFileSync('data/time_line.jsonl', 'utf8');
+const timeLineData = timeLineRaw.trim().split('\n').map(line => JSON.parse(line));
+
+// Raggruppa i dati per ID
+const timeLineGroups = timeLineData.reduce((acc, d) => {
+  const id = d.id;
+  if (!acc[id]) {
+    acc[id] = [];
+  }
+  acc[id].push({ ...d, data: new Date(d.data) });
+  return acc;
+}, {} as Record<string, any[]>);
+
+// Calcola l'accelerazione per ogni iniziativa
+const accelerationData: Record<string, number> = {};
+for (const id in timeLineGroups) {
+  const group = timeLineGroups[id];
+  // Ordina per data decrescente
+  group.sort((a, b) => b.data.getTime() - a.data.getTime());
+
+  if (group.length >= 3) {
+    const today_count = group[0].sostenitori;
+    const yesterday_count = group[1].sostenitori;
+    const day_before_yesterday_count = group[2].sostenitori;
+
+    const delta_last_day = today_count - yesterday_count;
+    const delta_previous_day = yesterday_count - day_before_yesterday_count;
+
+    const acceleration = delta_last_day - delta_previous_day;
+    accelerationData[id] = acceleration;
+  }
+}
+// --- FINE LOGICA ACCELERAZIONE ---
+
+// Unisci i dati delle iniziative con i dati della media sostenitori e accelerazione
 const initiativesWithMedia = initiatives.map(initiative => {
   const mediaData = mediaSostenitori.find(m => m.id === initiative.id);
+  const acceleration = accelerationData[initiative.id] || 0;
   return {
     ...initiative,
-    sostenitori_delta_mean: mediaData?.sostenitori_delta_mean || 0
+    sostenitori_delta_mean: mediaData?.sostenitori_delta_mean || 0,
+    acceleration: acceleration
   };
 });
 
@@ -296,6 +335,13 @@ const baseUrl = import.meta.env.BASE_URL;
                     >
                       {truncatedTitle}
                     </a>
+                    <div class={`text-xs mt-1 ${initiative.acceleration > 0 ? 'text-green-600' : initiative.acceleration < 0 ? 'text-red-600' : 'text-gray-500'}`}>
+                      Tendenza:
+                      <span class="font-semibold">
+                        {initiative.acceleration > 0 ? '▲' : initiative.acceleration < 0 ? '▼' : ''}
+                        {initiative.acceleration > 0 ? ` +${initiative.acceleration}` : initiative.acceleration < 0 ? ` ${initiative.acceleration}`: ' Stabile'}
+                      </span>
+                    </div>
                   </div>
 
                   <!-- Linea e pallino del lollipop -->
@@ -306,14 +352,12 @@ const baseUrl = import.meta.env.BASE_URL;
                       <div
                         class="h-0.5 bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-1000 ease-out"
                         style={`width: ${percentage}%`}
-                        data-target-width={percentage}
                       ></div>
 
                       <!-- Pallino del lollipop -->
                       <div
                         class="absolute top-1/2 transform -translate-y-1/2 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md transition-all duration-1000 ease-out"
                         style={`left: ${percentage}%`}
-                        data-target-left={percentage}
                       ></div>
                     </div>
 
@@ -321,7 +365,6 @@ const baseUrl = import.meta.env.BASE_URL;
                     <div
                       class="absolute top-2 text-sm font-medium text-gray-700 transition-all duration-1000 ease-out"
                       style={`left: ${percentage}%`}
-                      data-target-left={percentage}
                     >
                       {initiative.sostenitori_delta_mean}
                     </div>
@@ -334,7 +377,7 @@ const baseUrl = import.meta.env.BASE_URL;
           <!-- Legenda e note -->
           <div class="mt-6 p-4 bg-gray-50 rounded-lg">
             <p class="text-sm text-gray-600">
-              <strong>Nota:</strong> Mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno. I dati della media sono calcolati <strong>escludendo il giorno corrente</strong> per evitare valori parziali che falserebbero la statistica. L'<strong>aggiornamento</strong> dei dati avviene ogni <strong>24 ore</strong>.
+              <strong>Nota:</strong> Mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno. La <strong>tendenza</strong> indica l'accelerazione (o decelerazione) delle firme raccolte ieri rispetto al giorno precedente. I dati della media sono calcolati <strong>escludendo il giorno corrente</strong> per evitare valori parziali che falserebbero la statistica. L'<strong>aggiornamento</strong> dei dati avviene ogni <strong>24 ore</strong>.
             </p>
             <p class="text-sm text-gray-600 mt-2">
               <strong>Tip:</strong> Clicca sulla voce per accedere alla pagina di dettaglio dell'iniziativa.
