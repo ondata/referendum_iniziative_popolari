@@ -121,6 +121,7 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 ### Timeline Sostenitori
 
 - Il sistema deve tracciare l'evoluzione nel tempo del numero di sostenitori per ogni iniziativa.
+- **Visualizzazione nella pagina di dettaglio:** Nella pagina di dettaglio di ogni iniziativa, se disponibili dati storici, verrà mostrato un grafico che visualizza l'andamento nel tempo del numero di sostenitori.
 - **Raccolta dati automatica:**
   - Durante ogni aggiornamento dei dati (4 volte al giorno), il sistema deve salvare:
     - **ID dell'iniziativa:** `id`
