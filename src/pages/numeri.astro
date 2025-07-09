@@ -45,9 +45,13 @@ for (const id in timeLineGroups) {
   // Ordina per data decrescente
   group.sort((a, b) => b.data.getTime() - a.data.getTime());
 
-  if (group.length >= 3) {
-    const delta_last_day = group[0].sostenitori - group[1].sostenitori;
-    const delta_previous_day = group[1].sostenitori - group[2].sostenitori;
+  // Per il calcolo dell'accelerazione servono dati di 4 giorni, 
+  // perché l'ultimo giorno disponibile non è mai completo.
+  if (group.length >= 4) {
+    // Calcolo della crescita del giorno precedente all'ultimo (es. ieri vs altroieri)
+    const delta_last_day = group[1].sostenitori - group[2].sostenitori;
+    // Calcolo della crescita di due giorni prima (es. altroieri vs 3 giorni fa)
+    const delta_previous_day = group[2].sostenitori - group[3].sostenitori;
 
     let acceleration_percent = 0;
     // Calcola la percentuale solo se il giorno prima c'è stata una crescita (per evitare divisione per zero o valori fuorvianti)
@@ -382,7 +386,7 @@ const baseUrl = import.meta.env.BASE_URL;
           <!-- Legenda e note -->
           <div class="mt-6 p-4 bg-gray-50 rounded-lg">
             <p class="text-sm text-gray-600">
-              <strong>Nota:</strong> Mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno. La <strong>tendenza</strong> indica la variazione percentuale delle firme raccolte ieri rispetto al giorno precedente. I dati della media sono calcolati <strong>escludendo il giorno corrente</strong> per evitare valori parziali che falserebbero la statistica. L'<strong>aggiornamento</strong> dei dati avviene ogni <strong>24 ore</strong>.
+              <strong>Nota:</strong> Mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno. La <strong>tendenza</strong> calcola l'accelerazione della raccolta confrontando la crescita di firme di ieri con quella dell'altro ieri, escludendo sempre i dati odierni perché incompleti. L'<strong>aggiornamento</strong> dei dati avviene ogni <strong>24 ore</strong>.
             </p>
             <p class="text-sm text-gray-600 mt-2">
               <strong>Tip:</strong> Clicca sulla voce per accedere alla pagina di dettaglio dell'iniziativa.
