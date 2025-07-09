@@ -35,7 +35,11 @@ const initiativesWithMedia = initiatives.map(initiative => {
 const top10ByMedia = initiativesWithMedia
   .filter(init => init.sostenitori_delta_mean > 0)
   .sort((a, b) => b.sostenitori_delta_mean - a.sostenitori_delta_mean)
-  .slice(0, 10);
+  .slice(0, 10)
+  .map(init => ({
+    ...init,
+    sostenitori_delta_mean: Math.round(init.sostenitori_delta_mean)
+  }));
 
 const maxMediaValue = Math.max(...top10ByMedia.map(init => init.sostenitori_delta_mean));
 

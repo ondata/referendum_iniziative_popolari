@@ -1,5 +1,9 @@
 # Log delle modifiche
 
+## 2025-07-09
+
+* I valori della "Media sostenitori giornalieri" nella tabella e nel grafico lollipop della pagina Numeri sono ora arrotondati a numero intero (firme), senza decimali, per maggiore chiarezza e coerenza.
+
 ## 2025-07-08
 
 * Implementato il requisito di trasparenza dei dati: aggiunti link ai dati grezzi nella pagina Numeri.
