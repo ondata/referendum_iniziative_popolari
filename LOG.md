@@ -2,7 +2,7 @@
 
 ## 2025-07-09
 
-* Aggiunto indicatore di "Tendenza" nella pagina Numeri per mostrare l'accelerazione o decelerazione delle firme. Il dato, visibile solo su desktop, confronta le firme raccolte ieri con quelle del giorno precedente.
+* Modificato l'indicatore di "Tendenza" nella pagina Numeri: ora mostra la variazione percentuale della crescita delle firme. Questo permette un confronto più equo ed efficace tra iniziative con volumi di raccolta molto diversi.
 * Semplificata la tabella per dispositivi mobili nella pagina Numeri, rimuovendo la colonna della tendenza per una migliore leggibilità.
 * Aggiunta la sezione "Timeline sostenitori" nella pagina di dettaglio dell'iniziativa. Questa sezione mostra un grafico con l'andamento temporale del numero di sostenitori ed è visibile solo per le iniziative per cui sono disponibili dati storici.
 * I valori della "Media sostenitori giornalieri" nella tabella e nel grafico lollipop della pagina Numeri sono ora arrotondati a numero intero (firme), senza decimali, per maggiore chiarezza e coerenza.
