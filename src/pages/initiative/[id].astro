@@ -16,6 +16,7 @@ import {
   LinkIcon,
   FlagIcon
 } from '@heroicons/react/24/outline';
+import fs from 'node:fs';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const initiatives = await fetchInitiatives();
@@ -35,6 +36,11 @@ const { initiative } = Astro.props;
 if (!initiative) {
   return Astro.redirect('/404');
 }
+
+const timeLineRaw = fs.readFileSync('data/time_line.jsonl', 'utf8');
+const timeLineData = timeLineRaw.trim().split('\n').map(JSON.parse);
+const initiativeTimeLine = timeLineData.filter(d => d.id === initiative.id);
+const hasTimeLineData = initiativeTimeLine.length > 0;
 
 // Always use the official URL with the initiative ID for signing
 const officialUrl = `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
@@ -232,6 +238,71 @@ const currentUrl = (() => {
           </p>
         )}
       </div>
+
+      {hasTimeLineData && (
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8 mb-6 sm:mb-8">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Timeline sostenitori</h2>
+          <div id="chart" class="w-full overflow-x-auto"></div>
+          <script type="module" define:vars={{ timelineData: initiativeTimeLine }}>
+            import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+            const fmtIt = new Intl.NumberFormat("it-IT").format;
+            const fmtDate = d => d.toLocaleDateString("it-IT", {
+              day: "2-digit",
+              month: "short",
+              year: "2-digit"
+            });
+
+            function draw() {
+              const data = timelineData
+                .map(d => ({ ...d, data: new Date(d.data) }))
+                .sort((a, b) => a.data - b.data);
+
+              if (data.length === 0) return;
+
+              const container = document.getElementById("chart");
+              if (!container) return;
+              const { width } = container.getBoundingClientRect();
+
+              const chart = Plot.plot({
+                width,
+                marginLeft: 60,
+                marginBottom: 40,
+                x: {
+                  type: "utc",
+                  label: "Data",
+                  tickFormat: fmtDate
+                },
+                y: {
+                  label: "Sostenitori",
+                  tickFormat: fmtIt,
+                  ticks: 5,
+                  zero: true
+                },
+                marks: [
+                  Plot.line(data, { x: "data", y: "sostenitori", stroke: "#1f77b4" }),
+                  Plot.dot(data, {
+                    x: "data",
+                    y: "sostenitori",
+                    r: 4,
+                    fill: "#1f77b4",
+                    title: d => `sostenitori: ${fmtIt(d.sostenitori)}\n${fmtDate(d.data)}`
+                  })
+                ]
+              });
+
+              container.innerHTML = "";
+              container.append(chart);
+            }
+
+            const chartContainer = document.getElementById("chart");
+            if (chartContainer) {
+              draw();
+              new ResizeObserver(draw).observe(chartContainer);
+            }
+          </script>
+        </div>
+      )}
 
       <!-- Links -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8">
