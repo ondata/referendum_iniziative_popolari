@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Timeline sostenitori – ID 4200000">
+  <h2>Timeline sostenitori – ID 4200000</h2>
+  <!-- Contenitore che si adatta alla larghezza del layout -->
+  <div id="chart" class="w-full overflow-x-auto"></div>
+
+  <script type="module">
+    import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+    // Formattatori locali (numeri e date in stile italiano)
+    const fmtIt   = new Intl.NumberFormat("it-IT").format;
+    const fmtDate = d => d.toLocaleDateString("it-IT", {
+      day:   "2-digit",
+      month: "short",
+      year:  "2-digit"
+    });
+
+    async function draw() {
+      // Carica il file JSONL
+      const text = await (await fetch("/data/time_line.jsonl")).text();
+      const rows = text.trim().split("\n").map(JSON.parse);
+
+      // Filtra per ID e prepara le date
+      const data = rows
+        .filter(d => d.id === 4200000)
+        .map(d => ({ ...d, data: new Date(d.data) }))
+        .sort((a, b) => a.data - b.data);
+
+      // Larghezza dinamica basata sul contenitore
+      const { width } = document.getElementById("chart").getBoundingClientRect();
+
+      // Crea il grafico
+      const chart = Plot.plot({
+        width,               // si adatta al layout
+        marginLeft: 60,
+        marginBottom: 40,
+        x: {
+          type: "utc",
+          label: "Data",
+          tickFormat: fmtDate // Plot adatta i tick automaticamente
+        },
+        y: {
+          label: "Sostenitori",
+          tickFormat: fmtIt,
+          ticks: 5,
+          zero: true          // baseline a 0
+        },
+        marks: [
+          Plot.line(data, { x: "data", y: "sostenitori", stroke: "#1f77b4" }),
+          Plot.dot(data,  {
+            x: "data",
+            y: "sostenitori",
+            r: 4,
+            fill: "#1f77b4",
+            title: d => `sostenitori: ${fmtIt(d.sostenitori)}\n${fmtDate(d.data)}`
+          })
+        ]
+      });
+
+      // Monta il grafico (pulendo prima il contenitore)
+      const container = document.getElementById("chart");
+      container.innerHTML = "";
+      container.append(chart);
+    }
+
+    // Disegna subito
+    draw();
+
+    // Ridisegna se la finestra cambia dimensioni
+    new ResizeObserver(draw).observe(document.getElementById("chart"));
+  </script>
+</Layout>
