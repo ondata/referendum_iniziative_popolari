@@ -26,6 +26,7 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - Cliccando su una card, l'utente deve essere reindirizzato a una pagina di dettaglio specifica.
 - La pagina di dettaglio deve visualizzare tutte le informazioni disponibili per quell'elemento del dataset JSON.
+- **La single page dell'iniziativa deve includere una sezione dedicata ai dettagli del quesito**, mostrando le informazioni archiviate in `data/quesiti/{id}.json`.
 
 ### Paginazione
 

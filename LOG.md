@@ -12,6 +12,8 @@ Esempio di riga:
 
 * La funzionalità è integrata nel workflow GitHub Actions e aggiorna il log solo per il cron delle 21:30 UTC.
 
+* Lo script di download ora scarica e archivia automaticamente i dettagli dei quesiti per ogni iniziativa in raccolta firme, salvandoli nella cartella `data/quesiti/` come file JSON individuali.
+
 ## 2025-07-09
 
 * Modificato l'indicatore di "Tendenza" nella pagina Numeri: ora mostra la variazione percentuale della crescita delle firme. Questo permette un confronto più equo ed efficace tra iniziative con volumi di raccolta molto diversi.
