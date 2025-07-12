@@ -5,7 +5,8 @@
 * Aggiunta la registrazione automatica dello stato del deploy notturno (cron delle 21:30 UTC) nel file `data/deploy_log.jsonl`. Ogni giorno viene salvato se il deploy è andato a buon fine (`success`) o meno (`fail`), in formato JSON Lines. Questo permette di monitorare facilmente la riuscita dei deploy automatici direttamente dal repository.
 
 Esempio di riga:
-```
+
+```bash
 {"date": "2025-07-12", "status": "success"}
 ```
 
