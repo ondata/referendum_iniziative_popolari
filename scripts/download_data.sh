@@ -9,10 +9,10 @@
 # - miller (mlr): per manipolare e convertire i dati
 
 # Configurazione bash per errori e debug
-set -x  # stampa ogni comando eseguito
-set -e  # esce se un comando fallisce
-set -u  # esce se usa variabili non definite
-set -o pipefail  # esce se un comando in una pipe fallisce
+set -x          # stampa ogni comando eseguito
+set -e          # esce se un comando fallisce
+set -u          # esce se usa variabili non definite
+set -o pipefail # esce se un comando in una pipe fallisce
 
 # Ottiene il percorso della directory dello script
 folder="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -39,3 +39,15 @@ mlr -I --jsonl top -f sostenitori -g id,data then sort -t data,id then cut -x -f
 # media sostenitori giornaliera per iniziativa, escludendo il giorno corrente
 # per evitare valori parziali che falserebbero la statistica
 mlr --jsonl filter -x '$data=="'"${check_date}"'"' then sort -t id,data then step -a delta -f sostenitori -g id then cat -n -g id then filter -x '$n==1' then stats1 -a mean -g id -f sostenitori_delta then sort -t id "${folder}"/../data/time_line.jsonl >"${folder}"/../data/media_sostenitori_giornaliera.jsonl
+
+# scarica i quesiti
+mkdir -p "${folder}"/../data/quesiti
+
+mlr --ijsonl --onidx cut -f id "${folder}"/../data/source.jsonl | while read -r id; do
+  # se "${folder}"/../data/quesiti/"${id}".json non esiste, lo scarica
+  if [[ ! -f "${folder}"/../data/quesiti/"${id}".json ]]; then
+    echo "Scaricando quesito con ID: ${id}"
+    curl -skL "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public/${id}" >"${folder}"/../data/quesiti/"${id}".json
+  fi
+
+done
