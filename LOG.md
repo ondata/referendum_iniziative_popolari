@@ -1,5 +1,6 @@
 # Log delle modifiche
 
+
 ## 2025-07-12
 
 * Aggiunta la registrazione automatica dello stato del deploy notturno (cron delle 21:30 UTC) nel file `data/deploy_log.jsonl`. Ogni giorno viene salvato se il deploy è andato a buon fine (`success`) o meno (`fail`), in formato JSON Lines. Questo permette di monitorare facilmente la riuscita dei deploy automatici direttamente dal repository.
@@ -16,6 +17,8 @@ Esempio di riga:
 
 * Integrato lo script `json2markdown.py` nel processo di download dati (`download_data.sh`). Ora, per ogni quesito scaricato, viene generato automaticamente anche il corrispondente file Markdown, a partire dal JSON sorgente, nella cartella `data/quesiti/`. Questo migliora la leggibilità e la fruibilità dei testi dei quesiti direttamente dal repository.
 * Lo script Python non richiede dipendenze esterne: funziona con la sola libreria standard di Python 3.
+* Aggiunta la gestione dei quesiti con riconoscimento automatico di titoli come ART., CAPO, ecc. nei file JSON tramite script `json2markdown.py`.
+* Aggiunti nuovi quesiti nella cartella `data/quesiti/`.
 
 ## 2025-07-09
 
