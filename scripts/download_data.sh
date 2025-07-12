@@ -50,4 +50,15 @@ mlr --ijsonl --onidx cut -f id "${folder}"/../data/source.jsonl | while read -r 
     curl -skL "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public/${id}" >"${folder}"/../data/quesiti/"${id}".json
   fi
 
+  # estrai il testo del quesito
+  if [[ ! -f "${folder}"/../data/quesiti/"${id}".txt ]]; then
+    echo "Creando file di testo per quesito con ID: ${id}"
+    jq -r '.content.quesito | fromjson | .plainText' "${folder}"/../data/quesiti/"${id}".json >"${folder}"/../data/quesiti/"${id}".txt
+  fi
+
+  # crea versione markdown del quesito
+  if [[ ! -f "${folder}"/../data/quesiti/"${id}".md ]]; then
+    "${folder}"/json2markdown.py "${folder}"/../data/quesiti/"${id}".json >"${folder}"/../data/quesiti/"${id}".md
+  fi
+
 done
