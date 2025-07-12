@@ -17,6 +17,7 @@ import {
   FlagIcon
 } from '@heroicons/react/24/outline';
 import fs from 'node:fs';
+import { marked } from 'marked';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const initiatives = await fetchInitiatives();
@@ -41,6 +42,22 @@ const timeLineRaw = fs.readFileSync('data/time_line.jsonl', 'utf8');
 const timeLineData = timeLineRaw.trim().split('\n').map(line => JSON.parse(line));
 const initiativeTimeLine = timeLineData.filter(d => d.id === initiative.id);
 const hasTimeLineData = initiativeTimeLine.length > 0;
+
+// Leggi il contenuto del quesito se esiste
+let questionContent: string | null = null;
+let questionHtml: string | null = null;
+const questionPath = `data/quesiti/${initiative.id}.md`;
+try {
+  if (fs.existsSync(questionPath)) {
+    questionContent = fs.readFileSync(questionPath, 'utf8');
+    // Converti il markdown in HTML usando marked
+    if (questionContent) {
+      questionHtml = await marked(questionContent);
+    }
+  }
+} catch (error) {
+  console.warn(`Could not read question file for initiative ${initiative.id}:`, error);
+}
 
 // Always use the official URL with the initiative ID for signing
 const officialUrl = `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
@@ -304,6 +321,16 @@ ${fmtDateTooltip(d.data)}`
               draw();
               new ResizeObserver(draw).observe(chartContainer);
             }          </script>
+        </div>
+      )}
+
+      <!-- Question/Quesito -->
+      {questionHtml && (
+        <div class="bg-gray-50 rounded-lg shadow-sm border border-gray-300 border-l-4 border-l-blue-500 p-4 sm:p-8 mb-6 sm:mb-8">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">Quesito</h2>
+          <div class="w-full">
+            <div class="text-gray-800 leading-relaxed font-serif text-sm sm:text-base" set:html={questionHtml}></div>
+          </div>
         </div>
       )}
 
