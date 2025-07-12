@@ -50,9 +50,20 @@ const questionPath = `data/quesiti/${initiative.id}.md`;
 try {
   if (fs.existsSync(questionPath)) {
     questionContent = fs.readFileSync(questionPath, 'utf8');
-    // Converti il markdown in HTML usando marked
+    // Converti il markdown in HTML usando marked con configurazione ottimizzata
     if (questionContent) {
-      questionHtml = await marked(questionContent);
+      // Prima puliamo il contenuto markdown per ridurre le righe vuote eccessive
+      const cleanedContent = questionContent
+        .replace(/\n\s*\n\s*\n/g, '\n\n')  // Riduce multiple righe vuote a massimo due
+        .replace(/^\s*\n+/, '')             // Rimuove righe vuote all'inizio
+        .replace(/\n+\s*$/, '');            // Rimuove righe vuote alla fine
+
+      // Configura marked per preservare i line breaks ma senza eccessi
+      marked.setOptions({
+        breaks: false,  // Non convertire singoli line break in <br>
+        gfm: true,      // Abilita GitHub Flavored Markdown
+      });
+      questionHtml = await marked(cleanedContent);
     }
   }
 } catch (error) {
@@ -329,7 +340,18 @@ ${fmtDateTooltip(d.data)}`
         <div class="bg-gray-50 rounded-lg shadow-sm border border-gray-300 border-l-4 border-l-blue-500 p-4 sm:p-8 mb-6 sm:mb-8">
           <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">Quesito</h2>
           <div class="w-full">
-            <div class="text-gray-800 leading-relaxed font-serif text-sm sm:text-base" set:html={questionHtml}></div>
+            <div class="text-gray-800 leading-relaxed font-serif text-sm sm:text-base prose prose-sm max-w-none
+                        prose-p:text-gray-800 prose-p:mb-3 prose-p:leading-relaxed
+                        prose-h1:text-lg prose-h1:font-bold prose-h1:mb-3 prose-h1:mt-6 prose-h1:text-gray-900
+                        prose-h2:text-base prose-h2:font-semibold prose-h2:mb-2 prose-h2:mt-4 prose-h2:text-gray-900
+                        prose-h3:text-sm prose-h3:font-medium prose-h3:mb-2 prose-h3:mt-3 prose-h3:text-gray-800
+                        prose-ul:pl-6 prose-li:mb-1 prose-li:leading-relaxed
+                        prose-ol:pl-6 prose-ol:mb-3
+                        prose-strong:text-gray-900 prose-strong:font-semibold
+                        prose-em:italic prose-em:text-gray-700
+                        [&>*:first-child]:mt-0 [&>*:last-child]:mb-0
+                        [&_p+p]:mt-3 [&_h1+p]:mt-2 [&_h2+p]:mt-2 [&_h3+p]:mt-1"
+                 set:html={questionHtml}></div>
           </div>
         </div>
       )}
