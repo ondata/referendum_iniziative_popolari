@@ -14,6 +14,9 @@ Esempio di riga:
 
 * Lo script di download ora scarica e archivia automaticamente i dettagli dei quesiti per ogni iniziativa in raccolta firme, salvandoli nella cartella `data/quesiti/` come file JSON individuali.
 
+* Integrato lo script `json2markdown.py` nel processo di download dati (`download_data.sh`). Ora, per ogni quesito scaricato, viene generato automaticamente anche il corrispondente file Markdown, a partire dal JSON sorgente, nella cartella `data/quesiti/`. Questo migliora la leggibilità e la fruibilità dei testi dei quesiti direttamente dal repository.
+* Lo script Python non richiede dipendenze esterne: funziona con la sola libreria standard di Python 3.
+
 ## 2025-07-09
 
 * Modificato l'indicatore di "Tendenza" nella pagina Numeri: ora mostra la variazione percentuale della crescita delle firme. Questo permette un confronto più equo ed efficace tra iniziative con volumi di raccolta molto diversi.
