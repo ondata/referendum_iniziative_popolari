@@ -1,5 +1,16 @@
 # Log delle modifiche
 
+## 2025-07-12
+
+* Aggiunta la registrazione automatica dello stato del deploy notturno (cron delle 21:30 UTC) nel file `data/deploy_log.jsonl`. Ogni giorno viene salvato se il deploy è andato a buon fine (`success`) o meno (`fail`), in formato JSON Lines. Questo permette di monitorare facilmente la riuscita dei deploy automatici direttamente dal repository.
+
+Esempio di riga:
+```
+{"date": "2025-07-12", "status": "success"}
+```
+
+* La funzionalità è integrata nel workflow GitHub Actions e aggiorna il log solo per il cron delle 21:30 UTC.
+
 ## 2025-07-09
 
 * Modificato l'indicatore di "Tendenza" nella pagina Numeri: ora mostra la variazione percentuale della crescita delle firme. Questo permette un confronto più equo ed efficace tra iniziative con volumi di raccolta molto diversi.
