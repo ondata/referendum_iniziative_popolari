@@ -123,6 +123,10 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Ensure data directory exists
+        if: github.event_name == 'schedule' && github.event.schedule == '30 21 * * *'
+        run: mkdir -p data
+
       - name: Log deploy status (solo cron 21:30 UTC)
         if: github.event_name == 'schedule' && github.event.schedule == '30 21 * * *'
         run: |

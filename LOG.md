@@ -1,6 +1,11 @@
 # Log delle modifiche
 
 
+## 2025-07-13
+
+* Corretto errore nel job `deploy` del workflow GitHub Actions: ora viene creata la cartella `data` prima di scrivere il file `data/deploy_log.jsonl` durante il cron delle 21:30 UTC. Questo evita errori di mancata creazione del file di log e garantisce la corretta registrazione dello stato del deploy notturno.
+* Nessun impatto sull'archiviazione dei dati principali: i file dati vengono comunque aggiornati e committati regolarmente dal job `build`.
+
 ## 2025-07-12
 
 * Aggiunta la registrazione automatica dello stato del deploy notturno (cron delle 21:30 UTC) nel file `data/deploy_log.jsonl`. Ogni giorno viene salvato se il deploy è andato a buon fine (`success`) o meno (`fail`), in formato JSON Lines. Questo permette di monitorare facilmente la riuscita dei deploy automatici direttamente dal repository.
