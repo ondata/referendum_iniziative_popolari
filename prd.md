@@ -1,5 +1,8 @@
 # Product Requirements Document (PRD)
 
+**Versione:** 1.0
+**Data:** 6 luglio 2025
+
 L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public](https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public)
 
 ## 1. Introduzione
