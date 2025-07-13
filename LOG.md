@@ -17,9 +17,7 @@ Esempio di riga:
 ```
 
 * La funzionalità è integrata nel workflow GitHub Actions e aggiorna il log solo per il cron delle 21:30 UTC.
-
 * Lo script di download ora scarica e archivia automaticamente i dettagli dei quesiti per ogni iniziativa in raccolta firme, salvandoli nella cartella `data/quesiti/` come file JSON individuali.
-
 * Integrato lo script `json2markdown.py` nel processo di download dati (`download_data.sh`). Ora, per ogni quesito scaricato, viene generato automaticamente anche il corrispondente file Markdown, a partire dal JSON sorgente, nella cartella `data/quesiti/`. Questo migliora la leggibilità e la fruibilità dei testi dei quesiti direttamente dal repository.
 * Lo script Python non richiede dipendenze esterne: funziona con la sola libreria standard di Python 3.
 * Aggiunta la gestione dei quesiti con riconoscimento automatico di titoli come ART., CAPO, ecc. nei file JSON tramite script `json2markdown.py`.
