@@ -24,6 +24,7 @@ Esempio di riga:
 * Lo script Python non richiede dipendenze esterne: funziona con la sola libreria standard di Python 3.
 * Aggiunta la gestione dei quesiti con riconoscimento automatico di titoli come ART., CAPO, ecc. nei file JSON tramite script `json2markdown.py`.
 * Aggiunti nuovi quesiti nella cartella `data/quesiti/`.
+* I quesiti sono ora visibili anche nelle pagine di dettaglio (single page) di ciascuna iniziativa, rendendo immediatamente consultabile il testo ufficiale direttamente dal sito.
 
 ## 2025-07-09
 
