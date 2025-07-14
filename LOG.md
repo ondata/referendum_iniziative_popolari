@@ -1,6 +1,10 @@
 # Log delle modifiche
 
 
+## 2025-07-14
+
+* Correzione workflow: ora il deploy del log (`data/deploy_log.jsonl`) viene gestito nel job `build` e non più in `deploy`, per evitare errori git dovuti all'ambiente di deploy-pages. La sequenza aggiornata dovrebbe garantire la corretta scrittura e commit del log notturno. Da verificare nei prossimi run automatici.
+
 ## 2025-07-13
 
 * Corretto errore nel job `deploy` del workflow GitHub Actions: ora viene creata la cartella `data` prima di scrivere il file `data/deploy_log.jsonl` durante il cron delle 21:30 UTC. Questo evita errori di mancata creazione del file di log e garantisce la corretta registrazione dello stato del deploy notturno.
