@@ -43,7 +43,7 @@ const accelerationData: Record<string, number> = {};
 for (const id in timeLineGroups) {
   const group = timeLineGroups[id];
   // Ordina per data decrescente
-  group.sort((a, b) => b.data.getTime() - a.data.getTime());
+  group.sort((a: any, b: any) => b.data.getTime() - a.data.getTime());
 
   // Per il calcolo dell'accelerazione servono dati di 4 giorni,
   // perché l'ultimo giorno disponibile non è mai completo.
@@ -81,7 +81,7 @@ const initiativesWithMedia = initiatives.map(initiative => {
 
 // Top 10 iniziative per sostenitori_delta_mean
 const top10ByMedia = initiativesWithMedia
-  .filter(init => init.sostenitori_delta_mean > 0)
+  .filter(init => init.sostenitori_delta_mean > 0 && init.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME')
   .sort((a, b) => b.sostenitori_delta_mean - a.sostenitori_delta_mean)
   .slice(0, 10)
   .map(init => ({
@@ -386,7 +386,7 @@ const baseUrl = import.meta.env.BASE_URL;
           <!-- Legenda e note -->
           <div class="mt-6 p-4 bg-gray-50 rounded-lg">
             <p class="text-sm text-gray-600">
-              <strong>Nota:</strong> Mostra le 10 iniziative con la più alta media di sostenitori acquisiti per giorno. <br />
+              <strong>Nota:</strong> Mostra le 10 iniziative <strong>attive</strong> (in raccolta firme) con la più alta media di sostenitori acquisiti per giorno. <br />
               Sia la <strong>media dei sostenitori giornalieri</strong> che la <strong>tendenza</strong> sono calcolate <u>escludendo il giorno corrente</u>, perché il dato di oggi sarebbe un campione incompleto. La <strong>tendenza</strong> calcola l'accelerazione della raccolta confrontando la crescita di firme di ieri con quella dell'altro ieri. L'<strong>aggiornamento</strong> dei dati avviene ogni <strong>24 ore</strong>.
             </p>
             <p class="text-sm text-gray-600 mt-2">

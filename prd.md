@@ -81,6 +81,7 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 - Una pagina dedicata alle statistiche e ai numeri di riepilogo delle iniziative.
 - Deve presentare i dati in forma di istogrammi e visualizzazioni grafiche.
 - Include metriche aggregate come totali per categoria, stato delle iniziative e trend.
+- Il ranking Top 10 delle iniziative per media sostenitori giornalieri mostra **solo le iniziative attive** ("IN RACCOLTA FIRME"). Questo garantisce che la classifica sia sempre aggiornata e rappresenti solo le raccolte firme in corso.
 - Accessibile tramite link nel menu di navigazione principale.
 
 ### Informazioni da visualizzare nelle card
