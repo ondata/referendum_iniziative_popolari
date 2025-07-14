@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Test deploy workflow",
+			"command": "gh workflow run deploy.yml --ref main",
+			"group": "test"
+		}
+	]
+}
