@@ -1,6 +1,10 @@
 # Log delle modifiche
 
 
+## 2025-07-17
+- Aggiunta l'integrazione `@astrojs/sitemap` per la generazione automatica della sitemap.xml. Questo migliora l'indicizzazione del sito da parte dei motori di ricerca.
+- Aggiunto il file `robots.txt` per guidare i crawler dei motori di ricerca e specificare la posizione della sitemap.
+
 ## 2025-07-14
 - Il ranking Top 10 delle iniziative per media sostenitori giornalieri mostra ora **solo le iniziative attive** ("IN RACCOLTA FIRME").
 * Correzione workflow: ora il deploy del log (`data/deploy_log.jsonl`) viene gestito nel job `build` e non più in `deploy`, per evitare errori git dovuti all'ambiente di deploy-pages. La sequenza aggiornata dovrebbe garantire la corretta scrittura e commit del log notturno. Da verificare nei prossimi run automatici.
