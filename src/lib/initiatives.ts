@@ -111,22 +111,10 @@ export function getInitiativeUrl(initiative: Initiative): string {
 }
 
 export function isSigningActive(initiative: Initiative): boolean {
-  // Se non c'è dataFineRaccolta, assumiamo che sia ancora attiva
-  if (!initiative.dataFineRaccolta) return true;
-
-  try {
-    const endDate = new Date(initiative.dataFineRaccolta);
-    const today = new Date();
-
-    // Confronta solo le date (senza orario)
-    endDate.setHours(23, 59, 59, 999);
-    today.setHours(0, 0, 0, 0);
-
-    return endDate >= today;
-  } catch (error) {
-    // In caso di errore, assumiamo che sia ancora attiva
-    return true;
-  }
+  // Controlla solo lo stato ufficiale dell'iniziativa
+  // Se il Ministero ha marcato l'iniziativa come "IN RACCOLTA FIRME",
+  // è quella la fonte di verità più affidabile
+  return initiative.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME';
 }
 
 export function normalizeUrl(url: string | undefined): string | undefined {
@@ -163,4 +151,38 @@ export function normalizeUrl(url: string | undefined): string | undefined {
 
   // Se non riusciamo a identificare il formato, restituiamo undefined
   return undefined;
+}
+
+/**
+ * Ottiene un massimo di 3 iniziative correlate dalla stessa categoria,
+ * selezionate casualmente ed escludendo l'iniziativa corrente.
+ * Mostra solo le iniziative con raccolta firme attiva.
+ * Restituisce sempre il numero massimo disponibile fino a maxItems.
+ */
+export function getRelatedInitiatives(
+  currentInitiative: Initiative,
+  allInitiatives: Initiative[],
+  maxItems: number = 3
+): Initiative[] {
+  // Filtra le iniziative della stessa categoria, escludendo quella corrente
+  // e includendo solo quelle con raccolta firme attiva
+  const sameCategory = allInitiatives.filter(initiative =>
+    initiative.id !== currentInitiative.id &&
+    initiative.idDecCatIniziativa?.id === currentInitiative.idDecCatIniziativa?.id &&
+    isSigningActive(initiative)
+  );
+
+  // Se non ci sono iniziative nella stessa categoria, restituisci array vuoto
+  if (sameCategory.length === 0) {
+    return [];
+  }
+
+  // Se ci sono meno iniziative del massimo richiesto, restituisci tutte
+  if (sameCategory.length <= maxItems) {
+    return sameCategory;
+  }
+
+  // Seleziona casualmente le iniziative garantendo di restituire sempre maxItems
+  const shuffled = [...sameCategory].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, maxItems);
 }

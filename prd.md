@@ -47,6 +47,17 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - Consentire agli utenti di ordinare gli elementi in base a determinati criteri (es. data di apertura, numero di sostenitori, titolo).
 
+### Funzionalità Principali
+
+- **Pagina Singola Quesito**: Ogni quesito avrà una pagina dedicata che mostrerà i dettagli del quesito, i dati di raccolta firme e altre informazioni pertinenti.
+- **Visualizzazione Dati Aggregati**: Saranno presenti grafici e tabelle che mostrano l'andamento complessivo della raccolta firme a livello nazionale e per regione.
+- **Filtri e Ricerca**: Gli utenti potranno filtrare i quesiti per categoria, stato e cercare quesiti specifici.
+- **Integrazione con Dati Esterni**: Il sistema sarà in grado di importare dati da fonti esterne (es. piattaforme di raccolta firme) per mantenere le informazioni aggiornate.
+
+#### Iniziative Correlate
+
+Nella pagina singola di ogni quesito, verrà aggiunta una sezione "Iniziative correlate". Questa sezione mostrerà un elenco puntato di un massimo di tre iniziative correlate, selezionate casualmente dalla stessa categoria del quesito visualizzato. L'obiettivo è fornire agli utenti suggerimenti pertinenti e aumentare la visibilità di altre iniziative simili.
+
 ### Pagine Aggiuntive
 
 #### Pagina Info
@@ -187,15 +198,15 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 ## 5. Design (UI)
 
 - **Schema colori:** Palette moderna e pulita utilizzando Tailwind CSS
-- **Tipografia:** Font system di Tailwind CSS per leggibilità ottimale
-- **Stile delle card:** Design minimalista con ombre e bordi arrotondati
-- **Responsività:** Il sito deve essere pienamente responsive e adattabile a diverse dimensioni di schermo utilizzando Tailwind CSS
+- **Tipografia:** Font system di Tailwind CSS per leggibilità ottimale.
+- **Stile delle card:** Design minimalista con ombre e bordi arrotondati.
+- **Responsività:** Il sito deve essere pienamente responsive e adattabile a diverse dimensioni di schermo utilizzando Tailwind CSS.
 
 ## 6. Dati
 
-- **Formato dati:** JSON (come fornito dall'API)
-- **Origine dati:** API endpoint fornito dal Ministero di Giustizia
-- **Aggiornamento dati:** I dati vengono recuperati al momento del build del sito statico
+- **Formato dati:** JSON (come fornito dall'API).
+- **Origine dati:** API endpoint fornito dal Ministero di Giustizia.
+- **Aggiornamento dati:** I dati vengono recuperati al momento del build del sito statico.
 
 ## 7. Requisiti Tecnici
 
@@ -208,8 +219,8 @@ L'URL dei dati di input è: [https://firmereferendum.giustizia.it/referendum/api
 
 - **Linguaggi e Framework:**
   - HTML, CSS, JavaScript
-  - Framework: **Astro** per la generazione statica e la gestione delle pagine
-  - Componenti: Astro components con possibile integrazione di componenti React/Vue se necessario
+  - Framework: **Astro** per la generazione statica e la gestione delle pagine.
+  - Componenti: Astro components con possibile integrazione di componenti React/Vue se necessario.
 - **Responsività:** Utilizzo di Tailwind CSS per garantire la responsività e un design moderno.
 - **Paginazione:** Implementazione client-side per la navigazione tra le card.
 - **Hosting:** Il sito sarà ospitato su **GitHub Pages** con supporto per siti statici Astro.

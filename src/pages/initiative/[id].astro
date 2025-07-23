@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import HamburgerMenuNative from '../../components/HamburgerMenuNative.astro';
 import ShareButton from '../../components/ShareButton';
 import Footer from '../../components/Footer.astro';
-import { fetchInitiatives, formatDate, formatNumber, isSigningActive, normalizeUrl } from '../../lib/initiatives';
+import { fetchInitiatives, formatDate, formatNumber, isSigningActive, normalizeUrl, getRelatedInitiatives } from '../../lib/initiatives';
 import type { Initiative } from '../../types/initiative';
 import {
   ArrowLeftIcon,
@@ -42,6 +42,10 @@ const timeLineRaw = fs.readFileSync('data/time_line.jsonl', 'utf8');
 const timeLineData = timeLineRaw.trim().split('\n').map(line => JSON.parse(line));
 const initiativeTimeLine = timeLineData.filter(d => d.id === initiative.id);
 const hasTimeLineData = initiativeTimeLine.length > 0;
+
+// Ottieni tutte le iniziative per le correlate
+const allInitiatives = await fetchInitiatives();
+const relatedInitiatives = getRelatedInitiatives(initiative, allInitiatives, 3);
 
 // Leggi il contenuto del quesito se esiste
 let questionContent: string | null = null;
@@ -332,6 +336,29 @@ ${fmtDateTooltip(d.data)}`
               draw();
               new ResizeObserver(draw).observe(chartContainer);
             }          </script>
+        </div>
+      )}
+
+      <!-- Iniziative Correlate -->
+      {relatedInitiatives.length > 0 && (
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8 mb-6 sm:mb-8">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Iniziative correlate</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            Altre iniziative della categoria "{initiative.idDecCatIniziativa?.nome}" con raccolta firme attiva che potrebbero interessarti:
+          </p>
+          <ul class="space-y-3">
+            {relatedInitiatives.map((relatedInitiative) => (
+              <li class="flex items-start">
+                <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3 flex-shrink-0"></span>
+                <a
+                  href={`${normalizedBaseUrl}/initiative/${relatedInitiative.id}/`}
+                  class="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200 leading-relaxed"
+                >
+                  {relatedInitiative.titolo}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

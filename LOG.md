@@ -1,5 +1,14 @@
 # Log delle modifiche
 
+## 2025-07-23
+
+- **Implementata sezione "Iniziative correlate"** nelle pagine di dettaglio delle iniziative. La nuova sezione mostra un elenco di massimo 3 iniziative correlate della stessa categoria, selezionate casualmente tra quelle con raccolta firme attiva.
+- **Criteri di selezione**: le iniziative correlate devono appartenere alla stessa categoria dell'iniziativa visualizzata, escludere l'iniziativa corrente, e avere stato "IN RACCOLTA FIRME".
+- **Ottimizzata la funzione `isSigningActive()`**: ora si basa esclusivamente sullo stato ufficiale dell'iniziativa (`idDecStatoIniziativa.nome === 'IN RACCOLTA FIRME'`) invece di calcoli complessi sulle date, garantendo maggiore affidabilità e coerenza con i dati del Ministero della Giustizia.
+- **Posizionamento**: la sezione appare dopo la timeline dei sostenitori e prima del quesito, come specificato nei requisiti.
+- **Comportamento dinamico**: la sezione si nasconde automaticamente se non ci sono iniziative correlate disponibili nella categoria.
+- La funzionalità migliora la navigabilità del sito e aiuta gli utenti a scoprire iniziative correlate di loro interesse.
+
 ## 2025-07-17
 
 - Aggiunta l'integrazione `@astrojs/sitemap` per la generazione automatica della sitemap.xml. Questo migliora l'indicizzazione del sito da parte dei motori di ricerca.
