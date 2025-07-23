@@ -35,15 +35,13 @@ async function loadLocalData(): Promise<Initiative[]> {
     // Prova a caricare il file source.json dalla cartella data
     const sourceData = await import('../../data/source.json');
 
+    // Il file source.json ha sempre la struttura dell'API con la proprietà 'content'
     if (sourceData.default && sourceData.default.content && Array.isArray(sourceData.default.content)) {
       console.log('✅ Using local source.json');
       return sourceData.default.content as Initiative[];
     }
 
-    if (Array.isArray(sourceData.default)) {
-      console.log('✅ Using local source.json (direct array)');
-      return sourceData.default as Initiative[];
-    }
+    console.warn('Invalid structure in local source.json');
   } catch (error) {
     console.warn('Error loading local source.json, using sample data:', error);
   }
