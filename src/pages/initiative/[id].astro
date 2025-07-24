@@ -317,12 +317,11 @@ const currentUrl = (() => {
                   zero: true
                 },
                 marks: [
-                  Plot.line(data, { x: "data", y: "sostenitori", stroke: "#1f77b4" }),
-                  Plot.dot(data, {
+                  Plot.line(data, {
                     x: "data",
                     y: "sostenitori",
-                    r: 4,
-                    fill: "#1f77b4",
+                    stroke: "#1f77b4",
+                    strokeWidth: 2,
                     title: d => `sostenitori: ${fmtIt(d.sostenitori)}
 ${fmtDateTooltip(d.data)}`
                   })
