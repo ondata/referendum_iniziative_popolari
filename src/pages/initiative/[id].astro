@@ -275,12 +275,16 @@ const currentUrl = (() => {
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-8 mb-6 sm:mb-8">
           <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Timeline sostenitori</h2>
           <div id="chart" class="w-full overflow-x-auto"></div>
-          <script type="module" define:vars={{ timelineData: initiativeTimeLine }}>            import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";            const fmtIt = new Intl.NumberFormat("it-IT").format;            const fmtDateTooltip = d => d.toLocaleDateString("it-IT", {
+          <script type="module" define:vars={{ timelineData: initiativeTimeLine }}>            import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+            const fmtIt = new Intl.NumberFormat("it-IT").format;
+            const fmtDateTooltip = d => d.toLocaleDateString("it-IT", {
               day: "numeric",
               month: "long",
               year: "numeric"
-            });            let lastTick = null;
-            // Definiamo la funzione di formattazione separatamente per evitare errori di parsing
+            });
+
+            let lastTick = null;
             const customTickFormat = (d) => {
               if (!(d instanceof Date) || isNaN(d)) {
                 return "";
@@ -292,14 +296,20 @@ const currentUrl = (() => {
               lastTick = currentTick;
               return currentTick;
             };
+
             function draw() {
-              const data = timelineData                .map(d => ({ ...d, data: new Date(d.data) }))
+              const data = timelineData
+                .map(d => ({ ...d, data: new Date(d.data) }))
                 .sort((a, b) => a.data - b.data);
+
               if (data.length === 0) return;
+
               const container = document.getElementById("chart");
               if (!container) return;
+
               const { width } = container.getBoundingClientRect();
-              lastTick = null; // Reset for each redraw
+              lastTick = null;
+
               const chart = Plot.plot({
                 width,
                 marginLeft: 60,
@@ -307,34 +317,46 @@ const currentUrl = (() => {
                 x: {
                   type: "utc",
                   label: "Data",
-                  tickFormat: customTickFormat, // Usiamo la funzione nominata
-                  insetLeft: 20 // Aggiunge padding a sinistra dell'asse x
+                  tickFormat: customTickFormat,
+                  insetLeft: 20
                 },
                 y: {
                   label: "Sostenitori",
                   tickFormat: fmtIt,
                   ticks: 5,
-                  zero: true
+                  zero: true,
+                  grid: true
                 },
                 marks: [
-                  Plot.line(data, {
-                    x: "data",
-                    y: "sostenitori",
-                    stroke: "#1f77b4",
-                    strokeWidth: 2,
-                    title: d => `sostenitori: ${fmtIt(d.sostenitori)}
-${fmtDateTooltip(d.data)}`
-                  })
+                  Plot.line(data, { x: "data", y: "sostenitori", stroke: "#1f77b4", strokeWidth: 2 }),
+                  Plot.ruleX(data, Plot.pointerX({ x: "data", y: "sostenitori", stroke: "rgba(0,0,0,0.2)" })),
+                  Plot.dot(data, Plot.pointerX({ x: "data", y: "sostenitori", stroke: "#1f77b4", fill: "white", r: 3, strokeWidth: 1.5 })),
+                  Plot.text(data, Plot.pointerX({
+                    px: "data",
+                    py: "sostenitori",
+                    dy: -15,
+                    dx: 5,
+                    text: (d) => `Data: ${fmtDateTooltip(d.data)}
+Sostenitori: ${fmtIt(d.sostenitori)}`,
+                    textAlign: "left",
+                    lineAnchor: "bottom",
+                    fill: "#333",
+                    stroke: "white",
+                    strokeWidth: 5
+                  }))
                 ]
               });
+
               container.innerHTML = "";
               container.append(chart);
             }
+
             const chartContainer = document.getElementById("chart");
             if (chartContainer) {
               draw();
               new ResizeObserver(draw).observe(chartContainer);
-            }          </script>
+            }
+          </script>
         </div>
       )}
 
