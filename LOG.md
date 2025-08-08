@@ -1,5 +1,9 @@
 # Log delle modifiche
 
+## 2025-08-08
+
+- Migliorato il grafico della timeline dei sostenitori nella pagina di dettaglio dell'iniziativa. Ora, passando il mouse sul grafico, compare una linea verticale che segue il puntatore, con un tooltip che mostra la data e il numero di sostenitori per il punto selezionato. Questo migliora l'interattività e la leggibilità dei dati.
+
 ## 2025-07-23
 
 - **Implementata sezione "Iniziative correlate"** nelle pagine di dettaglio delle iniziative. La nuova sezione mostra un elenco di massimo 3 iniziative correlate della stessa categoria, selezionate casualmente tra quelle con raccolta firme attiva.
