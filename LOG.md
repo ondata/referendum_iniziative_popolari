@@ -1,5 +1,12 @@
 # Log delle modifiche
 
+## 2025-08-17
+
+- Migliorata la leggibilità delle etichette dell'asse X nel grafico "Timeline sostenitori" su mobile:
+	- Le label sono ora ruotate di 45°.
+	- Aumentato il margine inferiore del grafico per evitare il taglio delle scritte.
+	- Issue tracciata e chiusa su GitHub.
+
 ## 2025-08-08
 
 - Migliorato il grafico della timeline dei sostenitori nella pagina di dettaglio dell'iniziativa. Ora, passando il mouse sul grafico, compare una linea verticale che segue il puntatore, con un tooltip che mostra la data e il numero di sostenitori per il punto selezionato. Questo migliora l'interattività e la leggibilità dei dati.

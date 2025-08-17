@@ -313,12 +313,13 @@ const currentUrl = (() => {
               const chart = Plot.plot({
                 width,
                 marginLeft: 60,
-                marginBottom: 40,
+                marginBottom: 70,
                 x: {
                   type: "utc",
                   label: "Data",
                   tickFormat: customTickFormat,
-                  insetLeft: 20
+                  insetLeft: 20,
+                  tickRotate: 45
                 },
                 y: {
                   label: "Sostenitori",
