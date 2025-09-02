@@ -181,24 +181,41 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       );
     }
 
+    // Helper per conteggio
+    const countBy = (arr, getKey) => {
+      const map = new Map();
+      arr.forEach(item => {
+        const key = getKey(item);
+        if (key) {
+          map.set(key, (map.get(key) || 0) + 1);
+        }
+      });
+      return map;
+    };
+
+    // Categorie
+    const categoryCounts = countBy(categoriesBase, i => i.idDecCatIniziativa?.nome);
+    const categories = Array.from(categoryCounts.keys()).sort();
+
+    // Stati
+    const statusCounts = countBy(statusesBase, i => i.idDecStatoIniziativa?.nome);
+    const statuses = Array.from(statusCounts.keys()).sort();
+
+    // Tipologie
+    const typeCounts = countBy(
+      typesBase,
+      i => {
+        if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
+        if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
+        return null;
+      }
+    );
+    const types = Array.from(typeCounts.keys()).sort();
+
     return {
-      categories: Array.from(
-        new Set(categoriesBase.map(i => i.idDecCatIniziativa?.nome).filter(Boolean))
-      ).sort(),
-      statuses: Array.from(
-        new Set(statusesBase.map(i => i.idDecStatoIniziativa?.nome).filter(Boolean))
-      ).sort(),
-      types: Array.from(
-        new Set(
-          typesBase
-            .map(i => {
-              if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-              if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-              return null;
-            })
-            .filter((type) => type !== null)
-        )
-      ).sort() as string[]
+      categories: categories.map(cat => ({ name: cat, count: categoryCounts.get(cat) })),
+      statuses: statuses.map(st => ({ name: st, count: statusCounts.get(st) })),
+      types: types.map(tp => ({ name: tp, count: typeCounts.get(tp) }))
     };
   }, [initiatives, searchTerm, selectedCategory, selectedStatus, selectedType]);
 
@@ -293,8 +310,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             >
               <option value="">Tutte le tipologie</option>
               {availableOptions.types.map(type => (
-                <option key={type} value={type}>
-                  {type}
+                <option key={type.name} value={type.name}>
+                  {type.name} ({type.count})
                 </option>
               ))}
             </select>
@@ -309,8 +326,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             >
               <option value="">Tutti gli stati</option>
               {availableOptions.statuses.map(status => (
-                <option key={status} value={status}>
-                  {status}
+                <option key={status.name} value={status.name}>
+                  {status.name} ({status.count})
                 </option>
               ))}
             </select>
@@ -325,8 +342,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             >
               <option value="">Tutte le categorie</option>
               {availableOptions.categories.map(category => (
-                <option key={category} value={category}>
-                  {category}
+                <option key={category.name} value={category.name}>
+                  {category.name} ({category.count})
                 </option>
               ))}
             </select>
