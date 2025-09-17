@@ -40,16 +40,67 @@ const ogImageUrl = (() => {
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicon - comprehensive implementation for maximum compatibility -->
+    <!-- Traditional favicon for root fallback -->
+    <link rel="icon" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon.ico`;
+    })()} />
+    
+    <!-- Modern SVG favicon -->
     <link rel="icon" type="image/svg+xml" href={(() => {
       const baseUrl = import.meta.env.BASE_URL || '/';
-      // Se è solo '/', non aggiungere nulla prima del favicon.svg
-      if (baseUrl === '/') {
-        return '/favicon.svg';
-      }
-      // Altrimenti, rimuovi trailing slash e aggiungi favicon
-      const cleanBase = baseUrl.replace(/\/$/, '');
-      return `${cleanBase}/favicon.svg`;
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-optimized.svg`;
     })()} />
+    
+    <!-- PNG favicons for different sizes -->
+    <link rel="icon" type="image/png" sizes="16x16" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-16.png`;
+    })()} />
+    <link rel="icon" type="image/png" sizes="32x32" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-32.png`;
+    })()} />
+    <link rel="icon" type="image/png" sizes="48x48" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-48.png`;
+    })()} />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-180.png`;
+    })()} />
+    
+    <!-- Android Chrome icon -->
+    <link rel="icon" type="image/png" sizes="192x192" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-192.png`;
+    })()} />
+    
+    <!-- Large icon for high-resolution displays -->
+    <link rel="icon" type="image/png" sizes="512x512" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/favicon-512.png`;
+    })()} />
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href={(() => {
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+      return `${cleanBase}/manifest.json`;
+    })()} />
+    
     <title>{title}</title>
 
     <!-- Open Graph -->
