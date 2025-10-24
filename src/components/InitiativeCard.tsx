@@ -2,7 +2,8 @@ import {
   CalendarIcon,
   UserGroupIcon,
   TagIcon,
-  ClockIcon
+  ClockIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 import type { Initiative } from '../types/initiative';
 import { formatDate, formatNumber } from '../lib/initiatives';
@@ -14,16 +15,29 @@ interface InitiativeCardProps {
 
 export default function InitiativeCard({ initiative }: InitiativeCardProps) {
   const isChiusa = initiative.idDecStatoIniziativa?.nome?.includes('CHIUSA');
+  const hasReachedQuorum = initiative.quorum !== undefined &&
+                           initiative.sostenitori !== undefined &&
+                           initiative.sostenitori >= initiative.quorum;
 
   return (
     <a
       href={createPath(`/initiative/${initiative.id}/`)}
-      className={`card-shadow rounded-lg p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer border block no-underline ${
+      className={`card-shadow rounded-lg p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer border block no-underline relative ${
         isChiusa
           ? 'bg-gray-50 border-gray-300 opacity-75'
+          : hasReachedQuorum
+          ? 'bg-gradient-to-br from-amber-50 to-white border-2 border-amber-400 shadow-lg shadow-amber-200/50'
           : 'bg-white border-gray-200'
       }`}
     >
+      {/* Badge Quorum Raggiunto */}
+      {hasReachedQuorum && !isChiusa && (
+        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 animate-pulse">
+          <SparklesIcon className="w-4 h-4" />
+          QUORUM RAGGIUNTO!
+        </div>
+      )}
+
       {/* Header con categoria e stato */}
       <div className="flex flex-wrap gap-2 mb-4">
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -66,9 +80,25 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
         </div>
 
         {initiative.sostenitori !== undefined && (
-          <div className="flex items-center">
-            <UserGroupIcon className="w-4 h-4 mr-2" />
-            <span>Sostenitori: {formatNumber(initiative.sostenitori)}</span>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center">
+              <UserGroupIcon className="w-4 h-4 mr-2" />
+              <span>Sostenitori: {formatNumber(initiative.sostenitori)}</span>
+            </div>
+            {initiative.quorum !== undefined && (
+              <div className="ml-6 text-xs">
+                {hasReachedQuorum ? (
+                  <span className="text-amber-600 font-semibold flex items-center gap-1">
+                    <SparklesIcon className="w-3 h-3" />
+                    {Math.round((initiative.sostenitori / initiative.quorum) * 100)}% del quorum
+                  </span>
+                ) : (
+                  <span className="text-gray-500">
+                    {Math.round((initiative.sostenitori / initiative.quorum) * 100)}% di {formatNumber(initiative.quorum)}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>
