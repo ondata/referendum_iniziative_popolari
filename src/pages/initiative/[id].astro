@@ -14,7 +14,8 @@ import {
   TagIcon,
   ClockIcon,
   LinkIcon,
-  FlagIcon
+  FlagIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 import fs from 'node:fs';
 import { marked } from 'marked';
@@ -81,6 +82,12 @@ const description = String(initiative.descrizioneBreve || initiative.descrizione
 const fullTitle = `${title} - Referendum e Iniziative Popolari`;
 const signingActive = isSigningActive(initiative);
 const ogImage = `og-${initiative.id}.png`;
+const hasReachedQuorum = initiative.quorum !== undefined &&
+                         initiative.sostenitori !== undefined &&
+                         initiative.sostenitori >= initiative.quorum;
+const quorumPercentage = initiative.quorum !== undefined && initiative.sostenitori !== undefined
+                         ? Math.round((initiative.sostenitori / initiative.quorum) * 100)
+                         : 0;
 
 // Funzione per normalizzare il baseUrl
 const normalizeBaseUrl = (baseUrl: string): string => {
@@ -200,6 +207,19 @@ const currentUrl = (() => {
           </div>
         </div>
 
+        <!-- Banner Quorum Raggiunto -->
+        {hasReachedQuorum && signingActive && (
+          <div class="mb-6 sm:mb-8 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 rounded-xl p-4 sm:p-6 shadow-lg animate-pulse">
+            <div class="flex items-center justify-center gap-2 sm:gap-3 text-white">
+              <SparklesIcon className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0" />
+              <div class="text-center">
+                <h2 class="text-xl sm:text-2xl font-bold mb-1">QUORUM RAGGIUNTO!</h2>
+                <p class="text-sm sm:text-base opacity-95">Questa iniziativa ha superato il quorum necessario con {quorumPercentage}% delle firme!</p>
+              </div>
+              <SparklesIcon className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0" />
+            </div>
+          </div>
+        )}
 
         <!-- Stats -->
         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
@@ -222,25 +242,79 @@ const currentUrl = (() => {
           )}
 
           {initiative.sostenitori !== undefined && (
-            <div class="flex items-center p-3 sm:p-4 bg-gray-50 rounded-lg">
-              <UserGroupIcon className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 mr-2 sm:mr-4 flex-shrink-0" />
+            <div class={`flex items-center p-3 sm:p-4 rounded-lg ${
+              hasReachedQuorum
+                ? 'bg-gradient-to-br from-amber-100 to-yellow-100 border-2 border-amber-400'
+                : 'bg-gray-50'
+            }`}>
+              <UserGroupIcon className={`w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-4 flex-shrink-0 ${
+                hasReachedQuorum ? 'text-amber-600' : 'text-gray-600'
+              }`} />
               <div class="min-w-0">
-                <p class="text-xs sm:text-sm text-gray-600">Sostenitori</p>
-                <p class="text-sm sm:text-lg font-semibold text-gray-900 leading-tight">{formatNumber(initiative.sostenitori)}</p>
+                <p class={`text-xs sm:text-sm ${hasReachedQuorum ? 'text-amber-700' : 'text-gray-600'}`}>Sostenitori</p>
+                <p class={`text-sm sm:text-lg font-semibold leading-tight ${
+                  hasReachedQuorum ? 'text-amber-900' : 'text-gray-900'
+                }`}>{formatNumber(initiative.sostenitori)}</p>
               </div>
             </div>
           )}
 
           {initiative.quorum !== undefined && (
-            <div class="flex items-center p-3 sm:p-4 bg-blue-50 rounded-lg">
-              <FlagIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-4 flex-shrink-0" />
+            <div class={`flex items-center p-3 sm:p-4 rounded-lg ${
+              hasReachedQuorum
+                ? 'bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-500'
+                : 'bg-blue-50'
+            }`}>
+              {hasReachedQuorum ? (
+                <SparklesIcon className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mr-2 sm:mr-4 flex-shrink-0" />
+              ) : (
+                <FlagIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-4 flex-shrink-0" />
+              )}
               <div class="min-w-0">
-                <p class="text-xs sm:text-sm text-blue-600">Quorum</p>
-                <p class="text-sm sm:text-lg font-semibold text-blue-900 leading-tight">{formatNumber(initiative.quorum)}</p>
+                <p class={`text-xs sm:text-sm ${hasReachedQuorum ? 'text-green-700' : 'text-blue-600'}`}>Quorum</p>
+                <p class={`text-sm sm:text-lg font-semibold leading-tight ${
+                  hasReachedQuorum ? 'text-green-900' : 'text-blue-900'
+                }`}>{formatNumber(initiative.quorum)}</p>
               </div>
             </div>
           )}
         </div>
+
+        <!-- Progress Bar del Quorum -->
+        {initiative.quorum !== undefined && initiative.sostenitori !== undefined && (
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <span class={`text-sm font-semibold ${hasReachedQuorum ? 'text-amber-700' : 'text-gray-700'}`}>
+                Progresso verso il quorum
+              </span>
+              <span class={`text-sm font-bold ${hasReachedQuorum ? 'text-amber-700' : 'text-gray-700'}`}>
+                {quorumPercentage}%
+              </span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-4 sm:h-5 overflow-hidden shadow-inner">
+              <div
+                class={`h-full rounded-full transition-all duration-500 flex items-center justify-end pr-2 ${
+                  hasReachedQuorum
+                    ? 'bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500'
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                }`}
+                style={`width: ${Math.min(quorumPercentage, 100)}%`}
+              >
+                {quorumPercentage >= 15 && (
+                  <span class="text-white text-xs font-bold">
+                    {hasReachedQuorum ? '✓' : ''}
+                  </span>
+                )}
+              </div>
+            </div>
+            {hasReachedQuorum && (
+              <p class="text-xs sm:text-sm text-amber-700 mt-2 font-medium flex items-center gap-1">
+                <SparklesIcon className="w-4 h-4" />
+                Il quorum è stato superato di {formatNumber(initiative.sostenitori - initiative.quorum)} firme!
+              </p>
+            )}
+          </div>
+        )}
 
         <!-- Note about signatures -->
         <p class="text-sm text-gray-500 mt-4">
