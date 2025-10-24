@@ -6,6 +6,7 @@ export interface Initiative {
   dataApertura: string;
   dataChiusura?: string;
   sostenitori?: number;
+  quorum?: number;
   sito?: string;
   idDecCatIniziativa: {
     id: number;
