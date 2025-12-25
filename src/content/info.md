@@ -17,7 +17,7 @@ La democrazia non si esercita solo durante le elezioni. **I referendum e le iniz
 
 ### 🔍 **Esplora le iniziative**
 
-Naviga tra [tutte le iniziative attive](/referendum_iniziative_popolari/?stato=IN%20RACCOLTA%20FIRME), filtra per categoria (ambiente, salute, diritti, economia...) e trova quelle che ti interessano di più.
+Naviga tra [tutte le iniziative attive](/?stato=IN%20RACCOLTA%20FIRME), filtra per categoria (ambiente, salute, diritti, economia...) e trova quelle che ti interessano di più.
 
 ### 📊 **Informazioni complete**
 
@@ -63,4 +63,4 @@ La tua partecipazione può fare la differenza per:
 
 > **"La democrazia è partecipazione"** - questa piattaforma ti aiuta a esercitare i tuoi diritti e a contribuire al futuro del Paese.
 
-**Inizia subito:** [esplora le iniziative](/referendum_iniziative_popolari/?stato=IN%20RACCOLTA%20FIRME), informati, e se ne trovi una che condividi... firmala! 🖊️
+**Inizia subito:** [esplora le iniziative](/?stato=IN%20RACCOLTA%20FIRME), informati, e se ne trovi una che condividi... firmala! 🖊️

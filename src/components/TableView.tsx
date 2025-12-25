@@ -333,33 +333,33 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const getSortIcon = (column: SortColumn) => {
     if (sortColumn !== column) {
       return (
-        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+        <svg className="w-4 h-4 text-civic-neutral opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
         </svg>
       );
     }
 
     return sortDirection === 'asc' ? (
-      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+      <svg className="w-4 h-4 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={3} d="M5 15l7-7 7 7" />
       </svg>
     ) : (
-      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      <svg className="w-4 h-4 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={3} d="M19 9l-7 7-7-7" />
       </svg>
     );
   };
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      {/* Header - Brutalist */}
+      <header className="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <a href={normalizedBaseUrl || '/'} className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+              <a href={normalizedBaseUrl || '/'} className="inline-flex items-center text-white hover:text-civic-terra font-bold uppercase text-sm tracking-wide transition-colors border-b-2 border-transparent hover:border-civic-terra pb-1">
                 <ArrowLeftIcon className="w-5 h-5 mr-2" />
-                Torna alle iniziative
+                Iniziative
               </a>
             </div>
             <HamburgerMenuReact baseUrl={baseUrl} />
@@ -367,26 +367,30 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         </div>
       </header>
 
-      {/* Filtri e ricerca */}
-      <div className="bg-white border-b border-gray-200">
+      {/* Filtri e ricerca - Brutalist */}
+      <div className="bg-civic-stone border-b-3 border-civic-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Sezione Filtri */}
-          <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Filtri</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="bg-white border-3 border-civic-border p-6 mb-4 relative">
+            <div className="absolute top-0 right-0 w-20 h-20 border-r-3 border-t-3 border-civic-terra opacity-20"></div>
+            <h3 className="font-serif text-2xl font-bold text-civic-charcoal mb-6 flex items-center relative z-10">
+              Filtri
+              <div className="ml-4 h-0.5 flex-1 bg-gradient-to-r from-civic-terra to-transparent"></div>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 relative z-10">
               {/* Barra di ricerca */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
                 <input
                   type="text"
-                  placeholder="Cerca iniziative..."
+                  placeholder="Cerca..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-2.5 border-2 border-civic-border bg-white placeholder-civic-neutral text-civic-charcoal focus:outline-none focus:border-civic-terra font-medium transition-colors"
                 />
               </div>
 
@@ -395,7 +399,12 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-3 py-2.5 border-2 border-civic-border bg-white text-civic-charcoal font-medium focus:outline-none focus:border-civic-terra transition-colors appearance-none bg-no-repeat bg-right pr-8"
+                  style={{
+                    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232a2a2a'%3E%3Cpath stroke-linecap='square' stroke-linejoin='miter' stroke-width='3' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
+                    backgroundSize: '1.5rem',
+                    backgroundPosition: 'right 0.5rem center'
+                  }}
                 >
                   <option value="">Tutte le tipologie</option>
                   {availableOptions.types.map(type => (
@@ -411,7 +420,12 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-3 py-2.5 border-2 border-civic-border bg-white text-civic-charcoal font-medium focus:outline-none focus:border-civic-terra transition-colors appearance-none bg-no-repeat bg-right pr-8"
+                  style={{
+                    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232a2a2a'%3E%3Cpath stroke-linecap='square' stroke-linejoin='miter' stroke-width='3' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
+                    backgroundSize: '1.5rem',
+                    backgroundPosition: 'right 0.5rem center'
+                  }}
                 >
                   <option value="">Tutti gli stati</option>
                   {availableOptions.statuses.map(status => (
@@ -427,7 +441,12 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-3 py-2.5 border-2 border-civic-border bg-white text-civic-charcoal font-medium focus:outline-none focus:border-civic-terra transition-colors appearance-none bg-no-repeat bg-right pr-8"
+                  style={{
+                    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232a2a2a'%3E%3Cpath stroke-linecap='square' stroke-linejoin='miter' stroke-width='3' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
+                    backgroundSize: '1.5rem',
+                    backgroundPosition: 'right 0.5rem center'
+                  }}
                 >
                   <option value="">Tutte le categorie</option>
                   {availableOptions.categories.map(category => (
@@ -444,10 +463,10 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                   onClick={clearAllFilters}
                   disabled={!hasActiveFilters}
                   title="Rimuovi filtri"
-                  className={`p-2 rounded-md transition-colors ${
+                  className={`p-2.5 border-2 transition-all ${
                     hasActiveFilters
-                      ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
-                      : 'bg-gray-50 text-gray-400 border border-gray-200 cursor-not-allowed'
+                      ? 'bg-civic-charcoal border-civic-border text-white hover:bg-civic-terra hover:border-civic-terra'
+                      : 'bg-civic-stone border-civic-neutral text-civic-neutral cursor-not-allowed'
                   }`}
                 >
                   <XMarkIcon className="w-5 h-5" />
@@ -458,12 +477,12 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
 
           {/* Contatore risultati */}
           <div className="mb-4">
-            <p className="text-gray-600">
+            <p className="text-civic-charcoal font-bold border-l-3 border-civic-terra pl-4 py-2">
               {filteredAndSortedInitiatives.length === initiatives.length ? (
-                <>Totale: <span className="font-semibold">{initiatives.length}</span> iniziative</>
+                <>Totale: <span className="civic-number text-civic-terra">{initiatives.length}</span> iniziative</>
               ) : (
                 <>
-                  Visualizzazione di <span className="font-semibold">{filteredAndSortedInitiatives.length}</span> su <span className="font-semibold">{initiatives.length}</span> iniziative
+                  Visualizzazione di <span className="civic-number text-civic-terra">{filteredAndSortedInitiatives.length}</span> su <span className="civic-number">{initiatives.length}</span> iniziative
                 </>
               )}
             </p>
@@ -474,21 +493,21 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
       {/* Tabella */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Nota informativa */}
-        <div className="mb-6 p-4 bg-gray-50 border-l-4 border-blue-500 rounded-r-lg">
-          <p className="text-sm text-gray-600">
+        <div className="mb-6 p-4 bg-civic-stone border-l-6 border-civic-terra border-3 border-civic-border">
+          <p className="text-sm text-civic-charcoal">
             <span className="font-bold">Nota bene</span>: le firme visualizzate qui si riferiscono esclusivamente alle quelle raccolte online; il quorum finale si raggiunge sommando queste a quelle tradizionali.
           </p>
         </div>
 
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white border-3 border-civic-border overflow-hidden">
           {filteredAndSortedInitiatives.length > 0 ? (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y-2 divide-civic-border">
+                <thead className="bg-civic-charcoal">
                   <tr>
                     <th
                       onClick={() => handleSort('titolo')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Titolo</span>
@@ -497,7 +516,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                     <th
                       onClick={() => handleSort('tipologia')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Tipologia</span>
@@ -506,7 +525,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                     <th
                       onClick={() => handleSort('categoria')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Categoria</span>
@@ -515,7 +534,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                     <th
                       onClick={() => handleSort('stato')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Stato</span>
@@ -524,7 +543,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                     <th
                       onClick={() => handleSort('sostenitori')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Sostenitori</span>
@@ -533,7 +552,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                     <th
                       onClick={() => handleSort('quorum')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Quorum</span>
@@ -542,7 +561,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                     <th
                       onClick={() => handleSort('dataApertura')}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors"
                     >
                       <div className="flex items-center space-x-1">
                         <span>Data Apertura</span>
@@ -551,45 +570,45 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y-2 divide-civic-border">
                   {filteredAndSortedInitiatives.map((initiative) => (
-                    <tr key={initiative.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
+                    <tr key={initiative.id} className="hover:bg-civic-stone transition-colors">
+                      <td className="px-6 py-4 border-r-2 border-civic-stone">
                         <a
                           href={`${normalizedBaseUrl}/initiative/${initiative.id}`}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
+                          className="text-civic-terra hover:text-civic-terra-dark font-bold border-b-2 border-transparent hover:border-civic-terra transition-all"
                         >
                           {initiative.titolo}
                         </a>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
                         {(() => {
                           if (initiative.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
                           if (initiative.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
                           return 'N/A';
                         })()}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
                         {initiative.idDecCatIniziativa?.nome || 'N/A'}
                       </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-sm ${
+                      <td className="px-6 py-4 border-r-2 border-civic-stone">
+                        <span className={`civic-badge text-xs ${
                           initiative.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME'
-                            ? 'bg-green-100 text-green-800'
+                            ? 'bg-civic-success text-white'
                             : initiative.idDecStatoIniziativa?.nome === 'CHIUSA'
-                            ? 'bg-red-100 text-red-800'
-                            : 'bg-gray-100 text-gray-800'
+                            ? 'bg-civic-neutral text-white'
+                            : 'bg-civic-stone text-civic-charcoal border-civic-neutral'
                         }`}>
                           {initiative.idDecStatoIniziativa?.nome || 'N/A'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 text-right">
+                      <td className="px-6 py-4 text-sm text-civic-charcoal font-bold text-right civic-number border-r-2 border-civic-stone">
                         {formatNumber(initiative.sostenitori)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 text-right">
+                      <td className="px-6 py-4 text-sm text-civic-charcoal font-bold text-right civic-number border-r-2 border-civic-stone">
                         {formatNumber(initiative.quorum)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-civic-charcoal font-medium civic-number">
                         {initiative.dataApertura
                           ? new Date(initiative.dataApertura).toISOString().split('T')[0]
                           : 'N/A'
@@ -601,16 +620,27 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
               </table>
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-lg text-gray-600">
-                Nessuna iniziativa trovata con i filtri applicati.
-              </p>
-              <button
-                onClick={clearAllFilters}
-                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              >
-                Rimuovi filtri
-              </button>
+            <div className="text-center py-16 px-4 bg-civic-stone">
+              <div className="max-w-md mx-auto">
+                <div className="w-20 h-20 mx-auto mb-6 border-3 border-civic-neutral flex items-center justify-center">
+                  <svg className="w-10 h-10 text-civic-neutral" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <p className="font-serif text-xl font-bold text-civic-charcoal mb-6">
+                  Nessuna iniziativa trovata
+                </p>
+                <p className="text-sm text-civic-neutral mb-8">
+                  Prova a modificare i filtri di ricerca per vedere più risultati.
+                </p>
+                <button
+                  onClick={clearAllFilters}
+                  className="px-6 py-3 bg-civic-charcoal border-3 border-civic-border text-white font-bold uppercase text-sm tracking-wide hover:bg-civic-terra hover:border-civic-terra transition-all inline-flex items-center"
+                >
+                  <XMarkIcon className="w-5 h-5 mr-2" />
+                  Rimuovi filtri
+                </button>
+              </div>
             </div>
           )}
         </div>

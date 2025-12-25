@@ -25,63 +25,73 @@ const iconPaths = {
 };
 ---
 
-<footer class="bg-white border-t border-gray-200 mt-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Layout responsivo: 3 colonne su desktop, stack su mobile -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4 items-center">
+<footer class="bg-civic-charcoal border-t-3 border-civic-terra mt-16">
+  <!-- Strong top accent line -->
+  <div class="h-1 bg-gradient-to-r from-civic-border via-civic-terra to-civic-terra-dark"></div>
 
-      <!-- Colonna sinistra: vuota su desktop, nascosta su mobile -->
-      <div class="hidden lg:block"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Layout responsivo: 3 colonne su desktop, stack su mobile -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4 items-start">
+
+      <!-- Colonna sinistra: decorative element -->
+      <div class="hidden lg:block">
+        <div class="w-16 h-16 border-3 border-civic-terra opacity-30"></div>
+      </div>
 
       <!-- Colonna centrale: testo sempre centrato -->
-      <div class="text-center text-gray-600">
-        <p>
+      <div class="text-center text-civic-stone space-y-4">
+        <p class="font-medium">
           Un'idea dell'associazione{' '}
           <a
             href="https://ondata.it/"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-blue-600 hover:text-blue-700"
+            class="text-civic-terra hover:text-white font-bold border-b-2 border-civic-terra hover:border-white transition-colors"
           >
             onData
           </a>
         </p>
 
-        <p class="mt-2">
+        <div class="civic-divider max-w-xs mx-auto"></div>
+
+        <p>
           Fonte dati:{' '}
           <a
             href="https://firmereferendum.giustizia.it"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-blue-600 hover:text-blue-700"
+            class="text-civic-terra hover:text-white font-bold border-b-2 border-civic-terra hover:border-white transition-colors"
           >
             Ministero della Giustizia
           </a>
         </p>
-        <p class="mt-2 text-sm">
-          Ultimo aggiornamento: {lastUpdateDate}
+
+        <p class="text-sm text-civic-neutral font-mono pt-4">
+          Ultimo aggiornamento: <span class="text-civic-stone font-bold">{lastUpdateDate}</span>
         </p>
       </div>
 
-      <!-- Colonna destra: icone a destra su desktop, centrate su mobile -->
-      <div class="flex justify-center lg:justify-end space-x-4">
+      <!-- Colonna destra: icone -->
+      <div class="flex justify-center lg:justify-end space-x-6 items-center">
         <!-- Icona GitHub -->
         <a
           href="https://github.com/ondata/referendum_iniziative_popolari"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+          class="group"
           aria-label="GitHub Repository"
           title="Repository GitHub"
         >
-          <svg
-            class="w-6 h-6"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d={iconPaths.github} />
-          </svg>
+          <div class="w-12 h-12 border-2 border-civic-neutral group-hover:border-civic-terra flex items-center justify-center transition-all group-hover:translate-y-[-2px]">
+            <svg
+              class="w-6 h-6 text-civic-neutral group-hover:text-civic-terra transition-colors"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d={iconPaths.github} />
+            </svg>
+          </div>
         </a>
 
         <!-- Icona Dati -->
@@ -89,13 +99,15 @@ const iconPaths = {
           href="https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/source.jsonl"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-400 hover:text-blue-500 transition-colors duration-200"
+          class="group"
           aria-label="Scarica dati (JSONL)"
           title="Dati"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPaths.download} />
-          </svg>
+          <div class="w-12 h-12 border-2 border-civic-neutral group-hover:border-civic-terra flex items-center justify-center transition-all group-hover:translate-y-[-2px]">
+            <svg class="w-6 h-6 text-civic-neutral group-hover:text-civic-terra transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconPaths.download} />
+            </svg>
+          </div>
         </a>
 
         <!-- Icona RSS -->
@@ -103,13 +115,15 @@ const iconPaths = {
           href={createPath('/rss.xml')}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-400 hover:text-orange-500 transition-colors duration-200"
+          class="group"
           aria-label="Feed RSS"
           title="Feed RSS"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPaths.rss} />
-          </svg>
+          <div class="w-12 h-12 border-2 border-civic-neutral group-hover:border-civic-terra flex items-center justify-center transition-all group-hover:translate-y-[-2px]">
+            <svg class="w-6 h-6 text-civic-neutral group-hover:text-civic-terra transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconPaths.rss} />
+            </svg>
+          </div>
         </a>
       </div>
     </div>

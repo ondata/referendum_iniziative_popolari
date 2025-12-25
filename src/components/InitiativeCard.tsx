@@ -3,7 +3,7 @@ import {
   UserGroupIcon,
   TagIcon,
   ClockIcon,
-  SparklesIcon
+  CheckBadgeIcon
 } from '@heroicons/react/24/outline';
 import type { Initiative } from '../types/initiative';
 import { formatDate, formatNumber } from '../lib/initiatives';
@@ -19,99 +19,122 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
                            initiative.sostenitori !== undefined &&
                            initiative.sostenitori >= initiative.quorum;
 
+  const percentageOfQuorum = initiative.quorum && initiative.sostenitori
+    ? Math.round((initiative.sostenitori / initiative.quorum) * 100)
+    : 0;
+
   return (
     <a
       href={createPath(`/initiative/${initiative.id}/`)}
-      className={`card-shadow rounded-lg p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer border block no-underline relative ${
+      className={`card-shadow p-6 cursor-pointer block no-underline relative group transition-all duration-300 ${
         isChiusa
-          ? 'bg-gray-50 border-gray-300 opacity-75'
+          ? 'bg-civic-stone/50 opacity-60'
           : hasReachedQuorum
-          ? 'bg-gradient-to-br from-amber-50 to-white border-2 border-amber-400 shadow-lg shadow-amber-200/50'
-          : 'bg-white border-gray-200'
+          ? 'bg-civic-terra-light border-civic-terra'
+          : 'bg-white'
       }`}
     >
-      {/* Badge Quorum Raggiunto */}
+      {/* Quorum Badge - Angular brutalist style */}
       {hasReachedQuorum && !isChiusa && (
-        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 animate-pulse">
-          <SparklesIcon className="w-4 h-4" />
-          QUORUM RAGGIUNTO!
+        <div className="absolute -top-2 -right-2 bg-civic-success text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1 border-2 border-civic-border civic-badge z-10">
+          <CheckBadgeIcon className="w-4 h-4" />
+          QUORUM
         </div>
       )}
 
-      {/* Header con categoria e stato */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+      {/* Decorative corner element */}
+      <div className="absolute top-0 left-0 w-12 h-12 border-l-3 border-t-3 border-civic-terra opacity-20"></div>
+
+      {/* Header with category and status - Angular badges */}
+      <div className="flex flex-wrap gap-2 mb-4 relative z-10">
+        <span className="civic-badge bg-civic-charcoal text-white text-[10px]">
           <TagIcon className="w-3 h-3 mr-1" />
-          {initiative.idDecCatIniziativa?.nome || 'Categoria non specificata'}
+          {initiative.idDecCatIniziativa?.nome || 'Non specificata'}
         </span>
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+        <span className={`civic-badge text-[10px] ${
           initiative.idDecStatoIniziativa?.nome?.includes('RACCOLTA')
-            ? 'bg-green-100 text-green-800'
+            ? 'bg-civic-success text-white'
             : isChiusa
-            ? 'bg-gray-200 text-gray-600'
-            : 'bg-gray-100 text-gray-800'
+            ? 'bg-civic-neutral text-white'
+            : 'bg-civic-stone text-civic-charcoal border-civic-neutral'
         }`}>
           <ClockIcon className="w-3 h-3 mr-1" />
-          {initiative.idDecStatoIniziativa?.nome || 'Stato non specificato'}
+          {initiative.idDecStatoIniziativa?.nome || 'Non specificato'}
         </span>
       </div>
 
-      {/* Titolo */}
-      <h3 className={`text-lg font-semibold mb-3 line-clamp-2 ${
-        isChiusa ? 'text-gray-500' : 'text-gray-900'
+      {/* Title - Serif font for editorial feel */}
+      <h3 className={`font-serif text-xl font-bold mb-3 line-clamp-2 leading-tight ${
+        isChiusa ? 'text-civic-neutral' : 'text-civic-charcoal'
       }`} title={initiative.titolo}>
         {initiative.titolo}
       </h3>
 
-      {/* Descrizione breve */}
+      {/* Description */}
       {initiative.descrizioneBreve && (
-        <p className={`text-sm mb-4 line-clamp-3 ${
-          isChiusa ? 'text-gray-500' : 'text-gray-600'
+        <p className={`text-sm mb-5 line-clamp-3 leading-relaxed ${
+          isChiusa ? 'text-civic-neutral' : 'text-civic-neutral'
         }`}>
           {initiative.descrizioneBreve}
         </p>
       )}
 
-      {/* Informazioni aggiuntive */}
-      <div className="space-y-2 text-sm text-gray-500">
-        <div className="flex items-center">
-          <CalendarIcon className="w-4 h-4 mr-2" />
-          <span>Apertura: {formatDate(initiative.dataApertura)}</span>
+      {/* Data Grid - Structured layout */}
+      <div className="space-y-3 text-sm mb-5 border-l-3 border-civic-terra pl-4">
+        <div className="flex items-center text-civic-charcoal">
+          <CalendarIcon className="w-4 h-4 mr-2 text-civic-terra" />
+          <span className="font-medium">Apertura:</span>
+          <span className="ml-2 civic-number">{formatDate(initiative.dataApertura)}</span>
         </div>
 
         {initiative.sostenitori !== undefined && (
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center">
-              <UserGroupIcon className="w-4 h-4 mr-2" />
-              <span>Sostenitori: {formatNumber(initiative.sostenitori)}</span>
+          <div className="space-y-1">
+            <div className="flex items-center text-civic-charcoal">
+              <UserGroupIcon className="w-4 h-4 mr-2 text-civic-terra" />
+              <span className="font-medium">Sostenitori:</span>
+              <span className="ml-2 civic-number font-bold">{formatNumber(initiative.sostenitori)}</span>
             </div>
             {initiative.quorum !== undefined && (
-              <div className="ml-6 text-xs">
-                {hasReachedQuorum ? (
-                  <span className="text-amber-600 font-semibold flex items-center gap-1">
-                    <SparklesIcon className="w-3 h-3" />
-                    {Math.round((initiative.sostenitori / initiative.quorum) * 100)}% del quorum
+              <div className="ml-6">
+                {/* Progress bar */}
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-2 bg-civic-stone border border-civic-border">
+                    <div
+                      className={`h-full transition-all duration-500 ${
+                        hasReachedQuorum ? 'bg-civic-success' : 'bg-civic-terra'
+                      }`}
+                      style={{ width: `${Math.min(percentageOfQuorum, 100)}%` }}
+                    ></div>
+                  </div>
+                  <span className={`text-xs font-bold civic-number min-w-[3rem] text-right ${
+                    hasReachedQuorum ? 'text-civic-success' : 'text-civic-terra-dark'
+                  }`}>
+                    {percentageOfQuorum}%
                   </span>
-                ) : (
-                  <span className="text-gray-500">
-                    {Math.round((initiative.sostenitori / initiative.quorum) * 100)}% di {formatNumber(initiative.quorum)}
-                  </span>
-                )}
+                </div>
+                <div className="text-xs text-civic-neutral mt-1">
+                  Quorum: <span className="civic-number">{formatNumber(initiative.quorum)}</span>
+                </div>
               </div>
             )}
           </div>
         )}
       </div>
 
-      {/* Footer */}
-      <div className="mt-4 pt-4 border-t border-gray-100">
-        <span className={`text-sm font-medium ${
+      {/* Footer - Strong CTA */}
+      <div className="pt-4 border-t-3 border-civic-border flex items-center justify-between">
+        <span className={`text-sm font-bold uppercase tracking-wide transition-colors ${
           isChiusa
-            ? 'text-gray-500 hover:text-gray-600'
-            : 'text-blue-600 hover:text-blue-700'
+            ? 'text-civic-neutral'
+            : 'text-civic-terra group-hover:text-civic-terra-dark'
         }`}>
-          Visualizza dettagli →
+          Dettagli
         </span>
+        <div className={`w-8 h-8 border-2 flex items-center justify-center transition-transform group-hover:translate-x-1 ${
+          isChiusa ? 'border-civic-neutral' : 'border-civic-terra'
+        }`}>
+          <span className={isChiusa ? 'text-civic-neutral' : 'text-civic-terra'}>→</span>
+        </div>
       </div>
     </a>
   );

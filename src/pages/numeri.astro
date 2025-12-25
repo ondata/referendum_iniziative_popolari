@@ -116,17 +116,17 @@ const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Numeri - Iniziative Referendum" description="Statistiche e numeri delle iniziative referendarie" ogImage="og-numeri.png">
-  <div class="min-h-screen bg-gray-50">
-    <!-- Header con pulsante torna alle iniziative e menu hamburger -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+  <div class="min-h-screen bg-civic-stone">
+    <!-- Header - Brutalist -->
+    <header class="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
-            <a href={createPath('/')} class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+            <a href={createPath('/')} class="inline-flex items-center text-white hover:text-civic-terra font-bold uppercase text-sm tracking-wide transition-colors border-b-2 border-transparent hover:border-civic-terra pb-1">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18" />
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M10 19l-7-7m0 0l7-7m0 7h18" />
               </svg>
-              Torna alle iniziative
+              Iniziative
             </a>
           </div>
           <HamburgerMenuNative baseUrl={baseUrl} />
@@ -134,39 +134,44 @@ const baseUrl = import.meta.env.BASE_URL;
       </div>
     </header>
 
-    <!-- Title Section -->
-    <div class="bg-white border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Title Section - Brutalist -->
+    <div class="bg-civic-charcoal border-b-3 border-civic-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="text-center">
-          <h1 id="numeri" class="text-3xl font-bold text-gray-900 sm:text-4xl scroll-mt-20">
-            <a href="#numeri" class="group hover:text-blue-600 transition-colors duration-200">
+          <h1 id="numeri" class="font-serif text-4xl sm:text-5xl font-bold text-white mb-3 scroll-mt-20">
+            <a href="#numeri" class="group hover:text-civic-terra transition-colors duration-200">
               Numeri
               <svg class="w-6 h-6 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
               </svg>
             </a>
           </h1>
-          <p class="mt-2 text-lg text-gray-600">
+          <div class="w-24 h-0.5 mx-auto bg-gradient-to-r from-transparent via-civic-terra to-transparent mb-4"></div>
+          <p class="text-lg text-civic-stone font-medium">
             Un po' di numeri di riepilogo sulle iniziative
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Main content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="bg-white rounded-lg shadow-sm p-6">
-        <h2 id="iniziative-per-categoria" class="text-2xl font-semibold text-gray-900 mb-6 scroll-mt-20">
-          <a href="#iniziative-per-categoria" class="group flex items-center hover:text-blue-600 transition-colors duration-200">
+    <!-- Main content - Brutalist -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-white border-3 border-civic-border p-8 card-shadow relative mb-8">
+        <!-- Decorative corner -->
+        <div class="absolute top-0 right-0 w-24 h-24 border-r-3 border-t-3 border-civic-terra opacity-20"></div>
+
+        <h2 id="iniziative-per-categoria" class="font-serif text-3xl font-bold text-civic-charcoal mb-6 scroll-mt-20 flex items-center relative z-10">
+          <a href="#iniziative-per-categoria" class="group flex items-center hover:text-civic-terra transition-colors duration-200">
             Numero di iniziative per categoria
-            <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            <svg class="w-5 h-5 ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
             </svg>
           </a>
+          <div class="ml-6 h-0.5 flex-1 bg-gradient-to-r from-civic-terra to-transparent"></div>
         </h2>
 
-        <!-- Istogramma orizzontale -->
-        <div class="space-y-4">
+        <!-- Istogramma orizzontale - Brutalist -->
+        <div class="space-y-5 relative z-10">
           {sortedCategories.map(({ nome, count }) => {
             const percentage = (count / maxCount) * 100;
             const categoryUrl = `${createPath('/')}?categoria=${encodeURIComponent(nome)}`;
@@ -176,30 +181,30 @@ const baseUrl = import.meta.env.BASE_URL;
                 <div class="flex justify-between items-center mb-2">
                   <a
                     href={categoryUrl}
-                    class="text-sm font-medium text-blue-600 hover:text-blue-800 capitalize transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                    class="text-sm font-bold text-civic-terra hover:text-civic-terra-dark capitalize transition-colors border-b-2 border-transparent hover:border-civic-terra"
                     title={`Visualizza tutte le iniziative della categoria: ${nome}`}
                   >
                     {nome.toLowerCase()}
                   </a>
-                  <span class="text-sm font-bold text-gray-900">
+                  <span class="civic-number text-sm font-bold text-civic-charcoal">
                     {count}
                   </span>
                 </div>
 
-                <!-- Barra dell'istogramma -->
-                <div class="w-full bg-gray-200 rounded-full h-8 relative overflow-hidden">
+                <!-- Barra dell'istogramma - Angular -->
+                <div class="w-full bg-civic-stone border-2 border-civic-border h-10 relative overflow-hidden">
                   <div
-                    class="bg-gradient-to-r from-blue-500 to-blue-600 h-8 rounded-full flex items-center justify-end pr-3 transition-all duration-700 ease-out"
+                    class="bg-civic-terra h-full flex items-center justify-end pr-3 transition-all duration-700 ease-out border-r-3 border-civic-terra-dark"
                     style={`width: ${percentage}%`}
                   >
-                    <span class="text-white text-xs font-medium">
+                    <span class="text-white text-xs font-bold civic-number">
                       {count > 0 && percentage > 15 ? count : ''}
                     </span>
                   </div>
 
                   <!-- Numero fuori dalla barra se è troppo piccola -->
                   {percentage <= 15 && (
-                    <span class="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs font-medium text-gray-700">
+                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs font-bold civic-number text-civic-charcoal">
                       {count}
                     </span>
                   )}
@@ -209,90 +214,94 @@ const baseUrl = import.meta.env.BASE_URL;
           })}
         </div>
 
-        <!-- Statistiche aggiuntive -->
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-blue-50 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-blue-600">
+        <!-- Statistiche aggiuntive - Brutalist Grid -->
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+          <div class="bg-civic-stone border-3 border-civic-border p-6 text-center hover:border-civic-terra transition-colors">
+            <div class="text-3xl font-bold text-civic-terra civic-number mb-2">
               {initiatives.length}
             </div>
-            <div class="text-sm text-blue-800">
+            <div class="text-xs uppercase tracking-wide text-civic-charcoal font-bold">
               Totale iniziative
             </div>
           </div>
 
-          <div class="bg-green-50 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-green-600">
+          <div class="bg-civic-stone border-3 border-civic-border p-6 text-center hover:border-civic-success transition-colors">
+            <div class="text-3xl font-bold text-civic-success civic-number mb-2">
               {activeInitiatives}
             </div>
-            <div class="text-sm text-green-800">
+            <div class="text-xs uppercase tracking-wide text-civic-charcoal font-bold">
               Iniziative attive
             </div>
           </div>
 
-          <div class="bg-orange-50 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-orange-600">
+          <div class="bg-civic-stone border-3 border-civic-border p-6 text-center hover:border-civic-terra-dark transition-colors">
+            <div class="text-3xl font-bold text-civic-terra-dark civic-number mb-2">
               {sortedCategories.length}
             </div>
-            <div class="text-sm text-orange-800">
+            <div class="text-xs uppercase tracking-wide text-civic-charcoal font-bold">
               Categorie attive
             </div>
           </div>
 
-          <div class="bg-purple-50 rounded-lg p-4 text-center">
-            <div class="text-2xl font-bold text-purple-600">
+          <div class="bg-civic-stone border-3 border-civic-border p-6 text-center hover:border-civic-charcoal transition-colors">
+            <div class="text-3xl font-bold text-civic-charcoal civic-number mb-2">
               {initiatives.reduce((sum, init) => sum + (init.sostenitori || 0), 0).toLocaleString('it-IT')}
             </div>
-            <div class="text-sm text-purple-800">
+            <div class="text-xs uppercase tracking-wide text-civic-charcoal font-bold">
               Totale firme
             </div>
           </div>
         </div>
 
-        <!-- Note -->
-        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-          <p class="text-sm text-gray-600">
-            <strong>Nota:</strong> I dati sono ordinati per numero decrescente di iniziative per categoria.
+        <!-- Note - Brutalist -->
+        <div class="mt-8 p-6 bg-civic-stone border-l-6 border-civic-terra border-3 border-civic-border relative z-10">
+          <p class="text-sm text-civic-charcoal leading-relaxed">
+            <strong class="font-bold">Nota:</strong> I dati sono ordinati per numero decrescente di iniziative per categoria.
             L'istogramma mostra la distribuzione delle {initiatives.length} iniziative totali presenti nella piattaforma.
           </p>
-          <p class="text-sm text-gray-600 mt-2">
-            <strong>Tip:</strong> Clicca sul nome di una categoria per visualizzare tutte le iniziative di quella categoria.
+          <p class="text-sm text-civic-charcoal mt-3 leading-relaxed">
+            <strong class="font-bold">Tip:</strong> Clicca sul nome di una categoria per visualizzare tutte le iniziative di quella categoria.
             Puoi anche cliccare sui titoli delle sezioni per ottenere un link diretto a quella sezione.
           </p>
-          <p class="text-sm text-gray-600 mt-2">
-            <strong>Dati:</strong> <a href="https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/source.jsonl" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">dati</a>
+          <p class="text-sm text-civic-charcoal mt-3 leading-relaxed">
+            <strong class="font-bold">Dati:</strong> <a href="https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/source.jsonl" target="_blank" rel="noopener noreferrer" class="text-civic-terra font-bold border-b-2 border-transparent hover:border-civic-terra transition-all">dati</a>
           </p>
         </div>
       </div>
 
-      <!-- Grafico Lollipop Top 10 Media Sostenitori -->
+      <!-- Grafico Lollipop Top 10 Media Sostenitori - Brutalist -->
       {top10ByMedia.length > 0 && (
-        <div class="bg-white rounded-lg shadow-sm p-6 mt-8">
-          <h2 id="top-media-sostenitori" class="text-2xl font-semibold text-gray-900 mb-6 scroll-mt-20">
-            <a href="#top-media-sostenitori" class="group flex items-center hover:text-blue-600 transition-colors duration-200">
+        <div class="bg-white border-3 border-civic-border p-8 card-shadow relative">
+          <!-- Decorative corner -->
+          <div class="absolute top-0 left-0 w-24 h-24 border-l-3 border-t-3 border-civic-terra opacity-20"></div>
+
+          <h2 id="top-media-sostenitori" class="font-serif text-3xl font-bold text-civic-charcoal mb-8 scroll-mt-20 flex items-center relative z-10">
+            <a href="#top-media-sostenitori" class="group flex items-center hover:text-civic-terra transition-colors duration-200">
               Top 10 - Media sostenitori giornalieri
-              <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              <svg class="w-5 h-5 ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
               </svg>
             </a>
+            <div class="ml-6 h-0.5 flex-1 bg-gradient-to-r from-civic-terra to-transparent"></div>
           </h2>
 
           <!-- Grafico Lollipop orizzontale (desktop) / Tabella (mobile) -->
 
-          <!-- Versione mobile: Tabella semplice -->
-          <div class="md:hidden">
-            <div class="overflow-hidden bg-white shadow ring-1 ring-black ring-opacity-5 rounded-lg">
-              <table class="min-w-full divide-y divide-gray-300">
-                <thead class="bg-gray-50">
+          <!-- Versione mobile: Tabella semplice - Brutalist -->
+          <div class="md:hidden relative z-10">
+            <div class="overflow-hidden bg-white border-3 border-civic-border">
+              <table class="min-w-full divide-y-2 divide-civic-border">
+                <thead class="bg-civic-charcoal">
                   <tr>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
                       Iniziativa
                     </th>
-                    <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-4 py-3 text-right text-xs font-bold text-white uppercase tracking-wider">
                       Media/giorno
                     </th>
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y-2 divide-civic-stone">
                   {top10ByMedia.map((initiative, index) => {
                     const initiativeUrl = createPath(`/initiative/${initiative.id}`);
                     const truncatedTitle = initiative.titolo.length > 40
@@ -300,18 +309,18 @@ const baseUrl = import.meta.env.BASE_URL;
                       : initiative.titolo;
 
                     return (
-                      <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3">
+                      <tr class="hover:bg-civic-stone transition-colors">
+                        <td class="px-4 py-4">
                           <a
                             href={initiativeUrl}
-                            class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+                            class="text-sm text-civic-terra hover:text-civic-terra-dark font-bold transition-colors border-b-2 border-transparent hover:border-civic-terra"
                             title={initiative.titolo}
                           >
                             {truncatedTitle}
                           </a>
                         </td>
-                        <td class="px-4 py-3 text-right">
-                          <span class="text-sm font-semibold text-gray-900">
+                        <td class="px-4 py-4 text-right">
+                          <span class="text-sm font-bold text-civic-charcoal civic-number">
                             {initiative.sostenitori_delta_mean}
                           </span>
                         </td>
@@ -323,8 +332,8 @@ const baseUrl = import.meta.env.BASE_URL;
             </div>
           </div>
 
-          <!-- Versione desktop: Grafico Lollipop -->
-          <div class="hidden md:block space-y-6">
+          <!-- Versione desktop: Grafico Lollipop - Brutalist -->
+          <div class="hidden md:block space-y-8 relative z-10">
             {top10ByMedia.map((initiative, index) => {
               const percentage = (initiative.sostenitori_delta_mean / maxMediaValue) * 100;
               const initiativeUrl = createPath(`/initiative/${initiative.id}`);
@@ -335,44 +344,44 @@ const baseUrl = import.meta.env.BASE_URL;
               return (
                 <div class="relative flex items-center">
                   <!-- Titolo troncato su desktop -->
-                  <div class="w-80 flex-shrink-0">
+                  <div class="w-96 flex-shrink-0 pr-6">
                     <a
                       href={initiativeUrl}
-                      class="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer hover:underline"
+                      class="text-sm font-bold text-civic-terra hover:text-civic-terra-dark transition-colors border-b-2 border-transparent hover:border-civic-terra"
                       title={initiative.titolo}
                       data-tooltip={initiative.titolo}
                     >
                       {truncatedTitle}
                     </a>
-                    <div class={`text-xs mt-1 ${initiative.acceleration > 0 ? 'text-green-600' : initiative.acceleration < 0 ? 'text-red-600' : 'text-gray-500'}`}>
+                    <div class={`text-xs mt-2 font-bold ${initiative.acceleration > 0 ? 'text-civic-success' : initiative.acceleration < 0 ? 'text-civic-terra-dark' : 'text-civic-neutral'}`}>
                       Tendenza:
-                      <span class="font-semibold">
-                        {initiative.acceleration > 0 ? '▲' : initiative.acceleration < 0 ? '▼' : ''}
+                      <span class="font-bold civic-number">
+                        {initiative.acceleration > 0 ? ' ▲' : initiative.acceleration < 0 ? ' ▼' : ''}
                         {initiative.acceleration > 0 ? ` +${initiative.acceleration}%` : initiative.acceleration < 0 ? ` ${initiative.acceleration}%`: ' Stabile'}
                       </span>
                     </div>
                   </div>
 
-                  <!-- Linea e pallino del lollipop -->
+                  <!-- Linea e pallino del lollipop - Brutalist -->
                   <div class="flex-1 relative">
                     <!-- Linea di base -->
-                    <div class="w-full h-0.5 bg-gray-200 relative">
+                    <div class="w-full h-1 bg-civic-stone border-2 border-civic-border relative">
                       <!-- Linea colorata -->
                       <div
-                        class="h-0.5 bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all duration-1000 ease-out"
+                        class="h-full bg-civic-success transition-all duration-1000 ease-out border-r-3 border-civic-charcoal"
                         style={`width: ${percentage}%`}
                       ></div>
 
-                      <!-- Pallino del lollipop -->
+                      <!-- Box angolare invece del pallino -->
                       <div
-                        class="absolute top-1/2 transform -translate-y-1/2 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md transition-all duration-1000 ease-out"
+                        class="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-civic-success border-3 border-civic-charcoal transition-all duration-1000 ease-out"
                         style={`left: ${percentage}%`}
                       ></div>
                     </div>
 
                     <!-- Valore numerico -->
                     <div
-                      class="absolute top-2 text-sm font-medium text-gray-700 transition-all duration-1000 ease-out"
+                      class="absolute -top-7 text-sm font-bold text-civic-charcoal civic-number transition-all duration-1000 ease-out transform -translate-x-1/2"
                       style={`left: ${percentage}%`}
                     >
                       {initiative.sostenitori_delta_mean}
@@ -383,19 +392,19 @@ const baseUrl = import.meta.env.BASE_URL;
             })}
           </div>
 
-          <!-- Legenda e note -->
-          <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p class="text-sm text-gray-600">
-              <strong>Nota:</strong> Mostra le 10 iniziative <strong>attive</strong> (in raccolta firme) con la più alta media di sostenitori acquisiti per giorno. <br />
+          <!-- Legenda e note - Brutalist -->
+          <div class="mt-8 p-6 bg-civic-stone border-l-6 border-civic-success border-3 border-civic-border relative z-10">
+            <p class="text-sm text-civic-charcoal leading-relaxed">
+              <strong class="font-bold">Nota:</strong> Mostra le 10 iniziative <strong>attive</strong> (in raccolta firme) con la più alta media di sostenitori acquisiti per giorno. <br />
               Sia la <strong>media dei sostenitori giornalieri</strong> che la <strong>tendenza</strong> sono calcolate <u>escludendo il giorno corrente</u>, perché il dato di oggi sarebbe un campione incompleto. La <strong>tendenza</strong> calcola l'accelerazione della raccolta confrontando la crescita di firme di ieri con quella dell'altro ieri. L'<strong>aggiornamento</strong> dei dati avviene ogni <strong>24 ore</strong>.
             </p>
-            <p class="text-sm text-gray-600 mt-2">
-              <strong>Tip:</strong> Clicca sulla voce per accedere alla pagina di dettaglio dell'iniziativa.
+            <p class="text-sm text-civic-charcoal mt-3 leading-relaxed">
+              <strong class="font-bold">Tip:</strong> Clicca sulla voce per accedere alla pagina di dettaglio dell'iniziativa.
               Su desktop viene mostrato un grafico lollipop, su mobile una tabella compatta.
               Clicca sul titolo della sezione per ottenere un link diretto a questo grafico.
             </p>
-            <p class="text-sm text-gray-600 mt-2">
-              <strong>Dati:</strong> <a href="https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/time_line.jsonl" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">dati</a>
+            <p class="text-sm text-civic-charcoal mt-3 leading-relaxed">
+              <strong class="font-bold">Dati:</strong> <a href="https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/time_line.jsonl" target="_blank" rel="noopener noreferrer" class="text-civic-terra font-bold border-b-2 border-transparent hover:border-civic-terra transition-all">dati</a>
             </p>
           </div>
         </div>
