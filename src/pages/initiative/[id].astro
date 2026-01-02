@@ -163,11 +163,7 @@ const currentUrl = (() => {
               : 'bg-civic-terra text-white'
           }`}>
             <TagIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-            {initiative.idDecTipoIniziativa?.id === 4
-              ? 'Legge di iniziativa popolare'
-              : initiative.idDecTipoIniziativa?.id === 1
-              ? 'Referendum abrogativo'
-              : 'Tipologia non specificata'}
+            {initiative.idDecTipoIniziativa?.nome || 'Tipologia non specificata'}
           </span>
         </div>
 

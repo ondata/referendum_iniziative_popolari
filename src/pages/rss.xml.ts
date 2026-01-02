@@ -12,6 +12,7 @@ interface Initiative {
   descrizione?: string;
   'idDecCatIniziativa.nome'?: string;
   'idDecTipoIniziativa.id'?: number;
+  'idDecTipoIniziativa.nome'?: string;
 }
 
 export async function GET(context: APIContext) {
@@ -42,11 +43,7 @@ export async function GET(context: APIContext) {
         const officialUrl = `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
 
         // Determina il tipo di iniziativa
-        const tipoIniziativa = initiative['idDecTipoIniziativa.id'] === 4
-          ? 'Legge di iniziativa popolare'
-          : initiative['idDecTipoIniziativa.id'] === 1
-          ? 'Referendum abrogativo'
-          : 'Iniziativa popolare';
+        const tipoIniziativa = initiative['idDecTipoIniziativa.nome'] || 'Iniziativa popolare';
 
         const categoria = initiative['idDecCatIniziativa.nome'] || 'Generale';
 

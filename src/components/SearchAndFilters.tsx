@@ -133,15 +133,9 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     // Per categories: applica solo filtri tipo e stato
     let categoriesBase = [...baseInitiatives];
     if (selectedType) {
-      categoriesBase = categoriesBase.filter(initiative => {
-        if (selectedType === 'Legge di iniziativa popolare') {
-          return initiative.idDecTipoIniziativa?.id === 4;
-        }
-        if (selectedType === 'Referendum abrogativo') {
-          return initiative.idDecTipoIniziativa?.id === 1;
-        }
-        return false;
-      });
+      categoriesBase = categoriesBase.filter(initiative =>
+        initiative.idDecTipoIniziativa?.nome === selectedType
+      );
     }
     if (selectedStatus) {
       categoriesBase = categoriesBase.filter(initiative =>
@@ -152,15 +146,9 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     // Per statuses: applica solo filtri tipo e categoria
     let statusesBase = [...baseInitiatives];
     if (selectedType) {
-      statusesBase = statusesBase.filter(initiative => {
-        if (selectedType === 'Legge di iniziativa popolare') {
-          return initiative.idDecTipoIniziativa?.id === 4;
-        }
-        if (selectedType === 'Referendum abrogativo') {
-          return initiative.idDecTipoIniziativa?.id === 1;
-        }
-        return false;
-      });
+      statusesBase = statusesBase.filter(initiative =>
+        initiative.idDecTipoIniziativa?.nome === selectedType
+      );
     }
     if (selectedCategory) {
       statusesBase = statusesBase.filter(initiative =>
@@ -201,15 +189,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     const statusCounts = countBy(statusesBase, i => i.idDecStatoIniziativa?.nome);
     const statuses = Array.from(statusCounts.keys()).sort();
 
-    // Tipologie
-    const typeCounts = countBy(
-      typesBase,
-      i => {
-        if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-        if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-        return null;
-      }
-    );
+    // Tipologie - usa il nome effettivo anziché hardcodare gli ID
+    const typeCounts = countBy(typesBase, i => i.idDecTipoIniziativa?.nome);
     const types = Array.from(typeCounts.keys()).sort();
 
     return {
@@ -251,15 +232,9 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
 
     // Filtro per tipologia
     if (selectedType) {
-      filtered = filtered.filter(initiative => {
-        if (selectedType === 'Legge di iniziativa popolare') {
-          return initiative.idDecTipoIniziativa?.id === 4;
-        }
-        if (selectedType === 'Referendum abrogativo') {
-          return initiative.idDecTipoIniziativa?.id === 1;
-        }
-        return false;
-      });
+      filtered = filtered.filter(initiative =>
+        initiative.idDecTipoIniziativa?.nome === selectedType
+      );
     }
 
     // Ordinamento

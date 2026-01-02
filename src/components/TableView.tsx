@@ -153,15 +153,9 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     // Per categories: applica solo filtri tipo e stato
     let categoriesBase = [...baseInitiatives];
     if (typeFilter) {
-      categoriesBase = categoriesBase.filter(initiative => {
-        if (typeFilter === 'Legge di iniziativa popolare') {
-          return initiative.idDecTipoIniziativa?.id === 4;
-        }
-        if (typeFilter === 'Referendum abrogativo') {
-          return initiative.idDecTipoIniziativa?.id === 1;
-        }
-        return false;
-      });
+      categoriesBase = categoriesBase.filter(initiative =>
+        initiative.idDecTipoIniziativa?.nome === typeFilter
+      );
     }
     if (statusFilter) {
       categoriesBase = categoriesBase.filter(initiative =>
@@ -172,15 +166,9 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     // Per statuses: applica solo filtri tipo e categoria
     let statusesBase = [...baseInitiatives];
     if (typeFilter) {
-      statusesBase = statusesBase.filter(initiative => {
-        if (typeFilter === 'Legge di iniziativa popolare') {
-          return initiative.idDecTipoIniziativa?.id === 4;
-        }
-        if (typeFilter === 'Referendum abrogativo') {
-          return initiative.idDecTipoIniziativa?.id === 1;
-        }
-        return false;
-      });
+      statusesBase = statusesBase.filter(initiative =>
+        initiative.idDecTipoIniziativa?.nome === typeFilter
+      );
     }
     if (categoryFilter) {
       statusesBase = statusesBase.filter(initiative =>
@@ -209,16 +197,8 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         new Set(statusesBase.map(i => i.idDecStatoIniziativa?.nome).filter(Boolean))
       ).sort(),
       types: Array.from(
-        new Set(
-          typesBase
-            .map(i => {
-              if (i.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-              if (i.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-              return null;
-            })
-            .filter((type) => type !== null)
-        )
-      ).sort() as string[]
+        new Set(typesBase.map(i => i.idDecTipoIniziativa?.nome).filter(Boolean))
+      ).sort()
     };
   }, [initiatives, searchTerm, categoryFilter, statusFilter, typeFilter]);
 
@@ -238,8 +218,9 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const types = useMemo(() => {
     const typeSet = new Set<string>();
     initiatives.forEach(i => {
-      if (i.idDecTipoIniziativa?.id === 4) typeSet.add('Legge di iniziativa popolare');
-      if (i.idDecTipoIniziativa?.id === 1) typeSet.add('Referendum abrogativo');
+      if (i.idDecTipoIniziativa?.nome) {
+        typeSet.add(i.idDecTipoIniziativa.nome);
+      }
     });
     return Array.from(typeSet).sort();
   }, [initiatives]);
@@ -258,8 +239,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         initiative.idDecStatoIniziativa?.nome === statusFilter;
 
       const matchesType = !typeFilter ||
-        (typeFilter === 'Legge di iniziativa popolare' && initiative.idDecTipoIniziativa?.id === 4) ||
-        (typeFilter === 'Referendum abrogativo' && initiative.idDecTipoIniziativa?.id === 1);
+        initiative.idDecTipoIniziativa?.nome === typeFilter;
 
       return matchesSearch && matchesCategory && matchesStatus && matchesType;
     });
@@ -274,16 +254,8 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
           bValue = normalizeForSorting(b.titolo || '');
           break;
         case 'tipologia':
-          aValue = (() => {
-            if (a.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-            if (a.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-            return '';
-          })();
-          bValue = (() => {
-            if (b.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-            if (b.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-            return '';
-          })();
+          aValue = a.idDecTipoIniziativa?.nome || '';
+          bValue = b.idDecTipoIniziativa?.nome || '';
           break;
         case 'categoria':
           aValue = a.idDecCatIniziativa?.nome || '';
@@ -582,11 +554,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                         </a>
                       </td>
                       <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
-                        {(() => {
-                          if (initiative.idDecTipoIniziativa?.id === 4) return 'Legge di iniziativa popolare';
-                          if (initiative.idDecTipoIniziativa?.id === 1) return 'Referendum abrogativo';
-                          return 'N/A';
-                        })()}
+                        {initiative.idDecTipoIniziativa?.nome || 'N/A'}
                       </td>
                       <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
                         {initiative.idDecCatIniziativa?.nome || 'N/A'}
