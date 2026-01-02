@@ -90,6 +90,7 @@ jobs:
           else
             echo "📝 Committing updated data files"
             git commit -m "chore: update data files with latest API data [skip ci]"
+            git pull --rebase
             git push
           fi
 
@@ -138,6 +139,7 @@ jobs:
           else
             echo "DEBUG: Changes detected, committing deploy_log.jsonl"
             git commit -m "chore: update deploy log for 21:30 UTC cron [skip ci]"
+            git pull --rebase
             git push
             echo "DEBUG: deploy_log.jsonl committed and pushed."
           fi
