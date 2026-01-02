@@ -81,8 +81,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Sincronizza con il branch remoto prima di commitare
-          git pull --rebase
+          # Sincronizza con il branch remoto (stash automaticamente i cambiamenti locali)
+          git pull --rebase --autostash
 
           # Aggiungi i file se sono cambiati
           git add data/source.json data/source.jsonl data/time_line.jsonl data/media_sostenitori_giornaliera.jsonl data/check_date.txt
@@ -136,8 +136,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Sincronizza con il branch remoto prima di commitare
-          git pull --rebase
+          # Sincronizza con il branch remoto (stash automaticamente i cambiamenti locali)
+          git pull --rebase --autostash
 
           git add data/deploy_log.jsonl
           if git diff --staged --quiet; then
