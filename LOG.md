@@ -1,5 +1,14 @@
 # Log delle modifiche
 
+## 2026-01-02
+
+- **Risolto bug: tipologie iniziative non visualizzate correttamente**. Il codice era hardcodato per mostrare solo 2 tipologie (ID 1 e 4), escludendo altre come "Referendum costituzionale" (ID 2).
+- Cambiato da logica hardcodata a utilizzo del campo `idDecTipoIniziativa.nome` in tutte le componenti:
+  - Pagine dettaglio iniziative
+  - Filtri di ricerca e tabella iniziative
+  - Feed RSS
+- Ora tutte le tipologie presenti nei dati vengono visualizzate correttamente e sono filtrabili.
+
 ## 2025-08-17
 
 - Migliorata la leggibilità delle etichette dell'asse X nel grafico "Timeline sostenitori" su mobile:
