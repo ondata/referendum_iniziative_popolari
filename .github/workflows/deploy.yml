@@ -81,6 +81,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
+          # Sincronizza con il branch remoto prima di commitare
+          git pull --rebase
+
           # Aggiungi i file se sono cambiati
           git add data/source.json data/source.jsonl data/time_line.jsonl data/media_sostenitori_giornaliera.jsonl data/check_date.txt
 
@@ -90,7 +93,6 @@ jobs:
           else
             echo "📝 Committing updated data files"
             git commit -m "chore: update data files with latest API data [skip ci]"
-            git pull --rebase
             git push
           fi
 
@@ -133,13 +135,16 @@ jobs:
           echo "DEBUG: Entering 'Commit and push deploy log' step for cron 21:30 UTC"
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+          # Sincronizza con il branch remoto prima di commitare
+          git pull --rebase
+
           git add data/deploy_log.jsonl
           if git diff --staged --quiet; then
             echo "📝 Nessun cambiamento nel file di log"
           else
             echo "DEBUG: Changes detected, committing deploy_log.jsonl"
             git commit -m "chore: update deploy log for 21:30 UTC cron [skip ci]"
-            git pull --rebase
             git push
             echo "DEBUG: deploy_log.jsonl committed and pushed."
           fi
