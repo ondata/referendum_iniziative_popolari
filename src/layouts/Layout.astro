@@ -40,7 +40,11 @@ const ogImageUrl = (() => {
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="author" content="onData" />
+    <link rel="canonical" href={Astro.url} />
+
     <!-- Favicon - comprehensive implementation for maximum compatibility -->
     <!-- Traditional favicon for root fallback -->
     <link rel="icon" href={(() => {
@@ -120,6 +124,9 @@ const ogImageUrl = (() => {
     <meta name="twitter:image:alt" content={title} />
   </head>
   <body class="min-h-screen bg-civic-stone civic-texture">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-civic-charcoal text-white px-4 py-2 rounded-md z-50 font-bold">
+      Vai al contenuto principale
+    </a>
     <slot />
   </body>
 </html>

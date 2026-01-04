@@ -13,7 +13,7 @@ const description = "Scopri come funziona questo sito e perché è importante pa
 <Layout title={title} description={description}>
   <div class="min-h-screen bg-civic-stone">
     <!-- Navigation - Brutalist -->
-    <nav class="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-10">
+    <nav role="navigation" aria-label="Navigazione principale" class="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <a href={import.meta.env.BASE_URL} class="inline-flex items-center text-white hover:text-civic-terra font-bold uppercase text-sm tracking-wide transition-colors border-b-2 border-transparent hover:border-civic-terra pb-1">
@@ -30,7 +30,7 @@ const description = "Scopri come funziona questo sito e perché è importante pa
     </nav>
 
     <!-- Main Content - Brutalist -->
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main id="main-content" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="bg-white border-3 border-civic-border p-8 sm:p-12 card-shadow relative">
         <!-- Decorative corner -->
         <div class="absolute top-0 left-0 w-20 h-20 border-l-3 border-t-3 border-civic-terra opacity-20"></div>
@@ -68,6 +68,6 @@ const description = "Scopri come funziona questo sito e perché è importante pa
     </main>
 
     <!-- Footer -->
-    <Footer />
+    <Footer role="contentinfo" />
   </div>
 </Layout>

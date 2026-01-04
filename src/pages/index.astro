@@ -13,7 +13,7 @@ const initiatives = await fetchInitiatives();
 <Layout title={homeContent.title}>
   <div class="min-h-screen">
     <!-- Brutalist Header -->
-    <header class="relative bg-civic-charcoal border-b-3 border-civic-border overflow-hidden">
+    <header role="banner" class="relative bg-civic-charcoal border-b-3 border-civic-border overflow-hidden">
       <!-- Geometric background element -->
       <div class="absolute top-0 right-0 w-96 h-96 opacity-10">
         <div class="absolute top-8 right-8 w-32 h-32 border-8 border-civic-terra transform rotate-12"></div>
@@ -22,9 +22,9 @@ const initiatives = await fetchInitiatives();
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <!-- Navigation -->
-        <div class="flex justify-end items-center mb-8">
+        <nav role="navigation" aria-label="Navigazione principale" class="flex justify-end items-center mb-8">
           <HamburgerMenuNative baseUrl={import.meta.env.BASE_URL} />
-        </div>
+        </nav>
 
         <!-- Title Section - Editorial Style -->
         <div class="max-w-4xl">
@@ -46,10 +46,12 @@ const initiatives = await fetchInitiatives();
       <div class="h-1 bg-gradient-to-r from-civic-terra via-civic-terra-dark to-civic-border"></div>
     </header>
 
-    <!-- HomePage content -->
-    <HomePage initiatives={initiatives} baseUrl={import.meta.env.BASE_URL} hideHeader={true} client:load />
+    <!-- Main content -->
+    <main id="main-content" role="main">
+      <HomePage initiatives={initiatives} baseUrl={import.meta.env.BASE_URL} hideHeader={true} client:load />
+    </main>
 
     <!-- Footer -->
-    <Footer />
+    <Footer role="contentinfo" />
   </div>
 </Layout>
