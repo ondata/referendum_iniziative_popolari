@@ -33,9 +33,11 @@ const initiatives = await fetchInitiatives();
               Democrazia Diretta
             </span>
           </div>
-          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 animate-slide-up">
-            {homeContent.title}
-          </h1>
+          <a href={import.meta.env.BASE_URL} class="block hover:text-civic-terra transition-colors">
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 animate-slide-up cursor-pointer">
+              {homeContent.title}
+            </h1>
+          </a>
           <p class="text-lg sm:text-xl text-civic-stone max-w-2xl leading-relaxed animate-slide-up-delayed">
             {homeContent.subtitle}
           </p>
