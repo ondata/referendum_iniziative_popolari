@@ -45,9 +45,25 @@ const description = "Scopri come funziona questo sito e perché è importante pa
           prose-strong:font-bold prose-strong:text-civic-charcoal
           prose-a:text-civic-terra prose-a:font-bold prose-a:border-b-2 prose-a:border-transparent hover:prose-a:border-civic-terra hover:prose-a:text-civic-terra-dark prose-a:transition-all prose-a:no-underline
           prose-code:text-civic-terra-dark prose-code:font-mono prose-code:bg-civic-stone prose-code:px-1 prose-code:py-0.5
-          prose-blockquote:border-l-6 prose-blockquote:border-civic-terra prose-blockquote:bg-civic-stone prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:my-6">
+          prose-blockquote:border-l-6 prose-blockquote:border-civic-terra prose-blockquote:bg-civic-stone prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:my-6"
+          data-base-url={import.meta.env.BASE_URL}>
           <InfoContent />
         </article>
+
+        <script>
+          // Fix relative URLs in article to include base path
+          const article = document.querySelector('article[data-base-url]');
+          if (article) {
+            const basePath = article.getAttribute('data-base-url');
+            const links = article.querySelectorAll('a[href^="/?"]');
+            links.forEach(link => {
+              const href = link.getAttribute('href');
+              if (href && !href.startsWith(basePath)) {
+                link.setAttribute('href', basePath + href.substring(1));
+              }
+            });
+          }
+        </script>
       </div>
     </main>
 

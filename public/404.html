@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina non trovata - 404</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0ede8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .card {
+      background: white;
+      border: 3px solid #2d2d2d;
+      box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 28rem;
+      width: 100%;
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3rem;
+      height: 3rem;
+      border-left: 3px solid #c1694f;
+      border-top: 3px solid #c1694f;
+      opacity: 0.2;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      color: #c1694f;
+    }
+
+    h1 {
+      font-size: 6rem;
+      font-weight: bold;
+      color: #9a8f89;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 1.875rem;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+      font-family: Georgia, serif;
+    }
+
+    p {
+      color: #6b6b6b;
+      line-height: 1.625;
+      margin-bottom: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    a, button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.125rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 2px solid #2d2d2d;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-home {
+      background-color: #c1694f;
+      color: white;
+    }
+
+    .btn-home:hover {
+      background-color: #a85639;
+    }
+
+    .btn-back {
+      background: none;
+      color: #c1694f;
+      border-bottom: 2px solid #c1694f;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      padding: 0.5rem 0;
+      font-size: 1rem;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .btn-back:hover {
+      color: #a85639;
+      border-bottom-color: #a85639;
+    }
+
+    .info-box {
+      padding: 1rem;
+      background-color: rgba(193, 105, 79, 0.1);
+      border: 2px solid #c1694f;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .info-box p {
+      font-size: 0.875rem;
+      color: #1a1a1a;
+    }
+
+    .info-box strong {
+      font-weight: bold;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="content">
+      <div class="icon">😞</div>
+      <h1>404</h1>
+
+      <h2>Ops! Questa pagina si è persa</h2>
+      <p>Sembra che questa pagina abbia deciso di fare una pausa dalle raccolte firme! 🏃‍♂️</p>
+      <p>Non preoccuparti, anche le migliori iniziative popolari a volte prendono strade diverse. Torniamo alla home e riproviamo...</p>
+
+      <div class="actions">
+        <a href="/referendum_iniziative_popolari/" class="btn-home">← Torna alla home</a>
+        <button onclick="history.back()" class="btn-back">Oppure torna indietro</button>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Curiosità:</strong> Sapevi che il codice 404 prende il nome dalla stanza 404 del CERN dove si trovava il primo server web? Almeno questa pagina ha una storia più interessante dei referendum! 📚</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

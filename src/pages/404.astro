@@ -7,55 +7,61 @@ const description = 'Ops! La pagina che stai cercando non esiste.';
 ---
 
 <Layout title={title} description={description}>
-  <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen bg-civic-stone flex items-center justify-center px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full text-center">
-      <!-- Icona e numero 404 -->
-      <div class="mb-8">
-        <FaceFrownIcon className="mx-auto h-24 w-24 text-gray-400 mb-6" />
-        <h1 class="text-9xl font-bold text-gray-300 mb-4">404</h1>
-      </div>
+      <!-- Card con tema civico -->
+      <div class="bg-white border-3 border-civic-border card-shadow p-8 sm:p-12 relative">
+        <!-- Decorative corner -->
+        <div class="absolute top-0 left-0 w-12 h-12 border-l-3 border-t-3 border-civic-terra opacity-20"></div>
 
-      <!-- Testo spiritoso -->
-      <div class="mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">
-          Ops! Questa pagina si è persa
-        </h2>
-        <p class="text-lg text-gray-600 mb-4">
-          Sembra che questa pagina abbia deciso di fare una pausa dalle raccolte firme! 🏃‍♂️
-        </p>
-        <p class="text-gray-500">
-          Non preoccuparti, anche le migliori iniziative popolari a volte prendono strade diverse.
-          Torniamo alla home e riproviamo ...
-        </p>
-      </div>
-
-      <!-- Pulsante per tornare alla home -->
-      <div class="space-y-4">
-        <a
-          href={import.meta.env.BASE_URL}
-          class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm"
-        >
-          <ArrowLeftIcon className="w-5 h-5 mr-2" />
-          Torna alla home
-        </a>
-
-        <!-- Link secondario -->
-        <div>
-          <button
-            onclick="history.back()"
-            class="text-blue-600 hover:text-blue-700 font-medium underline"
-          >
-            Oppure torna indietro
-          </button>
+        <!-- Icona e numero 404 -->
+        <div class="mb-8 relative z-10">
+          <FaceFrownIcon className="mx-auto h-20 w-20 text-civic-terra mb-6" />
+          <h1 class="text-9xl font-bold text-civic-neutral mb-4">404</h1>
         </div>
-      </div>
 
-      <!-- Messaggio aggiuntivo spiritoso -->
-      <div class="mt-12 p-4 bg-blue-50 rounded-lg">
-        <p class="text-sm text-blue-700">
-          <strong>Curiosità:</strong> Sapevi che il codice 404 prende il nome dalla stanza 404 del CERN dove si trovava il primo server web?
-          Almeno questa pagina ha una storia più interessante dei referendum! 📚
-        </p>
+        <!-- Testo spiritoso -->
+        <div class="mb-8">
+          <h2 class="text-3xl font-bold text-civic-charcoal mb-4 font-serif">
+            Ops! Questa pagina si è persa
+          </h2>
+          <p class="text-lg text-civic-neutral mb-4">
+            Sembra che questa pagina abbia deciso di fare una pausa dalle raccolte firme! 🏃‍♂️
+          </p>
+          <p class="text-civic-neutral">
+            Non preoccuparti, anche le migliori iniziative popolari a volte prendono strade diverse.
+            Torniamo alla home e riproviamo ...
+          </p>
+        </div>
+
+        <!-- Pulsante per tornare alla home -->
+        <div class="space-y-3 mb-8">
+          <a
+            href={import.meta.env.BASE_URL}
+            class="inline-flex items-center justify-center px-6 py-3 bg-civic-terra text-white text-lg font-bold uppercase tracking-wide border-2 border-civic-border hover:bg-civic-terra-dark transition-colors duration-200 civic-badge"
+          >
+            <ArrowLeftIcon className="w-5 h-5 mr-2" />
+            Torna alla home
+          </a>
+
+          <!-- Link secondario -->
+          <div>
+            <button
+              onclick="history.back()"
+              class="text-civic-terra hover:text-civic-terra-dark font-bold border-b-2 border-civic-terra hover:border-civic-terra-dark transition-colors"
+            >
+              Oppure torna indietro
+            </button>
+          </div>
+        </div>
+
+        <!-- Messaggio aggiuntivo spiritoso -->
+        <div class="p-4 bg-civic-terra/10 border-2 border-civic-terra">
+          <p class="text-sm text-civic-charcoal">
+            <strong>Curiosità:</strong> Sapevi che il codice 404 prende il nome dalla stanza 404 del CERN dove si trovava il primo server web?
+            Almeno questa pagina ha una storia più interessante dei referendum! 📚
+          </p>
+        </div>
       </div>
     </div>
   </div>
