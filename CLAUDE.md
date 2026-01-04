@@ -209,6 +209,31 @@ Monitor these for complexity:
 - `src/components/SearchAndFilters.tsx` (13KB) - state management
 - `src/pages/numeri.astro` (24KB) - multiple charts
 
+## Git Workflow and Commits
+
+**Important**: Always check for remote updates before committing and pushing:
+
+```bash
+git fetch origin              # Check what's on remote
+git status                    # Verify local vs remote
+git log origin/main -3        # See recent remote commits
+```
+
+**Standard workflow**:
+```bash
+git pull --rebase origin main # Get latest (rebase preferred)
+# ... make changes ...
+git commit -m "..."           # Commit locally
+git push origin main          # Push immediately after commit
+```
+
+**Why**: The GitHub Actions workflow frequently commits data file updates (e.g., `source.json`). Local branch can fall behind, causing push rejections. Always `pull --rebase` before pushing.
+
+**Remote Configuration**: Ensure `origin` points to `https://github.com/ondata/referendum_iniziative_popolari.git` (not a fork):
+```bash
+git remote -v  # Verify both fetch and push point to ondata org
+```
+
 ## Development Tips
 
 1. **Edit sample data locally**: `src/data/sample-initiatives.json` for development without API calls
