@@ -1,13 +1,21 @@
 # Valutazione Progetto "Referendum e Iniziative Popolari"
 
 **Data valutazione:** 20 ottobre 2025
-**Valutazione complessiva:** 8.5/10 (Eccellente)
+**Ultimo aggiornamento:** 4 gennaio 2026
+**Valutazione complessiva:** 8.6/10 (Eccellente)
 
 ---
 
 ## 🎯 Sommario Esecutivo
 
 Progetto molto ben realizzato con architettura solida, automazione sofisticata e chiara visione sociale. Stack tecnologico moderno (Astro + React + TypeScript + Tailwind CSS) implementato correttamente. Il principale gap è l'**assenza totale di testing**, che rappresenta un rischio significativo per la produzione.
+
+### 📈 Miglioramenti Recenti (Gennaio 2026)
+
+- ✅ **SEO completato**: Meta tags robots, googlebot, author, canonical aggiunti
+- ✅ **Accessibilità migliorata**: Skip link e landmark roles implementati
+- 🟡 **TypeScript strict mode**: Attivo da luglio 2025
+- 🟡 **Sitemap**: Configurato da luglio 2025
 
 ---
 
@@ -242,14 +250,19 @@ const TableView = lazy(() => import('./TableView'));
 
 ---
 
-### 4. Accessibilità (a11y) (6/10)
+### 4. Accessibilità (a11y) (6.5/10) - IN CORSO (Gennaio 2026)
 
-**Mancanze evidenti**:
-- ❌ ARIA labels per elementi interattivi
-- ❌ Focus management per filtri e paginazione
+**Progressi recenti**:
+- ✅ Skip link per navigazione da tastiera aggiunto (`src/layouts/Layout.astro`)
+- ✅ Landmark roles implementati (banner, navigation, main, contentinfo) in tutte le pagine
+- ✅ Focus management migliorato con id="main-content"
+
+**Mancanze ancora presenti**:
+- ⚠️ ARIA labels per elementi interattivi (filtri, pulsanti)
+- ❌ Focus management per filtri e paginazione (focus trap, focus order)
 - ❌ Screen reader announcements per caricamenti dinamici
 - ❌ Contrasto colori verificato WCAG AA/AAA
-- ❌ Navigazione da tastiera testata
+- ❌ Navigazione da tastiera testata completamente
 
 **Raccomandazioni implementative**:
 
@@ -482,11 +495,11 @@ export function parseInitiative(raw: unknown): Initiative | null {
 |------|------|-------|------|
 | **Architettura** | 9/10 | ✅ Eccellente | Stack moderno, ben strutturato |
 | **Automazione** | 9.5/10 | ✅ Eccellente | GitHub Actions di livello professionale |
-| **UX/UI** | 8.5/10 | ✅ Molto buono | Completo ma manca accessibilità esplicita |
+| **UX/UI** | 8.5/10 | ✅ Molto buono | Completo, accessibilità migliorata con skip link e landmarks |
 | **Documentazione** | 9/10 | ✅ Eccellente | PRD dettagliato, README chiaro |
 | **Testing** | 2/10 | ❌ Critico | Totalmente assente |
 | **Performance** | 7/10 | ⚠️ Buono | Statico è veloce, mancano ottimizzazioni avanzate |
-| **Accessibilità** | 6/10 | ⚠️ Sufficiente | Mancano ARIA, focus management, audit |
+| **Accessibilità** | 6.5/10 | 🟡 In corso | Skip link e landmark roles aggiunti, mancano ARIA labels avanzati |
 | **Monitoraggio** | 3/10 | ❌ Insufficiente | Nessun tracking errori o analytics |
 | **Error Handling** | 5/10 | ⚠️ Sufficiente | Gestione errori base, mancano fallback |
 | **SEO** | 10/10 | ✅ Eccellente | OpenGraph ok, sitemap configurato, meta tags completi |
@@ -494,8 +507,8 @@ export function parseInitiative(raw: unknown): Initiative | null {
 | **Manutenibilità** | 8/10 | ✅ Molto buono | Codice pulito, TypeScript aiuta |
 | **Impatto Sociale** | 10/10 | ✅ Eccellente | Ottimo servizio per democrazia partecipativa |
 
-**Media ponderata**: 7.2/10
-**Valutazione progetto**: 8.5/10 (considera l'impatto sociale e la qualità dell'implementazione core)
+**Media ponderata**: 7.3/10
+**Valutazione progetto**: 8.6/10 (considera l'impatto sociale e la qualità dell'implementazione core)
 
 ---
 
@@ -543,10 +556,13 @@ export function parseInitiative(raw: unknown): Initiative | null {
 - [ ] Aggiungere badge coverage a README
 
 ### Accessibilità
+- [x] Skip link per navigazione
+- [x] Landmark roles (banner, navigation, main, contentinfo)
+- [x] id="main-content" per focus management base
 - [ ] Installare axe-core
 - [ ] Audit automatizzato con Playwright
-- [ ] Aggiungere ARIA labels
-- [ ] Implementare focus management
+- [ ] Aggiungere ARIA labels (filtri, pulsanti, select)
+- [ ] Implementare focus management completo (focus trap, focus order)
 - [ ] Live regions per aggiornamenti dinamici
 - [ ] Test navigazione da tastiera
 - [ ] Verifica contrasto colori WCAG AA
@@ -606,9 +622,12 @@ export function parseInitiative(raw: unknown): Initiative | null {
 - ✅ **Architettura solida** con stack moderno
 - ✅ **Automazione eccellente** (GitHub Actions + script)
 - ✅ **UX completa** con funzionalità avanzate
+- ✅ **SEO ottimizzato** con meta tags completi e sitemap
+- ✅ **Accessibilità in miglioramento** (skip link, landmark roles implementati)
+- ✅ **TypeScript strict mode** attivo
 - ✅ **Impatto sociale importante** per la democrazia
 - ❌ **Testing totalmente assente** (gap critico)
-- ⚠️ **Accessibilità e monitoraggio** da migliorare
+- ⚠️ **Monitoraggio e performance** da migliorare
 
 ### Raccomandazione Finale
 
