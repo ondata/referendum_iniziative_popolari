@@ -1,5 +1,11 @@
 # Log delle modifiche
 
+## 2026-01-04
+
+- **Risolto bug: banner "QUORUM RAGGIUNTO!" non visualizzato per iniziative chiuse**. Il banner era condizionato sia su `hasReachedQuorum` che su `signingActive`. Per iniziative come "Eutanasia Legale" (4100009) con quorum raggiunto ma stato CHIUSA, il banner non appariva.
+- Il quorum raggiunto è un fatto storico che deve essere visualizzato indipendentemente dallo stato dell'iniziativa. Modificato il file `src/pages/initiative/[id].astro` rimuovendo la condizione `signingActive`.
+- Ora il banner appare per qualsiasi iniziativa che ha raggiunto il quorum, indipendentemente dal fatto che la raccolta firme sia attiva o conclusa.
+
 ## 2026-01-02
 
 - **Risolto bug: tipologie iniziative non visualizzate correttamente**. Il codice era hardcodato per mostrare solo 2 tipologie (ID 1 e 4), escludendo altre come "Referendum costituzionale" (ID 2).
