@@ -70,9 +70,11 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
 
             {/* Title */}
             <div className="text-center">
-              <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                {homeContent.title}
-              </h1>
+              <a href={baseUrl} className="inline-block hover:text-blue-600 transition-colors">
+                <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl cursor-pointer">
+                  {homeContent.title}
+                </h1>
+              </a>
               <p className="mt-2 text-lg text-gray-600">
                 {homeContent.subtitle}
               </p>
