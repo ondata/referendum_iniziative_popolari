@@ -121,7 +121,7 @@ const currentUrl = (() => {
 <Layout title={fullTitle} description={description} ogImage={ogImage} ogType="article">
   <div class="min-h-screen">
     <!-- Navigation - Brutalist -->
-    <nav class="bg-civic-charcoal border-b-3 border-civic-terra">
+    <nav role="navigation" aria-label="Navigazione principale" class="bg-civic-charcoal border-b-3 border-civic-terra">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href={import.meta.env.BASE_URL} class="inline-flex items-center text-white hover:text-civic-terra font-bold uppercase text-sm tracking-wide transition-colors border-b-2 border-transparent hover:border-civic-terra pb-1">
           <ArrowLeftIcon className="w-5 h-5 mr-2" />
@@ -134,7 +134,7 @@ const currentUrl = (() => {
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+    <main id="main-content" role="main" class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
       <!-- Header - Brutalist -->
       <div class="bg-white border-3 border-civic-border p-4 sm:p-8 mb-6 sm:mb-8 relative">
         <!-- Decorative corner -->
@@ -504,6 +504,6 @@ Sostenitori: ${fmtIt(d.sostenitori)}`,
     </main>
 
     <!-- Footer -->
-    <Footer />
+    <Footer role="contentinfo" />
   </div>
 </Layout>
