@@ -256,6 +256,7 @@ const TableView = lazy(() => import('./TableView'));
 - ✅ Skip link per navigazione da tastiera aggiunto (`src/layouts/Layout.astro`)
 - ✅ Landmark roles implementati (banner, navigation, main, contentinfo) in tutte le pagine
 - ✅ Focus management migliorato con id="main-content"
+- ✅ **Footer role="contentinfo" sempre applicato** con default nella prop (gennaio 2026)
 
 **Mancanze ancora presenti**:
 - ⚠️ ARIA labels per elementi interattivi (filtri, pulsanti)
@@ -559,6 +560,7 @@ export function parseInitiative(raw: unknown): Initiative | null {
 - [x] Skip link per navigazione
 - [x] Landmark roles (banner, navigation, main, contentinfo)
 - [x] id="main-content" per focus management base
+- [x] Footer role="contentinfo" con default prop
 - [ ] Installare axe-core
 - [ ] Audit automatizzato con Playwright
 - [ ] Aggiungere ARIA labels (filtri, pulsanti, select)

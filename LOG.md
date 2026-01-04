@@ -2,6 +2,7 @@
 
 ## 2026-01-04
 
+- **Corretto Footer per applicare sempre role="contentinfo"**. Il componente Footer accettava un prop `role` opzionale ma senza valore default, causando situazioni in cui l'attributo non veniva reso nel HTML finale. Modificato `src/components/Footer.astro` per impostare `role = 'contentinfo'` come default. Questo garantisce che il footer avrà sempre il ruolo ARIA corretto per l'accessibilità, indipendentemente da come viene utilizzato il componente.
 - **Risolto bug: banner "QUORUM RAGGIUNTO!" non visualizzato per iniziative chiuse**. Il banner era condizionato sia su `hasReachedQuorum` che su `signingActive`. Per iniziative come "Eutanasia Legale" (4100009) con quorum raggiunto ma stato CHIUSA, il banner non appariva.
 - Il quorum raggiunto è un fatto storico che deve essere visualizzato indipendentemente dallo stato dell'iniziativa. Modificato il file `src/pages/initiative/[id].astro` rimuovendo la condizione `signingActive`.
 - Ora il banner appare per qualsiasi iniziativa che ha raggiunto il quorum, indipendentemente dal fatto che la raccolta firme sia attiva o conclusa.

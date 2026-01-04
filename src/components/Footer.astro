@@ -8,7 +8,7 @@ export interface Props {
   role?: string;
 }
 
-const { role } = Astro.props;
+const { role = 'contentinfo' } = Astro.props;
 
 // Leggi la data di aggiornamento dal file check_date.txt
 let lastUpdateDate = '';
