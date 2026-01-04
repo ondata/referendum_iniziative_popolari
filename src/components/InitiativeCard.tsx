@@ -35,7 +35,7 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
       }`}
     >
       {/* Quorum Badge - Angular brutalist style */}
-      {hasReachedQuorum && !isChiusa && (
+      {hasReachedQuorum && (
         <div className="absolute -top-2 -right-2 bg-civic-success text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1 border-2 border-civic-border civic-badge z-10">
           <CheckBadgeIcon className="w-4 h-4" />
           QUORUM
