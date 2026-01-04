@@ -21,7 +21,7 @@ const iconPaths: Record<string, string> = {
 
 <div class="hamburger-menu" data-base-url={baseUrl}>
   <!-- Hamburger Button -->
-  <button class="hamburger-btn" aria-label="Menu di navigazione">
+  <button class="hamburger-btn" aria-label="Menu di navigazione" aria-expanded="false" aria-controls="menu-dropdown">
     <span class="line line-1"></span>
     <span class="line line-2"></span>
     <span class="line line-3"></span>
@@ -31,7 +31,7 @@ const iconPaths: Record<string, string> = {
   <div class="overlay hidden"></div>
 
   <!-- Menu Dropdown -->
-  <nav class="menu-dropdown">
+  <nav class="menu-dropdown" id="menu-dropdown" aria-hidden="true">
     <div class="menu-content">
       {menuItems.map((item) => (
         <a href={getMenuItemUrl(item, baseUrl)} class="menu-item">
@@ -116,16 +116,23 @@ const iconPaths: Record<string, string> = {
     hamburgerMenus.forEach(menu => {
       const btn = menu.querySelector('.hamburger-btn');
       const overlay = menu.querySelector('.overlay');
+      const menuDropdown = menu.querySelector('.menu-dropdown');
       const menuItems = menu.querySelectorAll('.menu-item');
 
       const toggleMenu = () => {
-        menu.classList.toggle('open');
+        const isOpen = menu.classList.toggle('open');
         overlay?.classList.toggle('hidden');
+        // Aggiorna aria-expanded e aria-hidden
+        btn?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        menuDropdown?.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
       };
 
       const closeMenu = () => {
         menu.classList.remove('open');
         overlay?.classList.add('hidden');
+        // Aggiorna aria-expanded e aria-hidden
+        btn?.setAttribute('aria-expanded', 'false');
+        menuDropdown?.setAttribute('aria-hidden', 'true');
       };
 
       btn?.addEventListener('click', toggleMenu);

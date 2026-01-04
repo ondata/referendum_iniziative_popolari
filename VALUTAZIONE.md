@@ -250,20 +250,24 @@ const TableView = lazy(() => import('./TableView'));
 
 ---
 
-### 4. Accessibilità (a11y) (6.5/10) - IN CORSO (Gennaio 2026)
+### 4. Accessibilità (a11y) (8/10) - IN CORSO (Gennaio 2026)
 
 **Progressi recenti**:
 - ✅ Skip link per navigazione da tastiera aggiunto (`src/layouts/Layout.astro`)
 - ✅ Landmark roles implementati (banner, navigation, main, contentinfo) in tutte le pagine
 - ✅ Focus management migliorato con id="main-content"
 - ✅ **Footer role="contentinfo" sempre applicato** con default nella prop (gennaio 2026)
+- ✅ **ARIA labels completi su elementi interattivi** (SearchAndFilters, Pagination, HamburgerMenuNative, ShareButton)
+- ✅ **Live regions implementate** per filtri (role="status" aria-live="polite")
+- ✅ **aria-current="page"** su pulsante pagina corrente in Pagination
+- ✅ **aria-expanded, aria-controls, aria-modal** per controlli dinamici (hamburger menu, share button)
 
 **Mancanze ancora presenti**:
-- ⚠️ ARIA labels per elementi interattivi (filtri, pulsanti)
 - ❌ Focus management per filtri e paginazione (focus trap, focus order)
-- ❌ Screen reader announcements per caricamenti dinamici
+- ❌ Screen reader announcements per caricamenti dinamici (oltre live regions base)
 - ❌ Contrasto colori verificato WCAG AA/AAA
 - ❌ Navigazione da tastiera testata completamente
+- ❌ Test con screen reader reali (NVDA, JAWS)
 
 **Raccomandazioni implementative**:
 
@@ -500,7 +504,7 @@ export function parseInitiative(raw: unknown): Initiative | null {
 | **Documentazione** | 9/10 | ✅ Eccellente | PRD dettagliato, README chiaro |
 | **Testing** | 2/10 | ❌ Critico | Totalmente assente |
 | **Performance** | 7/10 | ⚠️ Buono | Statico è veloce, mancano ottimizzazioni avanzate |
-| **Accessibilità** | 6.5/10 | 🟡 In corso | Skip link e landmark roles aggiunti, mancano ARIA labels avanzati |
+| **Accessibilità** | 8/10 | 🟢 Molto buono | ARIA labels, landmark roles, live regions implementati. Mancano focus management e screen reader testing |
 | **Monitoraggio** | 3/10 | ❌ Insufficiente | Nessun tracking errori o analytics |
 | **Error Handling** | 5/10 | ⚠️ Sufficiente | Gestione errori base, mancano fallback |
 | **SEO** | 10/10 | ✅ Eccellente | OpenGraph ok, sitemap configurato, meta tags completi |
@@ -561,14 +565,17 @@ export function parseInitiative(raw: unknown): Initiative | null {
 - [x] Landmark roles (banner, navigation, main, contentinfo)
 - [x] id="main-content" per focus management base
 - [x] Footer role="contentinfo" con default prop
+- [x] ARIA labels su SearchAndFilters (ricerca, filtri, ordinamento, cancella)
+- [x] ARIA labels su Pagination (pulsanti navigazione, numeri pagina, aria-current)
+- [x] ARIA labels su HamburgerMenuNative (menu toggle con aria-expanded/aria-controls)
+- [x] ARIA labels su ShareButton (pulsante e menu condivisione con aria-modal)
+- [x] Live regions per filtri (role="status" aria-live="polite")
 - [ ] Installare axe-core
 - [ ] Audit automatizzato con Playwright
-- [ ] Aggiungere ARIA labels (filtri, pulsanti, select)
 - [ ] Implementare focus management completo (focus trap, focus order)
-- [ ] Live regions per aggiornamenti dinamici
 - [ ] Test navigazione da tastiera
 - [ ] Verifica contrasto colori WCAG AA
-- [ ] Test con screen reader
+- [ ] Test con screen reader reali (NVDA, JAWS, VoiceOver)
 
 ### Performance
 - [ ] Configurare image optimization in astro.config

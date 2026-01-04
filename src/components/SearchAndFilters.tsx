@@ -258,6 +258,13 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
 
   return (
     <div className="space-y-4 mb-8">
+      {/* Live region per annunciare i risultati ai screen reader */}
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {searchTerm || selectedCategory || selectedStatus || selectedType || sortBy !== 'dataApertura'
+          ? `Filtri applicati. Risultati aggiornati.`
+          : 'Nessun filtro attivo'}
+      </div>
+
       {/* Sezione Filtri */}
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Filtri</h3>
@@ -272,6 +279,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               placeholder="Cerca iniziative..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              aria-label="Ricerca nelle iniziative per titolo o descrizione"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
@@ -281,6 +289,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
+              aria-label="Filtra iniziative per tipologia"
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Tutte le tipologie</option>
@@ -297,6 +306,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
+              aria-label="Filtra iniziative per stato di raccolta firme"
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Tutti gli stati</option>
@@ -313,6 +323,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
+              aria-label="Filtra iniziative per categoria tematica"
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Tutte le categorie</option>
@@ -329,7 +340,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             <button
               onClick={clearAllFilters}
               disabled={!hasActiveFilters}
-              title="Rimuovi filtri"
+              title="Rimuovi tutti i filtri"
+              aria-label="Cancella tutti i filtri attivi"
               className={`p-2 rounded-md transition-colors ${
                 hasActiveFilters
                   ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
@@ -350,6 +362,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
+              aria-label="Ordina iniziative per data, titolo o numero di sostenitori"
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="dataApertura">Data apertura (più recenti)</option>

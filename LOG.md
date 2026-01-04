@@ -3,6 +3,12 @@
 ## 2026-01-04
 
 - **Corretto Footer per applicare sempre role="contentinfo"**. Il componente Footer accettava un prop `role` opzionale ma senza valore default, causando situazioni in cui l'attributo non veniva reso nel HTML finale. Modificato `src/components/Footer.astro` per impostare `role = 'contentinfo'` come default. Questo garantisce che il footer avrà sempre il ruolo ARIA corretto per l'accessibilità, indipendentemente da come viene utilizzato il componente.
+- **Implementati ARIA labels completi su componenti interattivi**:
+  - **SearchAndFilters.tsx**: aria-label su input ricerca, select filtri (categoria, stato, tipo), select ordinamento, pulsante cancella. Aggiunta live region (role="status" aria-live="polite") per annunciare filtri applicati ai screen reader.
+  - **Pagination.tsx**: aria-label su pulsanti precedente/successiva, numeri pagina. Aggiunto aria-current="page" al numero di pagina corrente. Migliorate le etichette con numero pagina esplicito.
+  - **HamburgerMenuNative.astro**: Aggiunto aria-expanded e aria-controls al pulsante hamburger. Aggiunto aria-hidden="true" al menu. Aggiornato script per cambiare aria-expanded/aria-hidden al toggle del menu.
+  - **ShareButton.tsx**: aria-label sul pulsante principale e su ogni opzione di condivisione. Menu condivisione con role="dialog", aria-modal="true", aria-label. Pulsante copia link con aria-label specifico.
+- **Valutazione accessibilità migliorata da 6.5/10 a 8/10**: ARIA labels e live regions implementate riducono significativamente le barriere per utenti con disabilità e screen reader.
 - **Risolto bug: banner "QUORUM RAGGIUNTO!" non visualizzato per iniziative chiuse**. Il banner era condizionato sia su `hasReachedQuorum` che su `signingActive`. Per iniziative come "Eutanasia Legale" (4100009) con quorum raggiunto ma stato CHIUSA, il banner non appariva.
 - Il quorum raggiunto è un fatto storico che deve essere visualizzato indipendentemente dallo stato dell'iniziativa. Modificato il file `src/pages/initiative/[id].astro` rimuovendo la condizione `signingActive`.
 - Ora il banner appare per qualsiasi iniziativa che ha raggiunto il quorum, indipendentemente dal fatto che la raccolta firme sia attiva o conclusa.

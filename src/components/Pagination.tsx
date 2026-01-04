@@ -54,6 +54,7 @@ export default function Pagination({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          aria-label={`Vai alla pagina precedente (pagina ${currentPage - 1})`}
           className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Precedente
@@ -61,6 +62,7 @@ export default function Pagination({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          aria-label={`Vai alla pagina successiva (pagina ${currentPage + 1})`}
           className="relative ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Successiva
@@ -81,6 +83,7 @@ export default function Pagination({
             <button
               onClick={() => onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
+              aria-label={`Pagina precedente (pagina ${currentPage - 1})`}
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="sr-only">Precedente</span>
@@ -107,6 +110,8 @@ export default function Pagination({
                 <button
                   key={pageNumber}
                   onClick={() => onPageChange(pageNumber)}
+                  aria-label={`Pagina ${pageNumber}${isCurrentPage ? ' (pagina corrente)' : ''}`}
+                  aria-current={isCurrentPage ? 'page' : undefined}
                   className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                     isCurrentPage
                       ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
@@ -122,6 +127,7 @@ export default function Pagination({
             <button
               onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
+              aria-label={`Pagina successiva (pagina ${currentPage + 1})`}
               className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="sr-only">Successiva</span>
