@@ -6,6 +6,7 @@
 - Il quorum raggiunto è un fatto storico che deve essere visualizzato indipendentemente dallo stato dell'iniziativa. Modificato il file `src/pages/initiative/[id].astro` rimuovendo la condizione `signingActive`.
 - Ora il banner appare per qualsiasi iniziativa che ha raggiunto il quorum, indipendentemente dal fatto che la raccolta firme sia attiva o conclusa.
 - **Aggiunto badge QUORUM nella vista a griglia anche per iniziative chiuse**. Modificato `src/components/InitiativeCard.tsx` per visualizzare il badge QUORUM in tutte le iniziative che hanno raggiunto il quorum, anche se chiuse. Questo comunica visivamente due informazioni importanti: il fatto che l'iniziativa è conclusa (sfondo grigetto) e che ha raggiunto il quorum (badge verde in alto a destra).
+- **Rimosso quadrato decorativo inutile dal footer**. L'elemento era un semplice bordo semi-trasparente che non aveva alcuna funzione visuale o semantica. Semplificato il layout da 3 colonne a 2 colonne, mantenendo il contenuto centrale e le icone a destra.
 
 ## 2026-01-02
 
