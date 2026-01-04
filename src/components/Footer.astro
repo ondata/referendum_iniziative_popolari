@@ -4,6 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import { createPath } from '../lib/paths';
 
+export interface Props {
+  role?: string;
+}
+
+const { role } = Astro.props;
+
 // Leggi la data di aggiornamento dal file check_date.txt
 let lastUpdateDate = '';
 try {
@@ -25,7 +31,7 @@ const iconPaths = {
 };
 ---
 
-<footer class="bg-civic-charcoal border-t-3 border-civic-terra mt-16">
+<footer class="bg-civic-charcoal border-t-3 border-civic-terra mt-16" role={role}>
   <!-- Strong top accent line -->
   <div class="h-1 bg-gradient-to-r from-civic-border via-civic-terra to-civic-terra-dark"></div>
 
