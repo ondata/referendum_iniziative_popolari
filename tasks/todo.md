@@ -35,27 +35,45 @@
 
 ---
 
-# Feature: Filtro Quorum (GitHub Issue #12)
+# Feature: Filtro Quorum (GitHub Issue #12) ✅
 
 **Data inizio**: 2026-01-05
+**Data completamento**: 2026-01-05
 **Obiettivo**: Aggiungere checkbox per filtrare solo iniziative che hanno raggiunto il quorum
 
-## Implementazione
+## Implementazione ✅
 
-### Fase 1: Funzione Helper
-- [ ] Aggiungere `hasReachedQuorum()` in `src/lib/initiatives.ts`
+### Fase 1: Funzione Helper ✅
+- [x] Aggiungere `hasReachedQuorum()` in `src/lib/initiatives.ts`
+  - Verifica: `sostenitori >= quorum` (entrambi definiti)
 
-### Fase 2: Modifica SearchAndFilters.tsx
-- [ ] Aggiungere stato `onlyQuorumReached`
-- [ ] Aggiungere checkbox nella barra filtri
-- [ ] Gestire URL parameters (`quorum`)
-- [ ] Aggiungere logica di filtraggio
-- [ ] Aggiornare `clearAllFilters()`
+### Fase 2: Modifica SearchAndFilters.tsx ✅
+- [x] Aggiungere stato `onlyQuorumReached`
+- [x] Aggiungere checkbox nella barra filtri
+- [x] Gestire URL parameters (`quorum=true`)
+- [x] Aggiungere logica di filtraggio
+- [x] Aggiornare `clearAllFilters()`
 
-### Fase 3: Test
-- [ ] Verificare che checkbox funziona
-- [ ] Verificare URL params
-- [ ] Verificare clear filters
+### Fase 3: Test ✅
+- [x] Build completato senza errori
+- [x] URL shareable (`?quorum=true`)
+- [x] Checkbox persiste negli URL params
+
+## Summary Modifiche
+
+**File modificati**:
+1. `src/lib/initiatives.ts`: aggiunta funzione `hasReachedQuorum()`
+2. `src/components/SearchAndFilters.tsx`: aggiunto stato, checkbox, gestione URL, logica filtraggio
+3. `LOG.md`: documentate le modifiche
+
+**Funzionalità**:
+- Checkbox nella barra filtri per mostrare solo iniziative con quorum raggiunto
+- Funziona sia per iniziative aperte che chiuse
+- URL param shareable: `/tabella?quorum=true`
+- Si integra con altri filtri (categoria, stato, tipo, ricerca)
+- Checkbox resettabile con pulsante "Cancella filtri"
+
+**Commit**: `ea17806` - "feat: add quorum filter checkbox to search panel"
 
 ---
 

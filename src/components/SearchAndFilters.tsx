@@ -142,6 +142,13 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       );
     }
 
+    // Applica filtro quorum a baseInitiatives
+    if (onlyQuorumReached) {
+      baseInitiatives = baseInitiatives.filter(initiative =>
+        hasReachedQuorum(initiative)
+      );
+    }
+
     // Per categories: applica solo filtri tipo e stato
     let categoriesBase = [...baseInitiatives];
     if (selectedType) {
@@ -210,7 +217,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       statuses: statuses.map(st => ({ name: st, count: statusCounts.get(st) })),
       types: types.map(tp => ({ name: tp, count: typeCounts.get(tp) }))
     };
-  }, [initiatives, searchTerm, selectedCategory, selectedStatus, selectedType]);
+  }, [initiatives, searchTerm, selectedCategory, selectedStatus, selectedType, onlyQuorumReached]);
 
   const availableOptions = getAvailableOptions();
 
