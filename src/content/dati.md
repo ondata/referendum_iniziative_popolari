@@ -8,7 +8,7 @@ Il [sito ufficiale](https://firmereferendum.giustizia.it/) dedicato a Referendum
 
 ![Grafico a torta dei dati](/images/dati/torta.png)
 
-Questo inoltre è in **contrasto** con il **quadro normativo** su **trasparenza** digitale e riutilizzo dei **dati pubblici**, in particolare:
+La non disponibilità dei dati inoltre è in **contrasto** con il **quadro normativo** su **trasparenza** digitale e riutilizzo dei **dati pubblici**, in particolare:
 
 - il **Codice dell'Amministrazione Digitale – CAD (D.Lgs. 82/2005)**, che disciplina la **pubblicazione e il riutilizzo dei dati** da parte delle PA (anche tramite formati aperti e licenze idonee), e in particolare l'**art. 52** sui dati e documenti delle pubbliche amministrazioni. [Normattiva](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82)
 - il **Decreto Legislativo 24 gennaio 2006, n. 36**, che regola le modalità di **riutilizzo dei documenti contenenti dati pubblici** nella disponibilità delle amministrazioni, oggi allineato alla disciplina europea sull'open data. [Normattiva](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2006-01-24;36!vig=2026-01-04)
@@ -46,7 +46,27 @@ Li raccogliamo e aggiorniamo giornalmente in **formato machine readable** (JSON 
 - **Dati storici giornalieri** delle firme raccolte per ogni iniziativa (`time_line.jsonl`) - il nostro dataset più prezioso, in quanto il sito originale mostra **solo i dati attuali** tramite grafici e tabelle, perdendo la storia della raccolta
 - **Testi ufficiali dei quesiti** (`quesiti/`) in formato strutturato
 
-Il dataset della **timeline storica** rappresenta il valore aggiunto principale: consente di analizzare l'**andamento reale nel tempo** delle firme, calcolare velocità di raccolta, identificare trend e anomalie - dati che il portale ufficiale non rende disponibili in formato riutilizzabile.
+Il [dataset della **timeline storica**](https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/time_line.jsonl) rappresenta il valore aggiunto principale: consente di analizzare l'**andamento reale nel tempo** delle firme, calcolare velocità di raccolta, identificare trend e anomalie - dati che il portale ufficiale non rende disponibili in formato riutilizzabile.
+
+### Come citare i dati
+
+Se utilizzi questi dati è importante citare sia la **fonte originale** che il nostro **lavoro di elaborazione**. Ecco due modi semplici per farlo:
+
+**Forma completa:**
+```
+Dati sui referendum e iniziative popolari italiane forniti dal Ministero della Giustizia
+Fonte originale: https://firmereferendum.giustizia.it/ (CC-BY 4.0)
+Elaborazione: https://ondata.github.io/referendum_iniziative_popolari
+Licenza: CC-BY 4.0
+```
+
+**Forma compatta:**
+```
+© Ministero della Giustizia & onData (CC-BY 4.0)
+Fonte: https://firmereferendum.giustizia.it/ | Progetto: https://ondata.github.io/referendum_iniziative_popolari
+```
+
+Scegli il formato che si adatta meglio al tuo contesto. L'importante è che sia chiara la **fonte originale** (Ministero) e la **nostra elaborazione**.
 
 ---
 
@@ -58,4 +78,4 @@ Il dataset della **timeline storica** rappresenta il valore aggiunto principale:
 
 **Cosa manca (e perché)**
 
-I dati per **regione**, **fascia di età** e **sesso** mostrati nel sito ufficiale non sono ancora disponibili in questo repository. Per renderli accessibili sarebbe necessario sviluppare script di automazione che effettuino il login sul sito ufficiale tramite **SPID o CIE**, estraggano i dati dalle API interne, e li convertano in formato aperto. Rimane importante segnalare che tali dati esistono e sottolineare la loro importanza civica.
+I dati per **regione**, **fascia di età** e **sesso** mostrati nel sito ufficiale non sono ancora disponibili in questo _repository_. Per renderli accessibili sarebbe necessario sviluppare script di automazione che effettuino il login sul sito ufficiale tramite **SPID o CIE**, estraggano i dati dalle API interne, e li convertano in formato aperto. Rimane importante segnalare che tali dati esistono e sottolineare la loro importanza civica.
