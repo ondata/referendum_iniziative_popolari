@@ -1,6 +1,6 @@
 # Dati
 
-## I dati disponibili
+## I dati non disponibili
 
 Il [sito ufficiale](https://firmereferendum.giustizia.it/) dedicato a Referendum e iniziative popolari **non ha una sezione dedicata ai dati raccolti**. I numeri delle raccolta firme sono disponibili attualmente soltanto come grafici, immagini e tabelle HTML.
 
@@ -13,6 +13,19 @@ Questo inoltre è in **contrasto** con il **quadro normativo** su **trasparenza*
 - la **Direttiva (UE) 2019/1024 (Open Data/PSI)**, che si fonda sul principio generale per cui le informazioni del settore pubblico dovrebbero essere **riutilizzabili** (anche a fini civici), promuovendo disponibilità e accesso con attenzione anche a casi come dati dinamici e, per alcune categorie, dataset di alto valore. [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2019/1024/oj?locale=it)
 
 Nel rispetto della normativa sulla _privacy_, la pubblicazione di **dati anonimizzati** consentirebbe trasparenza, attività di ricerca, monitoraggio e controllo civico sull'andamento delle sottoscrizioni.
+
+## I dati disponibili
+
+Li raccogliamo e aggiorniamo giornalmente in **formato machine readable** (JSON Lines) e con **licenza aperta CC-BY 4.0**, rendendo possibile analisi, ricerche e riutilizzo civico che il sito ufficiale non consente.
+
+**Cosa pubblichiamo:**
+
+- **Anagrafica completa** di tutte le iniziative e referendum (`source.jsonl`) con titoli, descrizioni, categorie, stati e quorum
+- **Dati storici giornalieri** delle firme raccolte per ogni iniziativa (`time_line.jsonl`) - il nostro dataset più prezioso, in quanto il sito originale mostra **solo i dati attuali** tramite grafici e tabelle, perdendo la storia della raccolta
+- **Testi ufficiali dei quesiti** (`quesiti/`) in formato strutturato
+
+Il dataset della **timeline storica** rappresenta il valore aggiunto principale: consente di analizzare l'**andamento reale nel tempo** delle firme, calcolare velocità di raccolta, identificare trend e anomalie - dati che il portale ufficiale non rende disponibili in formato riutilizzabile.
+
 
 ## Inizio della ricerca dati
 
