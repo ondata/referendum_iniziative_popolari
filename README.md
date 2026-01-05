@@ -29,7 +29,7 @@ Il sito è pubblicato automaticamente su GitHub Pages ad ogni push al branch mai
 
 ## 📡 API
 
-I dati provengono dall'API ufficiale del Ministero della Giustizia:
+I dati provengono dall'API del Ministero della Giustizia:
 
 ```bash
 https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public
@@ -40,6 +40,7 @@ https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public
 I file dati scaricati dalla API sono archiviati nella cartella `data/`. Per una documentazione completa dei file disponibili, i loro formati e i campi contenuti, consulta [`data/README.md`](data/README.md).
 
 **File principali**:
+
 - `source.jsonl` - anagrafica completa di tutte le iniziative
 - `time_line.jsonl` - dati storici giornalieri delle firme raccolte
 - `quesiti/` - testi ufficiali dei quesiti referendari
