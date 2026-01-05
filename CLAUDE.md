@@ -229,6 +229,12 @@ git push origin main          # Push immediately after commit
 
 **Why**: The GitHub Actions workflow frequently commits data file updates (e.g., `source.json`). Local branch can fall behind, causing push rejections. Always `pull --rebase` before pushing.
 
+**Quick workflow - avoid retry loops**:
+```bash
+git pull --rebase origin main && git push origin main
+```
+This single command prevents the "push rejected → pull → retry push" cycle. Always use this combined approach to ensure latest remote state before pushing.
+
 **Remote Configuration**: Ensure `origin` points to `https://github.com/ondata/referendum_iniziative_popolari.git` (not a fork):
 ```bash
 git remote -v  # Verify both fetch and push point to ondata org
