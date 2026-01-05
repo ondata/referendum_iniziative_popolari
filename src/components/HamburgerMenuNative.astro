@@ -51,7 +51,7 @@ const iconPaths: Record<string, string> = {
   }
 
   .hamburger-btn {
-    @apply flex flex-col justify-center items-center w-10 h-10 bg-transparent border-2 border-white cursor-pointer p-1 transition-all hover:border-civic-terra hover:bg-civic-terra/10;
+    @apply flex flex-col justify-center items-center w-10 h-10 bg-transparent border-2 border-white cursor-pointer p-1 transition-all hover:border-civic-terra hover:bg-civic-terra/10 z-50;
   }
 
   .line {
@@ -87,7 +87,7 @@ const iconPaths: Record<string, string> = {
   }
 
   .menu-dropdown {
-    @apply absolute right-0 mt-2 w-56 bg-white border-3 border-civic-border z-50 transition-all duration-200 ease-in-out opacity-0 -translate-y-2 invisible;
+    @apply absolute right-0 mt-2 w-56 bg-white border-3 border-civic-border z-60 transition-all duration-200 ease-in-out opacity-0 -translate-y-2 invisible;
     box-shadow: 4px 4px 0 0 rgba(26, 26, 26, 0.15);
   }
 

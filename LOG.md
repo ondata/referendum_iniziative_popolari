@@ -1,5 +1,10 @@
 # Log delle modifiche
 
+## 2026-01-05
+
+- **Risolto bug: menu hamburger e top bar bloccati dietro grafici e elementi della pagina**. Il bottone hamburger non aveva z-index esplicito e il menu-dropdown aveva z-50, mentre gli elementi della pagina (specialmente su `/numeri`, `/tabella`, `/info`) avevano `relative z-10`.
+- Aggiunto `z-50` al `.hamburger-btn` e aumentato `.menu-dropdown` a `z-60` per assicurare che il menu sia sempre sopra agli elementi della pagina. Ora il bottone è sempre cliccabile e il menu dropdown è sempre visibile.
+
 ## 2026-01-04
 
 - **Corretto Footer per applicare sempre role="contentinfo"**. Il componente Footer accettava un prop `role` opzionale ma senza valore default, causando situazioni in cui l'attributo non veniva reso nel HTML finale. Modificato `src/components/Footer.astro` per impostare `role = 'contentinfo'` come default. Questo garantisce che il footer avrà sempre il ruolo ARIA corretto per l'accessibilità, indipendentemente da come viene utilizzato il componente.
