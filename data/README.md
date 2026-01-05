@@ -32,7 +32,7 @@ Questa cartella contiene i file dati che alimentano il sito.
 
 ### `time_line.jsonl`
 
-è un [file separato](time_line.jsonl) che contiene i dati storici giornalieri delle firme raccolte per ogni iniziativa:
+È un [file separato](time_line.jsonl) che contiene i dati storici giornalieri delle firme raccolte per ogni iniziativa:
 
 - **Contenuto**: timeline storica delle iniziative con data e numero di sostenitori nel tempo
 - **Formato**: JSON Lines (una riga per data/iniziativa)
@@ -57,7 +57,7 @@ Per accedere alla pagina di dettaglio di un'iniziativa dato un ID, il permalink 
 https://ondata.github.io/referendum_iniziative_popolari/initiative/{id}/
 ```
 
-**Esempio**: L'iniziativa con ID `4100009` è disponibile a:
+**Esempio**: L'iniziativa con ID [`4100009`](https://ondata.github.io/referendum_iniziative_popolari/initiative/4100009/) è disponibile a:
 ```
 https://ondata.github.io/referendum_iniziative_popolari/initiative/4100009/
 ```
@@ -78,7 +78,7 @@ Questi dati sono forniti con **licenza CC-BY 4.0**. I dati grezzi provengono dal
 ```
 Dati sui referendum e iniziative popolari italiane forniti dal Ministero della Giustizia
 Fonte originale: https://firmereferendum.giustizia.it/ (CC-BY 4.0)
-Elaborazione e visualizzazione: https://ondata.github.io/referendum_iniziative_popolari
+Elaborazione: https://ondata.github.io/referendum_iniziative_popolari
 Licenza: CC-BY 4.0
 ```
 
