@@ -115,6 +115,15 @@ export function isSigningActive(initiative: Initiative): boolean {
   return initiative.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME';
 }
 
+export function hasReachedQuorum(initiative: Initiative): boolean {
+  // Controlla se l'iniziativa ha raggiunto il quorum
+  // Entrambi i valori devono essere definiti e sostenitori deve essere >= quorum
+  if (initiative.sostenitori === undefined || initiative.quorum === undefined) {
+    return false;
+  }
+  return initiative.sostenitori >= initiative.quorum;
+}
+
 export function normalizeUrl(url: string | undefined): string | undefined {
   if (!url || typeof url !== 'string') return undefined;
 

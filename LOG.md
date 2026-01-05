@@ -1,6 +1,6 @@
 # Log delle modifiche
 
-## 2026-01-05 (SEO enhancements)
+## 2026-01-05 (SEO + Quorum filter)
 
 - **Implementati JSON-LD Schemas per migliorare SEO**:
   1. **Organization Schema** (home page): identifica la piattaforma onData con descrizione e URL
@@ -21,6 +21,12 @@
   - Pagine singole (initiative detail, info, ecc): canonical mantiene il path completo (no canonicalizeToBase)
 
   Beneficio SEO: Evita duplicati dovuti a varianti di filtro, concentra l'autorità sulla pagina principale.
+
+- **Aggiunto filtro Quorum Raggiunto** (GitHub issue #12): checkbox nella barra filtri per mostrare solo iniziative che hanno raggiunto il quorum:
+  - Aggiunta funzione helper `hasReachedQuorum()` in `src/lib/initiatives.ts`: verifica se `sostenitori >= quorum`
+  - Modificato `SearchAndFilters.tsx`: stato `onlyQuorumReached`, checkbox UI, URL param `quorum=true`, logica di filtraggio
+  - Funziona sia per iniziative chiuse che aperte (se il quorum è stato raggiunto)
+  - URL shareable: `/tabella?quorum=true` o `/index?quorum=true`
 
 ## 2026-01-05 (continued)
 

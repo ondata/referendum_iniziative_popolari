@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Initiative } from '../types/initiative';
-import { normalizeForSorting } from '../lib/initiatives';
+import { normalizeForSorting, hasReachedQuorum } from '../lib/initiatives';
 
 interface SearchAndFiltersProps {
   initiatives: Initiative[];
@@ -14,6 +14,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedType, setSelectedType] = useState('');
   const [sortBy, setSortBy] = useState('dataApertura');
+  const [onlyQuorumReached, setOnlyQuorumReached] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Funzione per aggiornare l'URL con i parametri attuali
@@ -23,6 +24,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     stato?: string;
     tipo?: string;
     ordinamento?: string;
+    quorum?: boolean;
   }) => {
     if (typeof window === 'undefined') return;
 
@@ -59,6 +61,12 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       urlParams.delete('ordinamento');
     }
 
+    if (params.quorum) {
+      urlParams.set('quorum', 'true');
+    } else {
+      urlParams.delete('quorum');
+    }
+
     // Aggiorna l'URL senza ricaricare la pagina
     const newURL = urlParams.toString() ? `${window.location.pathname}?${urlParams.toString()}` : window.location.pathname;
     window.history.replaceState({}, '', newURL);
@@ -74,12 +82,14 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     const stato = urlParams.get('stato') || '';
     const tipo = urlParams.get('tipo') || '';
     const ordinamento = urlParams.get('ordinamento') || 'dataApertura';
+    const quorum = urlParams.get('quorum') === 'true';
 
     setSearchTerm(search);
     setSelectedCategory(categoria);
     setSelectedStatus(stato);
     setSelectedType(tipo);
     setSortBy(ordinamento);
+    setOnlyQuorumReached(quorum);
     setIsInitialized(true);
   }, []);
 
@@ -95,6 +105,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     setSelectedStatus('');
     setSelectedType('');
     setSortBy('dataApertura');
+    setOnlyQuorumReached(false);
 
     // Pulisci anche l'URL
     if (typeof window !== 'undefined') {
@@ -103,7 +114,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
   };
 
   // Controlla se ci sono filtri attivi
-  const hasActiveFilters = searchTerm || selectedCategory || selectedStatus || selectedType || sortBy !== 'dataApertura';
+  const hasActiveFilters = searchTerm || selectedCategory || selectedStatus || selectedType || sortBy !== 'dataApertura' || onlyQuorumReached;
 
   // Aggiorna l'URL quando cambiano i filtri (solo dopo l'inizializzazione)
   useEffect(() => {
@@ -113,10 +124,11 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
         categoria: selectedCategory,
         stato: selectedStatus,
         tipo: selectedType,
-        ordinamento: sortBy
+        ordinamento: sortBy,
+        quorum: onlyQuorumReached
       });
     }
-  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, isInitialized, updateURL]);
+  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, onlyQuorumReached, isInitialized, updateURL]);
 
   // Calcola le opzioni disponibili basandosi sui filtri attivi
   const getAvailableOptions = useCallback(() => {
@@ -237,6 +249,13 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       );
     }
 
+    // Filtro per quorum raggiunto
+    if (onlyQuorumReached) {
+      filtered = filtered.filter(initiative =>
+        hasReachedQuorum(initiative)
+      );
+    }
+
     // Ordinamento
     filtered.sort((a, b) => {
       switch (sortBy) {
@@ -254,7 +273,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     });
 
     onFilter(filtered);
-  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, initiatives, isInitialized, onFilter]);
+  }, [searchTerm, selectedCategory, selectedStatus, selectedType, sortBy, onlyQuorumReached, initiatives, isInitialized, onFilter]);
 
   return (
     <div className="space-y-4 mb-8">
@@ -268,7 +287,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       {/* Sezione Filtri */}
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Filtri</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
           {/* Barra di ricerca */}
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -333,6 +352,20 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Checkbox Quorum Raggiunto */}
+          <div className="flex items-center">
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={onlyQuorumReached}
+                onChange={(e) => setOnlyQuorumReached(e.target.checked)}
+                aria-label="Mostra solo iniziative che hanno raggiunto il quorum"
+                className="w-4 h-4 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">Quorum raggiunto</span>
+            </label>
           </div>
 
           {/* Pulsante Cancella filtri */}

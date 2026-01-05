@@ -35,6 +35,30 @@
 
 ---
 
+# Feature: Filtro Quorum (GitHub Issue #12)
+
+**Data inizio**: 2026-01-05
+**Obiettivo**: Aggiungere checkbox per filtrare solo iniziative che hanno raggiunto il quorum
+
+## Implementazione
+
+### Fase 1: Funzione Helper
+- [ ] Aggiungere `hasReachedQuorum()` in `src/lib/initiatives.ts`
+
+### Fase 2: Modifica SearchAndFilters.tsx
+- [ ] Aggiungere stato `onlyQuorumReached`
+- [ ] Aggiungere checkbox nella barra filtri
+- [ ] Gestire URL parameters (`quorum`)
+- [ ] Aggiungere logica di filtraggio
+- [ ] Aggiornare `clearAllFilters()`
+
+### Fase 3: Test
+- [ ] Verificare che checkbox funziona
+- [ ] Verificare URL params
+- [ ] Verificare clear filters
+
+---
+
 ## Domande Non Risolte
 
 - Schema: Usare `DataFeed` per le iniziative come feed aggregato?
