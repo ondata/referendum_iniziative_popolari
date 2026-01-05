@@ -36,6 +36,12 @@
 
 - **Creato README nella cartella `data/`**. Documentazione completa dei file dati principali: `source.json/jsonl`, `time_line.jsonl`, `media_sostenitori_giornaliera.jsonl`, `check_date.txt`, `deploy_log.jsonl` e contenuto delle sottocartelle `quesiti/` e `sample/`. Include frequenza di aggiornamento e casi d'uso.
 - **Disabilitato tasto di accesso ai dati nel footer**. Il pulsante download nel footer che permetteva di scaricare il file `source.jsonl` è stato commentato per il momento, in attesa di future modifiche. Modificato il file `src/components/Footer.astro`.
+- **Migliorato truncamento breadcrumb con dimensionamento dinamico** (`src/components/Breadcrumb.astro`). Rimosso limite fisso `max-w-xs` per mostrare più contenuto. Implementato sistema flessibile:
+  - Aggiunto `min-w-0` a `<ol>` e ultimo `<li>` per permettere restringimento
+  - `flex-shrink-0` su "Home" per preservare lo spazio del primo link
+  - `truncate` su titolo finale con ellissi dinamiche basate su spazio disponibile
+  - Breadcrumb rimane sempre su singola riga con troncamento proporzionale
+  - Titoli corti entrano completi, titoli lunghi si troncano gracefully senza andare a capo
 - **Risolto bug: menu hamburger coperto dagli sticky header in tutte le pagine**. Il problema era duplice:
   1. Il bottone hamburger non aveva z-index esplicito (era z-auto)
   2. Gli sticky header di pagina avevano `z-10`, che crea un nuovo stacking context e copre il menu z-60
