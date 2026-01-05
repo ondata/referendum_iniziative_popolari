@@ -68,3 +68,27 @@ https://ondata.github.io/referendum_iniziative_popolari/initiative/4100009/
 - **Formato**: file Markdown individualmente nominati per ID iniziativa
 - **Esempio**: `4100009.md` contiene il quesito dell'iniziativa con ID 4100009
 - **Uso**: visualizzati nelle pagine di dettaglio delle iniziative
+
+## Licenza e Attribuzione
+
+Questi dati sono forniti con **licenza CC-BY 4.0**. I dati grezzi provengono dal Ministero della Giustizia italiano, mentre i file elaborati (come `time_line.jsonl`) sono processati da questo repository.
+
+**Per utilizzare questi dati, è necessario citare sia la fonte originale che questo repository** nel seguente formato:
+
+```
+Dati sui referendum e iniziative popolari italiane forniti dal Ministero della Giustizia
+Fonte originale: https://firmereferendum.giustizia.it/ (CC-BY 4.0)
+Elaborazione e processing: https://github.com/ondata/referendum_iniziative_popolari
+Licenza: CC-BY 4.0
+```
+
+Oppure in forma più compatta:
+
+```
+© Ministero della Giustizia & onData (CC-BY 4.0)
+Fonte: https://firmereferendum.giustizia.it/ | Processing: https://github.com/ondata/referendum_iniziative_popolari
+```
+
+**Nota per file elaborati**: Se utilizzi file come `time_line.jsonl` che contengono dati processati e aggregati, è particolarmente importante citare sia il Ministero (fonte originale) che questo repository (elaborazione).
+
+Questa attribuzione deve essere inclusa in qualsiasi progetto, analisi o pubblicazione che utilizzi questi dati.
