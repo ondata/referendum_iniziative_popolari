@@ -2,6 +2,7 @@
 
 ## 2026-01-05 (continued)
 
+- **Aggiunta sezione "Come citare i dati" in src/content/dati.md**. Inserita sottosezione nella sezione "I dati disponibili in questo sito" con due formati di citazione (completo e compatto) per rispettare la licenza CC-BY 4.0 e citare correttamente sia la fonte originale (Ministero della Giustizia) che l'elaborazione (onData). I formati sono presi direttamente da data/README.md per coerenza.
 - **Risolto problema: grafici rotti nelle pagine delle iniziative**. Due file dati erano stati corrotti durante gli aggiornamenti automatici di GitHub Actions:
   1. **media_sostenitori_giornaliera.jsonl**: svuotato completamente. Causava `Unexpected end of JSON input` nella build della pagina /numeri.
   2. **time_line.jsonl**: ridotto a soli 30 righe (una per iniziativa con solo il dato di oggi). Causava grafici vuoti nella Timeline sostenitori.
