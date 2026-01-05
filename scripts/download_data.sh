@@ -29,9 +29,16 @@ curl -s "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/p
 # Crea variabile con data in formato YYYY-MM-DD per tracciare quando sono stati raccolti i dati
 check_date=$(date +%Y-%m-%d)
 
-# Aggiorna la timeline delle firme: filtra solo iniziative in raccolta firme (stato=2),
-# estrae ID e numero sostenitori, aggiunge la data corrente
-mlr --jsonl filter '${idDecStatoIniziativa.id}==2' then cut -f id,sostenitori then put '$data="'"${check_date}"'"' then reorder -f id,data,sostenitori "${folder}"/../data/source.jsonl >"${folder}"/../data/time_line.jsonl
+# Aggiorna la timeline delle firme: preserva cronologia e aggiunge dati nuovi di oggi
+# Se il file esiste, rimuove i dati di oggi (da run precedenti) prima di appendere
+if [[ -f "${folder}"/../data/time_line.jsonl ]]; then
+  mlr --jsonl filter -x '$data=="'"${check_date}"'"' "${folder}"/../data/time_line.jsonl >"${folder}"/../data/time_line.jsonl.tmp
+  mv "${folder}"/../data/time_line.jsonl.tmp "${folder}"/../data/time_line.jsonl
+fi
+
+# Filtra iniziative in raccolta firme (stato=2), estrae ID e numero sostenitori, aggiunge data
+# APPEND ai dati storici anziché sovrascrivere (>> invece di >)
+mlr --jsonl filter '${idDecStatoIniziativa.id}==2' then cut -f id,sostenitori then put '$data="'"${check_date}"'"' then reorder -f id,data,sostenitori "${folder}"/../data/source.jsonl >>"${folder}"/../data/time_line.jsonl
 
 # Rimuove duplicati dalla timeline e riordina per data e ID
 mlr -I --jsonl top -f sostenitori -g id,data then sort -t data,id then cut -x -f top_idx then rename sostenitori_top,sostenitori "${folder}"/../data/time_line.jsonl
