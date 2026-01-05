@@ -71,7 +71,8 @@ const description = "I dati sulle iniziative e referendum italiane: cosa pubblic
               const src = img.getAttribute('src');
               // Only fix if path starts with / but not with http and doesn't already include base path
               if (src && !src.startsWith('http') && !src.startsWith(basePath)) {
-                img.setAttribute('src', basePath + src.substring(1));
+                // Keep the leading slash from src for proper path concatenation
+                img.setAttribute('src', basePath + src);
               }
             });
           }
