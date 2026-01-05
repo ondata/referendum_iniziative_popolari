@@ -3,7 +3,8 @@
 ## 2026-01-05
 
 - **Risolto bug: menu hamburger e top bar bloccati dietro grafici e elementi della pagina**. Il bottone hamburger non aveva z-index esplicito e il menu-dropdown aveva z-50, mentre gli elementi della pagina (specialmente su `/numeri`, `/tabella`, `/info`) avevano `relative z-10`.
-- Aggiunto `z-50` al `.hamburger-btn` e aumentato `.menu-dropdown` a `z-60` per assicurare che il menu sia sempre sopra agli elementi della pagina. Ora il bottone è sempre cliccabile e il menu dropdown è sempre visibile.
+- Aggiunto `z-50` al `.hamburger-btn` e `z-index: 60` CSS standard al `.menu-dropdown` (poiché z-60 non esiste in Tailwind) per assicurare che il menu sia sempre sopra agli elementi della pagina e al bottone. Ora il bottone è sempre cliccabile e il menu dropdown è sempre visibile.
+- **Corretto errore build**: La classe Tailwind `z-60` non esiste (Tailwind arriva fino a z-50). Sostituito con proprietà CSS standard `z-index: 60` nel blocco style del componente.
 
 ## 2026-01-04
 
