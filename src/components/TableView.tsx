@@ -325,7 +325,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   return (
     <div className="min-h-screen">
       {/* Header - Brutalist */}
-      <header className="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-10">
+      <header className="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">

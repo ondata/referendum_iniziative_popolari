@@ -1,13 +1,14 @@
 ---
+draft: true
 import Layout from '../layouts/Layout.astro';
 import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
 import Footer from '../components/Footer.astro';
 
 // Importa direttamente il file markdown usando il supporto nativo di Astro
-import InfoContent from '../content/info.md';
+import DatiContent from '../content/dati.md';
 
-const title = "Info - Referendum e Iniziative Popolari";
-const description = "Scopri come funziona questo sito e perché è importante partecipare alle iniziative democratiche in Italia.";
+const title = "Dati - Referendum e Iniziative Popolari";
+const description = "Dati e statistiche sulle iniziative referendarie e le proposte di legge di iniziativa popolare in Italia.";
 ---
 
 <Layout title={title} description={description}>
@@ -47,7 +48,7 @@ const description = "Scopri come funziona questo sito e perché è importante pa
           prose-code:text-civic-terra-dark prose-code:font-mono prose-code:bg-civic-stone prose-code:px-1 prose-code:py-0.5
           prose-blockquote:border-l-6 prose-blockquote:border-civic-terra prose-blockquote:bg-civic-stone prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:my-6"
           data-base-url={import.meta.env.BASE_URL}>
-          <InfoContent />
+          <DatiContent />
         </article>
 
         <script>
