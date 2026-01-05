@@ -1,6 +1,6 @@
 # Dati
 
-## I dati non disponibili
+<h2 id="i-dati-non-disponibili">I dati non disponibili <a href="#i-dati-non-disponibili" class="header-anchor" aria-label="Anchor link">🔗</a></h2>
 
 Il [sito ufficiale](https://firmereferendum.giustizia.it/) dedicato a Referendum e iniziative popolari **non ha una sezione dedicata ai dati raccolti**. I numeri delle raccolta firme sono disponibili attualmente soltanto come grafici (sotto un esempio), immagini e tabelle HTML, e non è possibile leggere la loro **variazione nel tempo**.
 
@@ -36,7 +36,7 @@ Una segmentazione demografica che mostra la distribuzione delle firme secondo **
 
 Nonostante il valore civico e scientifico di questa segmentazione demografica, **non esiste un accesso pubblico** ai dati in formato aperto.
 
-## I dati disponibili in questo sito
+<h2 id="i-dati-disponibili-in-questo-sito">I dati disponibili in questo sito <a href="#i-dati-disponibili-in-questo-sito" class="header-anchor" aria-label="Anchor link">🔗</a></h2>
 
 Li raccogliamo e aggiorniamo giornalmente in **formato machine readable** (JSON Lines) e con **licenza aperta CC-BY 4.0**, rendendo possibile analisi, ricerche e riutilizzo civico che il sito ufficiale non consente.
 

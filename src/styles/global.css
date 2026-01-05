@@ -131,3 +131,29 @@ nav ul li::before {
   content: none;
   padding-left: 0;
 }
+
+/* Header anchor links - visible on hover */
+.header-anchor {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: #c1694f;
+  text-decoration: none;
+  font-size: 1em;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+h2:hover .header-anchor {
+  opacity: 1;
+}
+
+.header-anchor:focus {
+  outline: none;
+}
+
+.header-anchor:focus-visible {
+  outline: 2px solid #c1694f;
+  outline-offset: 2px;
+}
