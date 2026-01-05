@@ -22,6 +22,11 @@ export const menuItems: MenuItem[] = [
     icon: 'TableCellsIcon'
   },
   {
+    href: '/dati',
+    label: 'Dati',
+    icon: 'ArchiveBoxIcon'
+  },
+  {
     href: '/info',
     label: 'Info',
     icon: 'InformationCircleIcon'

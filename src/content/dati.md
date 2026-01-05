@@ -2,11 +2,11 @@
 
 ## I dati non disponibili
 
-Il [sito ufficiale](https://firmereferendum.giustizia.it/) dedicato a Referendum e iniziative popolari **non ha una sezione dedicata ai dati raccolti**. I numeri delle raccolta firme sono disponibili attualmente soltanto come grafici (sotto un esempio), immagini e tabelle HTML, e non consente di leggere la loro **variazione nel tempo**.
-
-![](public/images/dati/torta.png)
+Il [sito ufficiale](https://firmereferendum.giustizia.it/) dedicato a Referendum e iniziative popolari **non ha una sezione dedicata ai dati raccolti**. I numeri delle raccolta firme sono disponibili attualmente soltanto come grafici (sotto un esempio), immagini e tabelle HTML, e non è possibile leggere la loro **variazione nel tempo**.
 
 È una **grave lacuna**, perché sarebbe molto utile poter seguire e monitorare l'**andamento** delle firme raccolte nel **tempo**, per **iniziativa**, per **area geografica**, per **fascia di età** e **sesso**.
+
+![Grafico a torta dei dati](/images/dati/torta.png)
 
 Questo inoltre è in **contrasto** con il **quadro normativo** su **trasparenza** digitale e riutilizzo dei **dati pubblici**, in particolare:
 
@@ -16,7 +16,7 @@ Questo inoltre è in **contrasto** con il **quadro normativo** su **trasparenza*
 
 Nel rispetto della normativa sulla _privacy_, la pubblicazione di **dati anonimizzati** consentirebbe trasparenza, attività di ricerca, monitoraggio e controllo civico sull'andamento delle sottoscrizioni.
 
-### altri dati non accessibili
+### Altri dati non accessibili
 
 Il sito ufficiale mette a disposizione informazioni molto interessanti, ma **accessibili soltanto dopo autenticazione con SPID o CIE**. Purtroppo, questi dati non sono scaricabili in formato machine-readable e rimangono confinati in una visualizzazione web.
 
@@ -24,13 +24,13 @@ Il sito ufficiale mette a disposizione informazioni molto interessanti, ma **acc
 
 Una analisi geografica della raccolta firme per ogni regione italiana, con suddivisione per sesso (femmine e maschi). I dati sono visualizzati sia tramite una **mappa coropleta** (che mostra intensità variabile per regione) che tramite una **tabella con valori numerici esatti**.
 
-![Distribuzione regionale firme](public/images/dati/regionali.png)
+![Distribuzione regionale firme](/images/dati/regionali.png)
 
 **Dati per sesso e fascia di età**
 
 Una segmentazione demografica che mostra la distribuzione delle firme secondo **13 fasce di età** (dai 18-22 anni fino a 68 e più), con confronto tra firme femminili e maschili per ogni fascia. Questi dati sono visualizzati tramite un **grafico a barre divergente** che permette il confronto immediato tra generi, accompagnato da una tabella.
 
-![Distribuzione per sesso e fascia di età](public/images/dati/eta_genere.png)
+![Distribuzione per sesso e fascia di età](/images/dati/eta_genere.png)
 
 **Perché questi dati non sono pubblicamente disponibili?**
 
@@ -47,6 +47,14 @@ Li raccogliamo e aggiorniamo giornalmente in **formato machine readable** (JSON 
 - **Testi ufficiali dei quesiti** (`quesiti/`) in formato strutturato
 
 Il dataset della **timeline storica** rappresenta il valore aggiunto principale: consente di analizzare l'**andamento reale nel tempo** delle firme, calcolare velocità di raccolta, identificare trend e anomalie - dati che il portale ufficiale non rende disponibili in formato riutilizzabile.
+
+---
+
+> **📋 Accedi ai dati**
+>
+> Scarica e utilizza i dati in formato aperto: **[vai al repository](https://github.com/ondata/referendum_iniziative_popolari/blob/main/data/README.md)** per accedere ai file, scoprire le strutture disponibili e imparare come citarli correttamente.
+
+---
 
 **Cosa manca (e perché)**
 

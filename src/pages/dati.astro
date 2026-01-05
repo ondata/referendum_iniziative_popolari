@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
+import Footer from '../components/Footer.astro';
+
+// Importa il file markdown dati
+import DatiContent from '../content/dati.md';
+
+const title = "Dati - Referendum e Iniziative Popolari";
+const description = "I dati sulle iniziative e referendum italiane: cosa pubblichiamo e perché";
+---
+
+<Layout title={title} description={description}>
+  <div class="min-h-screen bg-civic-stone">
+    <!-- Navigation - Brutalist -->
+    <nav role="navigation" aria-label="Navigazione principale" class="bg-civic-charcoal border-b-3 border-civic-terra sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a href={import.meta.env.BASE_URL} class="inline-flex items-center text-white hover:text-civic-terra font-bold uppercase text-sm tracking-wide transition-colors border-b-2 border-transparent hover:border-civic-terra pb-1">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Iniziative
+          </a>
+
+          <!-- Menu Hamburger -->
+          <HamburgerMenuNative baseUrl={import.meta.env.BASE_URL} />
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content - Brutalist -->
+    <main id="main-content" role="main" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-white border-3 border-civic-border p-8 sm:p-12 card-shadow relative">
+        <!-- Decorative corner -->
+        <div class="absolute top-0 left-0 w-20 h-20 border-l-3 border-t-3 border-civic-terra opacity-20"></div>
+
+        <article class="prose prose-lg max-w-none relative z-10
+          prose-headings:font-serif prose-headings:text-civic-charcoal
+          prose-h1:text-4xl prose-h1:font-bold prose-h1:mb-6 prose-h1:mt-0 prose-h1:border-b-3 prose-h1:border-civic-terra prose-h1:pb-4
+          prose-h2:text-3xl prose-h2:font-bold prose-h2:mb-4 prose-h2:mt-10 prose-h2:flex prose-h2:items-center
+          prose-h2:after:content-[''] prose-h2:after:ml-4 prose-h2:after:h-0.5 prose-h2:after:flex-1 prose-h2:after:bg-gradient-to-r prose-h2:after:from-civic-terra prose-h2:after:to-transparent
+          prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-h3:mt-6 prose-h3:text-civic-terra-dark
+          prose-p:text-civic-neutral prose-p:leading-relaxed prose-p:mb-4
+          prose-strong:font-bold prose-strong:text-civic-charcoal
+          prose-a:text-civic-terra prose-a:font-bold prose-a:border-b-2 prose-a:border-transparent hover:prose-a:border-civic-terra hover:prose-a:text-civic-terra-dark prose-a:transition-all prose-a:no-underline
+          prose-code:text-civic-terra-dark prose-code:font-mono prose-code:bg-civic-stone prose-code:px-1 prose-code:py-0.5
+          prose-blockquote:border-l-6 prose-blockquote:border-civic-terra prose-blockquote:bg-civic-stone prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:my-6"
+          data-base-url={import.meta.env.BASE_URL}>
+          <DatiContent />
+        </article>
+
+        <script>
+          // Fix relative URLs in article to include base path
+          const article = document.querySelector('article[data-base-url]');
+          if (article) {
+            const basePath = article.getAttribute('data-base-url');
+            const links = article.querySelectorAll('a[href^="/?"]');
+            links.forEach(link => {
+              const href = link.getAttribute('href');
+              if (href && !href.startsWith(basePath)) {
+                link.setAttribute('href', basePath + href.substring(1));
+              }
+            });
+          }
+        </script>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <Footer role="contentinfo" />
+  </div>
+</Layout>
