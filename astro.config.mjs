@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import { rehypeBaseUrl } from './src/lib/rehype-base-url.mjs';
+import { rehypeValidateAlt } from './src/lib/rehype-validate-alt.mjs';
 
 // Configurazione per GitHub Pages
 const baseUrl = process.env.NODE_ENV === 'production' ? '/referendum_iniziative_popolari' : '/';
@@ -20,6 +21,9 @@ export default defineConfig({
 
   // Markdown processing
   markdown: {
-    rehypePlugins: [[rehypeBaseUrl, baseUrl]],
+    rehypePlugins: [
+      [rehypeBaseUrl, baseUrl],
+      rehypeValidateAlt,
+    ],
   },
 });

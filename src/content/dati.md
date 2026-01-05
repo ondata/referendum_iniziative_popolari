@@ -6,7 +6,7 @@ Il [sito ufficiale](https://firmereferendum.giustizia.it/) dedicato a Referendum
 
 È una **grave lacuna**, perché sarebbe molto utile poter seguire e monitorare l'**andamento** delle firme raccolte nel **tempo**, per **iniziativa**, per **area geografica**, per **fascia di età** e **sesso**.
 
-![Grafico a torta dei dati](/images/dati/torta.png)
+![Esempio di grafico a torta mostrante la distribuzione percentuale dei dati di raccolta firme dal sito ufficiale del Ministero della Giustizia](/images/dati/torta.png)
 
 La non disponibilità dei dati inoltre è in **contrasto** con il **quadro normativo** su **trasparenza** digitale e riutilizzo dei **dati pubblici**, in particolare:
 
@@ -24,13 +24,13 @@ Il sito ufficiale mette a disposizione informazioni molto interessanti, ma **acc
 
 Una analisi geografica della raccolta firme per ogni regione italiana, con suddivisione per sesso (femmine e maschi). I dati sono visualizzati sia tramite una **mappa coropleta** (che mostra intensità variabile per regione) che tramite una **tabella con valori numerici esatti**.
 
-![Distribuzione regionale firme](/images/dati/regionali.png)
+![Mappa dell'Italia mostrante la distribuzione regionale delle firme raccolte](/images/dati/regionali.png)
 
 **Dati per sesso e fascia di età**
 
 Una segmentazione demografica che mostra la distribuzione delle firme secondo **13 fasce di età** (dai 18-22 anni fino a 68 e più), con confronto tra firme femminili e maschili per ogni fascia. Questi dati sono visualizzati tramite un **grafico a barre divergente** che permette il confronto immediato tra generi, accompagnato da una tabella.
 
-![Distribuzione per sesso e fascia di età](/images/dati/eta_genere.png)
+![Grafico a barre divergente mostrante la distribuzione delle firme per fasce di età con confronto tra donne e uomini](/images/dati/eta_genere.png)
 
 **Perché questi dati non sono pubblicamente disponibili?**
 
