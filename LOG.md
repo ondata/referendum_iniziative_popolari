@@ -24,9 +24,11 @@
 
 - **Aggiunto filtro Quorum Raggiunto** (GitHub issue #12): checkbox nella barra filtri per mostrare solo iniziative che hanno raggiunto il quorum:
   - Aggiunta funzione helper `hasReachedQuorum()` in `src/lib/initiatives.ts`: verifica se `sostenitori >= quorum`
-  - Modificato `SearchAndFilters.tsx`: stato `onlyQuorumReached`, checkbox UI, URL param `quorum=true`, logica di filtraggio
+  - Modificato `SearchAndFilters.tsx` (home page): stato `onlyQuorumReached`, checkbox UI, URL param `quorum=true`, logica di filtraggio + aggiornamento conteggi
+  - Modificato `TableView.tsx` (pagina `/tabella`): stessi cambiamenti, stile Civic Brutalism per checkbox
   - Funziona sia per iniziative chiuse che aperte (se il quorum è stato raggiunto)
-  - URL shareable: `/tabella?quorum=true` o `/index?quorum=true`
+  - URL shareable: `/tabella?quorum=true` o `/?quorum=true`
+  - Fix: conteggi nei dropdown si aggiornano correttamente quando si attiva il filtro
 
 ## 2026-01-05 (continued)
 
