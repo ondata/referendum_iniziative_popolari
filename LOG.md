@@ -2,6 +2,8 @@
 
 ## 2026-01-05
 
+- **Creato README nella cartella `data/`**. Documentazione completa dei file dati principali: `source.json/jsonl`, `time_line.jsonl`, `media_sostenitori_giornaliera.jsonl`, `check_date.txt`, `deploy_log.jsonl` e contenuto delle sottocartelle `quesiti/` e `sample/`. Include frequenza di aggiornamento e casi d'uso.
+- **Disabilitato tasto di accesso ai dati nel footer**. Il pulsante download nel footer che permetteva di scaricare il file `source.jsonl` è stato commentato per il momento, in attesa di future modifiche. Modificato il file `src/components/Footer.astro`.
 - **Risolto bug: menu hamburger coperto dagli sticky header in tutte le pagine**. Il problema era duplice:
   1. Il bottone hamburger non aveva z-index esplicito (era z-auto)
   2. Gli sticky header di pagina avevano `z-10`, che crea un nuovo stacking context e copre il menu z-60
