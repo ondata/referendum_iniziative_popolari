@@ -2,7 +2,12 @@
 
 ## 2026-01-05 (continued)
 
-- **Risolto problema: grafici rotti nelle pagine delle iniziative dopo pubblicazione della pagina dati**. Il file `data/media_sostenitori_giornaliera.jsonl` era stato corrotto (svuotato) durante il commit di aggiornamento automatico dei dati da GitHub Actions. Questo causava un errore di parsing JSON (`Unexpected end of JSON input`) durante la build della pagina /numeri. Ripristinato il file da un commit precedente. I grafici della timeline sostenitori nelle pagine delle iniziative funzionano regolarmente e non erano il problema effettivo.
+- **Risolto problema: grafici rotti nelle pagine delle iniziative**. Due file dati erano stati corrotti durante gli aggiornamenti automatici di GitHub Actions:
+  1. **media_sostenitori_giornaliera.jsonl**: svuotato completamente. Causava `Unexpected end of JSON input` nella build della pagina /numeri.
+  2. **time_line.jsonl**: ridotto a soli 30 righe (una per iniziativa con solo il dato di oggi). Causava grafici vuoti nella Timeline sostenitori.
+- **Causa**: lo script `download_data.sh` ricrea `time_line.jsonl` da zero ogni volta, basandosi solo su `source.jsonl` che contiene solo i dati ATTUALI dell'API. Non preserva la cronologia precedente.
+- **Soluzione temporanea**: Ripristinato `time_line.jsonl` dal commit fef8ff2 (5571 entry, 2025-07-06 → 2026-01-05) con force push.
+- **Fix necessario a lungo termine**: Modificare lo script per appendere i nuovi dati a `time_line.jsonl` anziché sovrascriverlo, oppure gestire la cronologia in modo centralizzato.
 
 ## 2026-01-05
 
