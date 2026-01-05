@@ -2,9 +2,13 @@
 
 ## 2026-01-05
 
-- **Risolto bug: menu hamburger e top bar bloccati dietro grafici e elementi della pagina**. Il bottone hamburger non aveva z-index esplicito e il menu-dropdown aveva z-50, mentre gli elementi della pagina (specialmente su `/numeri`, `/tabella`, `/info`) avevano `relative z-10`.
-- Aggiunto `z-50` al `.hamburger-btn` e `z-index: 60` CSS standard al `.menu-dropdown` (poiché z-60 non esiste in Tailwind) per assicurare che il menu sia sempre sopra agli elementi della pagina e al bottone. Ora il bottone è sempre cliccabile e il menu dropdown è sempre visibile.
-- **Corretto errore build**: La classe Tailwind `z-60` non esiste (Tailwind arriva fino a z-50). Sostituito con proprietà CSS standard `z-index: 60` nel blocco style del componente.
+- **Risolto bug: menu hamburger coperto dagli sticky header in tutte le pagine**. Il problema era duplice:
+  1. Il bottone hamburger non aveva z-index esplicito (era z-auto)
+  2. Gli sticky header di pagina avevano `z-10`, che crea un nuovo stacking context e copre il menu z-60
+- **Fix 1 - HamburgerMenuNative.astro**: Aggiunto `z-50` al `.hamburger-btn` e `z-index: 60` CSS standard al `.menu-dropdown` (poiché z-60 non esiste in Tailwind).
+- **Fix 2 - Sticky headers**: Aumentati da `z-10` a `z-40` in TableView.tsx, numeri.astro, info.astro e dati.astro. I sticky header con stacking context basso impedirebbero al menu (z-60) di stare sopra.
+- **Gerarchia z-index finale**: Menu dropdown z-60 > Sticky headers z-40 > Overlay z-40 > Contenuti z-auto
+- **Corretto errore build**: La classe Tailwind `z-60` non esiste. Sostituito con proprietà CSS standard `z-index: 60`.
 
 ## 2026-01-04
 
