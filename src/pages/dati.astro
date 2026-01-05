@@ -55,11 +55,23 @@ const description = "I dati sulle iniziative e referendum italiane: cosa pubblic
           const article = document.querySelector('article[data-base-url]');
           if (article) {
             const basePath = article.getAttribute('data-base-url');
+
+            // Fix links
             const links = article.querySelectorAll('a[href^="/?"]');
             links.forEach(link => {
               const href = link.getAttribute('href');
               if (href && !href.startsWith(basePath)) {
                 link.setAttribute('href', basePath + href.substring(1));
+              }
+            });
+
+            // Fix images with absolute paths that don't include base path
+            const images = article.querySelectorAll('img[src^="/"]');
+            images.forEach(img => {
+              const src = img.getAttribute('src');
+              // Only fix if path starts with / but not with http and doesn't already include base path
+              if (src && !src.startsWith('http') && !src.startsWith(basePath)) {
+                img.setAttribute('src', basePath + src.substring(1));
               }
             });
           }
