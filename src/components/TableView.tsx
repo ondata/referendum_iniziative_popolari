@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import type { Initiative } from '../types/initiative';
-import { formatDate, formatNumber, isSigningActive, normalizeForSorting } from '../lib/initiatives';
+import { formatDate, formatNumber, isSigningActive, normalizeForSorting, hasReachedQuorum } from '../lib/initiatives';
 import { normalizeBaseUrl } from '../lib/paths';
 import HamburgerMenuReact from './HamburgerMenuReact';
 import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -18,6 +18,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
+  const [onlyQuorumReached, setOnlyQuorumReached] = useState(false);
 
   // Normalizza il baseUrl per gestire correttamente dev e produzione
   const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
@@ -33,6 +34,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     tipo?: string;
     ordinamento?: string;
     direzione?: string;
+    quorum?: boolean;
   }) => {
     if (typeof window === 'undefined') return;
 
@@ -75,6 +77,12 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
       urlParams.delete('direzione');
     }
 
+    if (params.quorum) {
+      urlParams.set('quorum', 'true');
+    } else {
+      urlParams.delete('quorum');
+    }
+
     // Aggiorna l'URL senza ricaricare la pagina
     const newURL = urlParams.toString() ? `${window.location.pathname}?${urlParams.toString()}` : window.location.pathname;
     window.history.replaceState({}, '', newURL);
@@ -91,6 +99,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     const tipo = urlParams.get('tipo') || '';
     const ordinamento = urlParams.get('ordinamento') || 'dataApertura';
     const direzione = urlParams.get('direzione') || 'desc';
+    const quorum = urlParams.get('quorum') === 'true';
 
     setSearchTerm(search);
     setCategoryFilter(categoria);
@@ -98,6 +107,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     setTypeFilter(tipo);
     setSortColumn(ordinamento as SortColumn);
     setSortDirection(direzione as SortDirection);
+    setOnlyQuorumReached(quorum);
     setIsInitialized(true);
   }, []);
 
@@ -112,6 +122,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     setCategoryFilter('');
     setStatusFilter('');
     setTypeFilter('');
+    setOnlyQuorumReached(false);
     setSortColumn('dataApertura');
     setSortDirection('desc');
 
@@ -122,7 +133,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   };
 
   // Controlla se ci sono filtri attivi
-  const hasActiveFilters = searchTerm || categoryFilter || statusFilter || typeFilter || sortColumn !== 'dataApertura' || sortDirection !== 'desc';
+  const hasActiveFilters = searchTerm || categoryFilter || statusFilter || typeFilter || sortColumn !== 'dataApertura' || sortDirection !== 'desc' || onlyQuorumReached;
 
   // Aggiorna l'URL quando cambiano i filtri (solo dopo l'inizializzazione)
   useEffect(() => {
@@ -133,10 +144,11 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         stato: statusFilter,
         tipo: typeFilter,
         ordinamento: sortColumn,
-        direzione: sortDirection
+        direzione: sortDirection,
+        quorum: onlyQuorumReached
       });
     }
-  }, [searchTerm, categoryFilter, statusFilter, typeFilter, sortColumn, sortDirection, isInitialized, updateURL]);
+  }, [searchTerm, categoryFilter, statusFilter, typeFilter, sortColumn, sortDirection, onlyQuorumReached, isInitialized, updateURL]);
 
   // Calcola le opzioni disponibili basandosi sui filtri attivi
   const getAvailableOptions = useCallback(() => {
@@ -147,6 +159,13 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
       baseInitiatives = baseInitiatives.filter(initiative =>
         initiative.titolo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         initiative.descrizioneBreve?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Applica filtro quorum a baseInitiatives
+    if (onlyQuorumReached) {
+      baseInitiatives = baseInitiatives.filter(initiative =>
+        hasReachedQuorum(initiative)
       );
     }
 
@@ -200,7 +219,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
         new Set(typesBase.map(i => i.idDecTipoIniziativa?.nome).filter(Boolean))
       ).sort()
     };
-  }, [initiatives, searchTerm, categoryFilter, statusFilter, typeFilter]);
+  }, [initiatives, searchTerm, categoryFilter, statusFilter, typeFilter, onlyQuorumReached]);
 
   const availableOptions = getAvailableOptions();
 
@@ -241,7 +260,10 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
       const matchesType = !typeFilter ||
         initiative.idDecTipoIniziativa?.nome === typeFilter;
 
-      return matchesSearch && matchesCategory && matchesStatus && matchesType;
+      const matchesQuorum = !onlyQuorumReached ||
+        hasReachedQuorum(initiative);
+
+      return matchesSearch && matchesCategory && matchesStatus && matchesType && matchesQuorum;
     });
 
     // Ordinamento
@@ -291,7 +313,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     });
 
     return filtered;
-  }, [initiatives, searchTerm, categoryFilter, statusFilter, typeFilter, sortColumn, sortDirection]);
+  }, [initiatives, searchTerm, categoryFilter, statusFilter, typeFilter, sortColumn, sortDirection, onlyQuorumReached]);
 
   const handleSort = (column: SortColumn) => {
     if (sortColumn === column) {
@@ -349,7 +371,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
               Filtri
               <div className="ml-4 h-0.5 flex-1 bg-gradient-to-r from-civic-terra to-transparent"></div>
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 relative z-10">
               {/* Barra di ricerca */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -427,6 +449,19 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                     </option>
                   ))}
                 </select>
+              </div>
+
+              {/* Checkbox Quorum Raggiunto */}
+              <div className="flex items-center">
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={onlyQuorumReached}
+                    onChange={(e) => setOnlyQuorumReached(e.target.checked)}
+                    className="w-4 h-4 border-2 border-civic-border rounded focus:ring-2 focus:ring-civic-terra focus:outline-none"
+                  />
+                  <span className="ml-2 text-sm text-civic-charcoal font-medium">Quorum raggiunto</span>
+                </label>
               </div>
 
               {/* Pulsante Cancella filtri */}
