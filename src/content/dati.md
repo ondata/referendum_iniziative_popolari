@@ -16,9 +16,9 @@ La non disponibilità dei dati inoltre è in **contrasto** con il **quadro norma
 
 Nel rispetto della normativa sulla _privacy_, la pubblicazione di **dati anonimizzati** consentirebbe trasparenza, attività di ricerca, monitoraggio e controllo civico sull'andamento delle sottoscrizioni.
 
-### Altri dati non accessibili
+### Altre informazioni non accessibili
 
-Il sito ufficiale mette a disposizione informazioni molto interessanti, ma **accessibili soltanto dopo autenticazione con SPID o CIE**. Purtroppo, questi dati non sono scaricabili in formato machine-readable e rimangono confinati in una visualizzazione web.
+Il sito ufficiale mette a disposizione informazioni molto interessanti, ma **accessibili soltanto dopo autenticazione con SPID o CIE**. Purtroppo, questi non sono scaricabili in formato _machine-readable_ e rimangono confinati in una visualizzazione web.
 
 **Dati per regione**
 
@@ -38,7 +38,7 @@ Nonostante il valore civico e scientifico di questa segmentazione demografica, *
 
 <h2 id="i-dati-disponibili-in-questo-sito">I dati disponibili in questo sito <a href="#i-dati-disponibili-in-questo-sito" class="header-anchor" aria-label="Anchor link">🔗</a></h2>
 
-Li raccogliamo e aggiorniamo giornalmente in **formato machine readable** (JSON Lines) e con **licenza aperta CC-BY 4.0**, rendendo possibile analisi, ricerche e riutilizzo civico che il sito ufficiale non consente.
+Li raccogliamo e aggiorniamo giornalmente in **formato _machine readable_** (JSON Lines) e con **licenza aperta CC-BY 4.0**, rendendo possibile analisi, ricerche e riutilizzo civico che il sito ufficiale non consente.
 
 **Cosa pubblichiamo:**
 

@@ -39,7 +39,7 @@ Con un semplice click puoi:
 
 ## 📈 Dati aperti e trasparenza
 
-Oltre a offrirti una piattaforma di esplorazione, questo sito ha un'altra missione importante: **rendere disponibili i dati sulle firme in formati machine readable** (JSON Lines) e con licenza aperta, insieme a una **timeline storica completa** che il sito ufficiale non fornisce.
+Oltre a offrirti una piattaforma di esplorazione, questo sito ha un'altra missione importante: **rendere disponibili i dati sulle firme in formati _machine readable_** (JSON Lines) e con licenza aperta, insieme a una **timeline storica completa** che il sito ufficiale non fornisce.
 
 ### Perché è importante?
 
