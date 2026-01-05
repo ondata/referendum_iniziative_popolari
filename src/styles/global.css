@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Scroll padding per anchor links con sticky header */
+  scroll-padding-top: 70px;
+}
+
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
   background-color: #f5f3f0;
