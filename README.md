@@ -4,13 +4,13 @@ Un sito web moderno per visualizzare e esplorare referendum e iniziative popolar
 
 ## 🌟 Caratteristiche
 
-- **Dati ufficiali**: Integrazione con l'API del Ministero della Giustizia
-- **Ricerca e filtri**: Cerca per titolo/descrizione, filtra per categoria e stato
-- **Ordinamento intelligente**: Per data, titolo (A-Z) o numero sostenitori
-- **Design responsive**: Ottimizzato per desktop, tablet e mobile
-- **Paginazione**: Navigazione facile tra le iniziative
-- **Link diretti**: Collegamenti alle pagine ufficiali per firmare
-- **Stato dinamico**: Pulsanti "Firma ora" disabilitati se la raccolta è terminata
+- **Dati ufficiali**: integrazione con l'API del Ministero della Giustizia
+- **Ricerca e filtri**: cerca per titolo/descrizione, filtra per categoria e stato
+- **Ordinamento intelligente**: per data, titolo (A-Z) o numero sostenitori
+- **Design responsive**: ottimizzato per desktop, tablet e mobile
+- **Paginazione**: navigazione facile tra le iniziative
+- **Link diretti**: collegamenti alle pagine ufficiali per firmare
+- **Stato dinamico**: pulsanti "Firma ora" disabilitati se la raccolta è terminata
 
 ## 🚀 Demo
 
