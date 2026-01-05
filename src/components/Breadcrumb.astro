@@ -8,12 +8,12 @@ const { items } = Astro.props;
 
 <nav aria-label="Breadcrumb" class="bg-civic-stone border-b-2 border-civic-border">
   <div class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-2 sm:py-3">
-    <ol class="flex items-center gap-1 text-xs sm:text-sm h-5">
+    <ol class="flex items-center gap-1 text-xs sm:text-sm min-w-0">
       {items.map((item, index) => (
-        <li class="flex items-center gap-1 flex-shrink-0">
-          {index > 0 && <span class="text-civic-neutral">/</span>}
+        <li class={`flex items-center gap-1 ${index === items.length - 1 ? 'min-w-0' : 'flex-shrink-0'}`}>
+          {index > 0 && <span class="text-civic-neutral flex-shrink-0">/</span>}
           {index === items.length - 1 ? (
-            <span class="font-semibold text-civic-charcoal max-w-xs truncate" title={item.name}>
+            <span class="font-semibold text-civic-charcoal truncate" title={item.name}>
               {item.name}
             </span>
           ) : (
