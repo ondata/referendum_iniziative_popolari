@@ -32,8 +32,6 @@ Una segmentazione demografica che mostra la distribuzione delle firme secondo **
 
 ![Grafico a barre divergente mostrante la distribuzione delle firme per fasce di età con confronto tra donne e uomini](/images/dati/eta_genere.png)
 
-**Perché questi dati non sono pubblicamente disponibili?**
-
 Nonostante il valore civico e scientifico di questa segmentazione demografica, **non esiste un accesso pubblico** ai dati in formato aperto.
 
 <h2 id="i-dati-disponibili-in-questo-sito">I dati disponibili in questo sito <a href="#i-dati-disponibili-in-questo-sito" class="header-anchor" aria-label="Anchor link">🔗</a></h2>
