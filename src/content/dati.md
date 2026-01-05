@@ -48,6 +48,10 @@ Li raccogliamo e aggiorniamo giornalmente in **formato _machine readable_** (JSO
 
 Il [dataset della **timeline storica**](https://raw.githubusercontent.com/ondata/referendum_iniziative_popolari/refs/heads/main/data/time_line.jsonl) rappresenta il valore aggiunto principale: consente di analizzare l'**andamento reale nel tempo** delle firme, calcolare velocità di raccolta, identificare trend e anomalie - dati che il portale ufficiale non rende disponibili in formato riutilizzabile.
 
+> **📋 Accedi ai dati**
+>
+> Scarica e utilizza i dati in formato aperto: **[vai al repository](https://github.com/ondata/referendum_iniziative_popolari/blob/main/data/README.md)** per accedere ai file, scoprire le strutture disponibili e imparare come citarli correttamente.
+
 ### Come citare i dati
 
 Se utilizzi questi dati è importante citare sia la **fonte originale** che il nostro **lavoro di elaborazione**. Ecco due modi semplici per farlo:
@@ -67,12 +71,6 @@ Fonte: https://firmereferendum.giustizia.it/ | Progetto: https://ondata.github.i
 ```
 
 Scegli il formato che si adatta meglio al tuo contesto. L'importante è che sia chiara la **fonte originale** (Ministero) e la **nostra elaborazione**.
-
----
-
-> **📋 Accedi ai dati**
->
-> Scarica e utilizza i dati in formato aperto: **[vai al repository](https://github.com/ondata/referendum_iniziative_popolari/blob/main/data/README.md)** per accedere ai file, scoprire le strutture disponibili e imparare come citarli correttamente.
 
 ---
 
