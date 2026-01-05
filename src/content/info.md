@@ -37,6 +37,32 @@ Con un semplice click puoi:
 - Condividere l'iniziativa sui social media
 - Rimanere aggiornato sui progressi
 
+## 📈 Dati aperti e trasparenza
+
+Oltre a offrirti una piattaforma di esplorazione, questo sito ha un'altra missione importante: **rendere disponibili i dati sulle firme in formati machine readable** (JSON Lines) e con licenza aperta, insieme a una **timeline storica completa** che il sito ufficiale non fornisce.
+
+### Perché è importante?
+
+Il [sito ufficiale del Ministero della Giustizia](https://firmereferendum.giustizia.it/) mostra i dati solo come grafici e tabelle HTML statiche, senza possibilità di:
+
+- Analizzare l'**evoluzione nel tempo** delle firme raccolte
+- Identificare **trend e anomalie**
+- Condurre **ricerche scientifiche** sui dati
+- Esercitare **controllo civico** sugli andamenti
+
+### Il nostro impegno
+
+Raccogliamo e pubblichiamo quotidianamente:
+
+- **Dati strutturati** di tutte le iniziative (titoli, descrizioni, categorie, quorum)
+- **Timeline storica completa** della raccolta firme giorno per giorno
+- **Testi ufficiali** dei quesiti referendari
+- Tutto con **licenza CC-BY 4.0** per consentire riuso libero
+
+Questo serve anche a **stimolare il Ministero della Giustizia a pubblicare questi dati pubblici in formati aperti**, come previsto dalla normativa sulla trasparenza digitale.
+
+**Vuoi approfondire?** [Apri la sezione dati →](/dati)
+
 ## I tuoi diritti democratici
 
 Come cittadino italiano hai il diritto di:
@@ -61,6 +87,4 @@ La tua partecipazione può fare la differenza per:
 
 ---
 
-> **"La democrazia è partecipazione"** - questa piattaforma ti aiuta a esercitare i tuoi diritti e a contribuire al futuro del Paese.
-
-**Inizia subito:** [esplora le iniziative](/?stato=IN%20RACCOLTA%20FIRME), informati, e se ne trovi una che condividi... firmala! 🖊️
+> **"La democrazia è partecipazione"**: **inizia subito**, [esplora le iniziative](/?stato=IN%20RACCOLTA%20FIRME), informati, e se ne trovi una che condividi... firmala! 🖊️
