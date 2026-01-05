@@ -22,7 +22,8 @@ public/og-images/
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
+
 .idea/
 note.md
 .aider*
+docs/evaluation.md
