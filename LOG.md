@@ -1,5 +1,9 @@
 # Log delle modifiche
 
+## 2026-01-05 (continued)
+
+- **Risolto problema: grafici rotti nelle pagine delle iniziative dopo pubblicazione della pagina dati**. Il file `data/media_sostenitori_giornaliera.jsonl` era stato corrotto (svuotato) durante il commit di aggiornamento automatico dei dati da GitHub Actions. Questo causava un errore di parsing JSON (`Unexpected end of JSON input`) durante la build della pagina /numeri. Ripristinato il file da un commit precedente. I grafici della timeline sostenitori nelle pagine delle iniziative funzionano regolarmente e non erano il problema effettivo.
+
 ## 2026-01-05
 
 - **Creato README nella cartella `data/`**. Documentazione completa dei file dati principali: `source.json/jsonl`, `time_line.jsonl`, `media_sostenitori_giornaliera.jsonl`, `check_date.txt`, `deploy_log.jsonl` e contenuto delle sottocartelle `quesiti/` e `sample/`. Include frequenza di aggiornamento e casi d'uso.
