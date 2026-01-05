@@ -5539,7 +5539,7 @@
 {"id": 5400028, "data": "2026-01-04", "sostenitori": 264}
 {"id": 5400032, "data": "2026-01-04", "sostenitori": 243}
 {"id": 5400034, "data": "2026-01-04", "sostenitori": 218962}
-{"id": 500022, "data": "2026-01-05", "sostenitori": 14817}
+{"id": 500022, "data": "2026-01-05", "sostenitori": 14819}
 {"id": 500023, "data": "2026-01-05", "sostenitori": 6843}
 {"id": 700000, "data": "2026-01-05", "sostenitori": 18913}
 {"id": 1400001, "data": "2026-01-05", "sostenitori": 2110}
@@ -5561,11 +5561,15 @@
 {"id": 4500001, "data": "2026-01-05", "sostenitori": 212}
 {"id": 4600001, "data": "2026-01-05", "sostenitori": 880}
 {"id": 4600002, "data": "2026-01-05", "sostenitori": 494}
-{"id": 4900001, "data": "2026-01-05", "sostenitori": 54138}
-{"id": 5000003, "data": "2026-01-05", "sostenitori": 27517}
+{"id": 4900001, "data": "2026-01-05", "sostenitori": 54139}
+{"id": 5000003, "data": "2026-01-05", "sostenitori": 27519}
 {"id": 5200000, "data": "2026-01-05", "sostenitori": 132}
 {"id": 5200001, "data": "2026-01-05", "sostenitori": 152}
 {"id": 5200003, "data": "2026-01-05", "sostenitori": 136}
 {"id": 5400028, "data": "2026-01-05", "sostenitori": 265}
 {"id": 5400032, "data": "2026-01-05", "sostenitori": 243}
+<<<<<<< Updated upstream
 {"id": 5400034, "data": "2026-01-05", "sostenitori": 221287}
+=======
+{"id": 5400034, "data": "2026-01-05", "sostenitori": 221447}
+>>>>>>> Stashed changes
