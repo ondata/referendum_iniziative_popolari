@@ -5,12 +5,35 @@ import HamburgerMenuNative from '../components/HamburgerMenuNative.astro';
 import Footer from '../components/Footer.astro';
 import { fetchInitiatives } from '../lib/initiatives';
 import { homeContent } from '../config/content';
+import {
+  generateOrganizationSchema,
+  generateSearchActionSchema
+} from '../lib/json-ld-schemas';
 
 // Carica i dati delle iniziative
 const initiatives = await fetchInitiatives();
+
+// Genera URL base
+const baseUrl = (() => {
+  const site = Astro.site?.toString() || '';
+  const baseUrlEnv = import.meta.env.BASE_URL || '/';
+  const cleanSite = site.replace(/\/$/, '');
+  let cleanBase = '';
+  if (baseUrlEnv !== '/') {
+    cleanBase = baseUrlEnv.startsWith('/') ? baseUrlEnv : `/${baseUrlEnv}`;
+    cleanBase = cleanBase.endsWith('/') ? cleanBase : `${cleanBase}/`;
+  } else {
+    cleanBase = '/';
+  }
+  return `${cleanSite}${cleanBase}`;
+})();
+
+// Genera JSON-LD schemas
+const organizationSchema = JSON.stringify(generateOrganizationSchema(baseUrl));
+const searchActionSchema = JSON.stringify(generateSearchActionSchema(baseUrl));
 ---
 
-<Layout title={homeContent.title}>
+<Layout title={homeContent.title} jsonLdSchemas={[organizationSchema, searchActionSchema]} canonicalizeToBase={true}>
   <div class="min-h-screen">
     <!-- Brutalist Header -->
     <header role="banner" class="relative bg-civic-charcoal border-b-3 border-civic-border">

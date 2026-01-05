@@ -1,0 +1,35 @@
+---
+export interface Props {
+  items: Array<{ name: string; url: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="bg-civic-stone border-b-2 border-civic-border">
+  <div class="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
+    <ol class="flex flex-wrap gap-2 text-sm sm:text-base">
+      {items.map((item, index) => (
+        <li class="flex items-center gap-2">
+          {index > 0 && <span class="text-civic-neutral">/</span>}
+          {index === items.length - 1 ? (
+            <span class="font-semibold text-civic-charcoal">{item.name}</span>
+          ) : (
+            <a
+              href={item.url}
+              class="text-civic-terra hover:text-civic-terra-dark hover:underline transition-colors font-medium"
+            >
+              {item.name}
+            </a>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>
+
+<style>
+  nav {
+    scroll-margin-top: 80px;
+  }
+</style>

@@ -1,5 +1,27 @@
 # Log delle modifiche
 
+## 2026-01-05 (SEO enhancements)
+
+- **Implementati JSON-LD Schemas per migliorare SEO**:
+  1. **Organization Schema** (home page): identifica la piattaforma onData con descrizione e URL
+  2. **SearchAction Schema** (home page): abilita il "Sitelinks search box" nei risultati Google
+  3. **Article Schema** (pagine iniziative): markup semantico per headline, descrizione, autore, data
+  4. **BreadcrumbList Schema** (pagine iniziative): migliora navigazione nei SERP
+
+- **Creato utility `src/lib/json-ld-schemas.ts`**: funzioni helper per generare JSON-LD schemas in modo riutilizzabile e type-safe.
+- **Aggiunto H1 semantico in `/tabella.astro`**: aggiunto con classe `sr-only` per SEO senza impattare layout visivo.
+- **Parametrizzato robots.txt**: migrato da file statico (`/public/robots.txt`) a endpoint dinamico (`src/pages/robots.txt.ts`). URL della sitemap ora costruito dinamicamente basato su `site` e `BASE_URL`, compatibile con dev e prod.
+- **Esteso Layout.astro**: aggiunta prop `jsonLdSchemas` per supportare JSON-LD scripts nel `<head>`.
+
+- **Creato Breadcrumb component** (`src/components/Breadcrumb.astro`): naviga visibile sopra il main content con stile coerente al design civic brutalism (background stone, link terracotta). Integrato nella pagina dettaglio iniziative per mostrare: Home > [Titolo Iniziativa].
+
+- **Implementata canonicalization dei query params per filtri**: aggiunta prop `canonicalizeToBase` al Layout che rimuove i query params dal canonical URL. Attivata su:
+  - Home page (`/`): tutti i filtri (categoria, status, page) → canonical = `/`
+  - Tabella (`/tabella`): tutti i filtri/sort → canonical = `/tabella`
+  - Pagine singole (initiative detail, info, ecc): canonical mantiene il path completo (no canonicalizeToBase)
+
+  Beneficio SEO: Evita duplicati dovuti a varianti di filtro, concentra l'autorità sulla pagina principale.
+
 ## 2026-01-05 (continued)
 
 - **Aggiunta sezione "Come citare i dati" in src/content/dati.md**. Inserita sottosezione nella sezione "I dati disponibili in questo sito" con due formati di citazione (completo e compatto) per rispettare la licenza CC-BY 4.0 e citare correttamente sia la fonte originale (Ministero della Giustizia) che l'elaborazione (onData). I formati sono presi direttamente da data/README.md per coerenza.

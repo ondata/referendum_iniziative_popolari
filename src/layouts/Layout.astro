@@ -7,14 +7,29 @@ export interface Props {
   description?: string;
   ogImage?: string;
   ogType?: string;
+  jsonLdSchemas?: string[];
+  canonicalizeToBase?: boolean;
 }
 
 const {
   title,
   description = homeContent.subtitle,
   ogImage = "og-default.png",
-  ogType = "website"
+  ogType = "website",
+  jsonLdSchemas = [],
+  canonicalizeToBase = false
 } = Astro.props;
+
+// Genera canonical URL
+const canonicalUrl = (() => {
+  if (!canonicalizeToBase) {
+    return Astro.url;
+  }
+  // Se canonicalizeToBase è true, rimuovi i query params
+  const url = new URL(Astro.url);
+  url.search = '';
+  return url;
+})();
 
 const ogImageUrl = (() => {
   const site = Astro.site?.toString() || '';
@@ -43,7 +58,7 @@ const ogImageUrl = (() => {
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
     <meta name="author" content="onData" />
-    <link rel="canonical" href={Astro.url} />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Favicon - comprehensive implementation for maximum compatibility -->
     <!-- Traditional favicon for root fallback -->
@@ -122,6 +137,11 @@ const ogImageUrl = (() => {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={title} />
+
+    <!-- JSON-LD Schemas -->
+    {jsonLdSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={schema} />
+    ))}
   </head>
   <body class="min-h-screen bg-civic-stone civic-texture">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-civic-charcoal text-white px-4 py-2 rounded-md z-50 font-bold">
