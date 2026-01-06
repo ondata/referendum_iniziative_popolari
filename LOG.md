@@ -2,6 +2,13 @@
 
 ## 2026-01-06
 
+- **Revert da titoloLeggeCostituzionale a titolo su tutta l'UI**:
+  - Tolto `titoloLeggeCostituzionale` da type interface (src/types/initiative.ts)
+  - Tornato a usare `titolo` come campo principale in: cards, tabella, pagine dettaglio, numeri, RSS feed
+  - JSON-LD schemas aggiornati per usare `titolo` come headline
+  - OG image generator aggiornato per usare `titolo`
+  - Mantiene il sort per quorum percentuale del 2026-01-06 precedente
+
 - **Aggiunto ordinamento per percentuale quorum nella home**:
   - Nuova opzione "Percentuale quorum (più alta)" nel menu Ordinamento della home.
   - Ordinamento basato su (sostenitori / quorum) * 100 in ordine decrescente, con valori mancanti/zero trattati come 0%.

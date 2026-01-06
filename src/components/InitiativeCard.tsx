@@ -66,8 +66,8 @@ export default function InitiativeCard({ initiative }: InitiativeCardProps) {
       {/* Title - Serif font for editorial feel */}
       <h3 className={`font-serif text-xl font-bold mb-3 line-clamp-2 leading-tight ${
         isChiusa ? 'text-civic-neutral' : 'text-civic-charcoal'
-      }`} title={initiative.titoloLeggeCostituzionale}>
-        {initiative.titoloLeggeCostituzionale}
+      }`} title={initiative.titolo}>
+        {initiative.titolo}
       </h3>
 
       {/* Description */}

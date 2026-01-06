@@ -304,9 +304,9 @@ const baseUrl = import.meta.env.BASE_URL;
                 <tbody class="bg-white divide-y-2 divide-civic-stone">
                   {top10ByMedia.map((initiative, index) => {
                     const initiativeUrl = createPath(`/initiative/${initiative.id}`);
-                    const truncatedTitle = initiative.titoloLeggeCostituzionale.length > 40
-                      ? initiative.titoloLeggeCostituzionale.substring(0, 40) + '...'
-                      : initiative.titoloLeggeCostituzionale;
+                    const truncatedTitle = initiative.titolo.length > 40
+                      ? initiative.titolo.substring(0, 40) + '...'
+                      : initiative.titolo;
 
                     return (
                       <tr class="hover:bg-civic-stone transition-colors">
@@ -314,7 +314,7 @@ const baseUrl = import.meta.env.BASE_URL;
                           <a
                             href={initiativeUrl}
                             class="text-sm text-civic-terra hover:text-civic-terra-dark font-bold transition-colors border-b-2 border-transparent hover:border-civic-terra"
-                            title={initiative.titoloLeggeCostituzionale}
+                            title={initiative.titolo}
                           >
                             {truncatedTitle}
                           </a>
@@ -337,9 +337,9 @@ const baseUrl = import.meta.env.BASE_URL;
             {top10ByMedia.map((initiative, index) => {
               const percentage = (initiative.sostenitori_delta_mean / maxMediaValue) * 100;
               const initiativeUrl = createPath(`/initiative/${initiative.id}`);
-              const truncatedTitle = initiative.titoloLeggeCostituzionale.length > 40
-                ? initiative.titoloLeggeCostituzionale.substring(0, 40) + '...'
-                : initiative.titoloLeggeCostituzionale;
+              const truncatedTitle = initiative.titolo.length > 40
+                ? initiative.titolo.substring(0, 40) + '...'
+                : initiative.titolo;
 
               return (
                 <div class="relative flex items-center">
@@ -348,8 +348,8 @@ const baseUrl = import.meta.env.BASE_URL;
                     <a
                       href={initiativeUrl}
                       class="text-sm font-bold text-civic-terra hover:text-civic-terra-dark transition-colors border-b-2 border-transparent hover:border-civic-terra"
-                      title={initiative.titoloLeggeCostituzionale}
-                      data-tooltip={initiative.titoloLeggeCostituzionale}
+                      title={initiative.titolo}
+                      data-tooltip={initiative.titolo}
                     >
                       {truncatedTitle}
                     </a>

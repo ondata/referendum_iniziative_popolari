@@ -7,7 +7,6 @@ import { getBasePath } from '../lib/paths';
 interface Initiative {
   id: string;
   titolo: string;
-  titoloLeggeCostituzionale: string;
   dataApertura: string;
   descrizioneBreve?: string;
   descrizione?: string;
@@ -51,7 +50,7 @@ export async function GET(context: APIContext) {
         const description = initiative.descrizioneBreve || initiative.descrizione || 'Descrizione non disponibile';
 
         return {
-          title: initiative.titoloLeggeCostituzionale,
+          title: initiative.titolo,
           pubDate: new Date(initiative.dataApertura),
           description: `${tipoIniziativa} - ${categoria}: ${description}`,
           link: officialUrl,
