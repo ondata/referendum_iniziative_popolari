@@ -65,7 +65,7 @@ export function generateOrganizationSchema(baseUrl: string): OrganizationSchema 
  */
 export function generateArticleSchema(
   initiative: {
-    titolo: string;
+    titoloLeggeCostituzionale: string;
     descrizioneBreve?: string;
     dataApertura: string;
   },
@@ -75,9 +75,9 @@ export function generateArticleSchema(
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: initiative.titolo,
+    headline: initiative.titoloLeggeCostituzionale,
     description:
-      initiative.descrizioneBreve || initiative.titolo || 'Descrizione non disponibile',
+      initiative.descrizioneBreve || initiative.titoloLeggeCostituzionale || 'Descrizione non disponibile',
     author: {
       '@type': 'Organization',
       name: 'Ministero della Giustizia',

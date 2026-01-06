@@ -157,7 +157,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
     // Applica filtro di ricerca per tutti i dropdown
     if (searchTerm) {
       baseInitiatives = baseInitiatives.filter(initiative =>
-        initiative.titolo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        initiative.titoloLeggeCostituzionale?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         initiative.descrizioneBreve?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
@@ -248,7 +248,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const filteredAndSortedInitiatives = useMemo(() => {
     let filtered = initiatives.filter(initiative => {
       const matchesSearch = !searchTerm ||
-        initiative.titolo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        initiative.titoloLeggeCostituzionale?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         initiative.descrizioneBreve?.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesCategory = !categoryFilter ||
@@ -272,8 +272,8 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
 
       switch (sortColumn) {
         case 'titolo':
-          aValue = normalizeForSorting(a.titolo || '');
-          bValue = normalizeForSorting(b.titolo || '');
+          aValue = normalizeForSorting(a.titoloLeggeCostituzionale || '');
+          bValue = normalizeForSorting(b.titoloLeggeCostituzionale || '');
           break;
         case 'tipologia':
           aValue = a.idDecTipoIniziativa?.nome || '';
@@ -585,7 +585,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                           href={`${normalizedBaseUrl}/initiative/${initiative.id}`}
                           className="text-civic-terra hover:text-civic-terra-dark font-bold border-b-2 border-transparent hover:border-civic-terra transition-all"
                         >
-                          {initiative.titolo}
+                          {initiative.titoloLeggeCostituzionale}
                         </a>
                       </td>
                       <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">

@@ -83,8 +83,8 @@ try {
 
 // Always use the official URL with the initiative ID for signing
 const officialUrl = `https://firmereferendum.giustizia.it/referendum/open/dettaglio-open/${initiative.id}`;
-const title = String(initiative.titolo || 'Iniziativa');
-const description = String(initiative.descrizioneBreve || initiative.descrizione || initiative.titolo || 'Descrizione non disponibile');
+const title = String(initiative.titoloLeggeCostituzionale || 'Iniziativa');
+const description = String(initiative.descrizioneBreve || initiative.descrizione || initiative.titoloLeggeCostituzionale || 'Descrizione non disponibile');
 const fullTitle = `${title} - Referendum e Iniziative Popolari`;
 const signingActive = isSigningActive(initiative);
 const ogImage = `og-${initiative.id}.png`;
@@ -141,7 +141,7 @@ const jsonLdBaseUrl = (() => {
 const articleSchema = JSON.stringify(generateArticleSchema(initiative, jsonLdBaseUrl, initiative.id));
 const breadcrumbSchema = JSON.stringify(generateBreadcrumbListSchema(jsonLdBaseUrl, [
   { name: 'Home', url: jsonLdBaseUrl },
-  { name: initiative.titolo, url: `${jsonLdBaseUrl}initiative/${initiative.id}/` }
+  { name: initiative.titoloLeggeCostituzionale, url: `${jsonLdBaseUrl}initiative/${initiative.id}/` }
 ]));
 ---
 
@@ -163,7 +163,7 @@ const breadcrumbSchema = JSON.stringify(generateBreadcrumbListSchema(jsonLdBaseU
     <!-- Breadcrumb -->
     <Breadcrumb items={[
       { name: 'Home', url: jsonLdBaseUrl },
-      { name: initiative.titolo, url: currentUrl }
+      { name: initiative.titoloLeggeCostituzionale, url: currentUrl }
     ]} />
 
     <!-- Main Content -->
@@ -202,7 +202,7 @@ const breadcrumbSchema = JSON.stringify(generateBreadcrumbListSchema(jsonLdBaseU
 
         <!-- Title - Serif -->
         <h1 class="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-civic-charcoal mb-4 sm:mb-6 leading-tight">
-          {initiative.titolo}
+          {initiative.titoloLeggeCostituzionale}
         </h1>
 
         <!-- CTA Buttons - Angular Brutalist -->
@@ -471,7 +471,7 @@ Sostenitori: ${fmtIt(d.sostenitori)}`,
                   href={`${normalizedBaseUrl}/initiative/${relatedInitiative.id}/`}
                   class="text-civic-terra hover:text-civic-terra-dark font-medium border-b-2 border-transparent hover:border-civic-terra transition-all leading-relaxed"
                 >
-                  {relatedInitiative.titolo}
+                  {relatedInitiative.titoloLeggeCostituzionale}
                 </a>
               </li>
             ))}

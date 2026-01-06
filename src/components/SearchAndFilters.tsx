@@ -137,7 +137,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     // Applica filtro di ricerca per tutti i dropdown
     if (searchTerm) {
       baseInitiatives = baseInitiatives.filter(initiative =>
-        initiative.titolo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        initiative.titoloLeggeCostituzionale?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         initiative.descrizioneBreve?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
@@ -230,7 +230,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     // Filtro per ricerca
     if (searchTerm) {
       filtered = filtered.filter(initiative =>
-        initiative.titolo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        initiative.titoloLeggeCostituzionale?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         initiative.descrizioneBreve?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
@@ -268,8 +268,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       switch (sortBy) {
         case 'titolo':
           // Usa la funzione normalizeForSorting per rimuovere caratteri non alfabetici iniziali
-          const normalizedA = normalizeForSorting(a.titolo || '');
-          const normalizedB = normalizeForSorting(b.titolo || '');
+          const normalizedA = normalizeForSorting(a.titoloLeggeCostituzionale || '');
+          const normalizedB = normalizeForSorting(b.titoloLeggeCostituzionale || '');
           return normalizedA.localeCompare(normalizedB, 'it-IT');
         case 'sostenitori':
           return (b.sostenitori || 0) - (a.sostenitori || 0);

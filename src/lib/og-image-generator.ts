@@ -229,7 +229,7 @@ export async function generateOGImage(
     return;
   }
 
-  const title = initiative.titolo || 'Iniziativa Popolare';
+  const title = initiative.titoloLeggeCostituzionale || 'Iniziativa Popolare';
   const category = initiative.idDecCatIniziativa?.nome || 'GENERALE';
   const status = initiative.idDecStatoIniziativa?.nome || 'IN RACCOLTA FIRME';
 
@@ -353,6 +353,7 @@ export async function generateAllOGImages(initiatives: Initiative[], outputDir: 
   const defaultInitiative: Initiative = {
     id: 0,
     titolo: 'Referendum e Iniziative Popolari',
+    titoloLeggeCostituzionale: 'Referendum e Iniziative Popolari',
     dataApertura: '',
     idDecCatIniziativa: { id: 0, nome: 'DEMOCRAZIA' },
     idDecStatoIniziativa: { id: 0, nome: 'ATTIVE' }

@@ -1,6 +1,7 @@
 export interface Initiative {
   id: number;
   titolo: string;
+  titoloLeggeCostituzionale: string;
   descrizioneBreve?: string;
   descrizione?: string;
   dataApertura: string;
