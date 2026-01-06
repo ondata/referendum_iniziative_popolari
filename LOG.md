@@ -2,6 +2,11 @@
 
 ## 2026-01-06
 
+- **Aggiunto ordinamento per percentuale quorum nella home**:
+  - Nuova opzione "Percentuale quorum (più alta)" nel menu Ordinamento della home.
+  - Ordinamento basato su (sostenitori / quorum) * 100 in ordine decrescente, con valori mancanti/zero trattati come 0%.
+  - Nessuna modifica alla visualizzazione delle card, solo all'ordinamento.
+
 - **Completata sezione "Che cos'è questo sito?" in src/content/info.md**:
   - Aggiunta narrativa discorsiva che spiega il valore aggiunto della piattaforma rispetto al sito ufficiale del Ministero della Giustizia.
   - La sezione illustra i gap del sito originale (filtri per tema/quorum, link condivisibili, iniziative correlate, anteprima social, RSS, dati grezzi, testi formattati).

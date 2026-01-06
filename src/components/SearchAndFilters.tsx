@@ -264,6 +264,13 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
     }
 
     // Ordinamento
+    const getQuorumPercentage = (initiative: Initiative): number => {
+      const sostenitori = initiative.sostenitori ?? 0;
+      const quorum = initiative.quorum ?? 0;
+      if (!sostenitori || !quorum) return 0;
+      return (sostenitori / quorum) * 100;
+    };
+
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'titolo':
@@ -273,6 +280,8 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
           return normalizedA.localeCompare(normalizedB, 'it-IT');
         case 'sostenitori':
           return (b.sostenitori || 0) - (a.sostenitori || 0);
+        case 'percentualeQuorum':
+          return getQuorumPercentage(b) - getQuorumPercentage(a);
         case 'dataApertura':
         default:
           return new Date(b.dataApertura).getTime() - new Date(a.dataApertura).getTime();
@@ -402,12 +411,13 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              aria-label="Ordina iniziative per data, titolo o numero di sostenitori"
+              aria-label="Ordina iniziative per data, titolo, numero di sostenitori o percentuale quorum"
               className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="dataApertura">Data apertura (più recenti)</option>
               <option value="titolo">Titolo (A-Z)</option>
               <option value="sostenitori">Sostenitori (più numerosi)</option>
+              <option value="percentualeQuorum">Percentuale quorum (più alta)</option>
             </select>
           </div>
         </div>
