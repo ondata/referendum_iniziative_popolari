@@ -1,5 +1,22 @@
 # Log delle modifiche
 
+## 2026-01-06
+
+- **Completata sezione "Che cos'è questo sito?" in src/content/info.md**:
+  - Aggiunta narrativa discorsiva che spiega il valore aggiunto della piattaforma rispetto al sito ufficiale del Ministero della Giustizia.
+  - La sezione illustra i gap del sito originale (filtri per tema/quorum, link condivisibili, iniziative correlate, anteprima social, RSS, dati grezzi, testi formattati).
+  - Testo completamente **gender-neutral**: usa forme verbali generiche ("Vuoi esplorare", "Hai temi cari") invece di aggettivi sostantivati maschili.
+  - Aggiunta conclusione che sottolinea l'obiettivo principale: **stimolare il Ministero a pubblicare i dati aperti e machine-readable**, con rimando alla sezione dati per approfondimenti.
+
+- **Aggiunta sezione "Come essere avvisato di una nuova iniziativa" in src/content/info.md**:
+  - Spiega che cosa è un feed RSS in termini semplici e accessibili (analogia con "sottoscrizione a un giornale").
+  - Lista di lettori RSS populari per desktop/mobile: Feedly, Inoreader, Read You (Android).
+  - Estensioni browser per RSS: FeedBro (Chrome), Brief (Firefox).
+  - Opzione email via Kill the Newsletter!.
+  - **URL del feed**: `https://ondata.github.io/referendum_iniziative_popolari/rss.xml`.
+  - 3 opzioni concrete per iscriversi (lettore RSS, tasto browser, conversione email).
+  - Specifica che il feed contiene ultime 10 iniziative e si aggiorna 6 volte al giorno.
+
 ## 2026-01-05 (SEO + Quorum filter)
 
 - **Implementati JSON-LD Schemas per migliorare SEO**:

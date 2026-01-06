@@ -2,7 +2,29 @@
 
 ## Che cos'è questo sito?
 
-Questo sito è uno **strumento di partecipazione democratica** che ti permette di scoprire, esplorare e partecipare alle iniziative referendarie e alle proposte di legge di iniziativa popolare attualmente attive in Italia.
+Nell'estate del 2024 il Ministero della Giustizia ha lanciato il [sito](https://firmereferendum.giustizia.it) per la **raccolta** _online_ delle **firme** su **referendum** e **leggi di iniziativa popolare**. La piattaforma, accessibile con SPID, CIE o CNS, consente di firmare direttamente via web, senza moduli cartacei né passaggi in Comune.
+
+**Questo non è un clone di quel sito.** È nato per colmare alcuni gap che rendevano meno immediato partecipare, specialmente per chi è appassionato di specifici temi.
+
+Nel sito ufficiale non puoi:
+
+- **Filtrare per tema** e **raggiungimento del quorum** — non tutti gli argomenti ti interessano
+- **Generare un link condivisibile** con i filtri applicati — non puoi inviare a un amico "tutte le iniziative aperte sul tema ambiente" e stimolarlo a partecipare e attivare il passaparola
+- **Scoprire altre iniziative dello stesso tema** mentre leggi una proposta — se ti interessa la sanità, rimani isolato
+- **Condividere facilmente** sui social con un'anteprima accattivante (no immagini, no descrizioni strutturate)
+- **Seguire gli aggiornamenti** tramite RSS quando nasce una nuova iniziativa
+- **Accedere ai dati grezzi** per monitorare come progredisce la raccolta firme nel tempo
+- **Leggere il testo del quesito** ben formattato — spesso è formattato male e scoraggia
+
+**Questo sito è stato costruito per te se:**
+
+- Vuoi **esplorare** cosa sta succedendo
+- Hai **temi cari** e vuoi **mobilitarti**
+- Vuoi **monitorare** gli andamenti e capire cosa funziona
+
+E per trasformare questa energia in azione collettiva: con strumenti condivisibili, tracciabili, dati aperti per tutti.
+
+Soprattutto, questo sito nasce per **stimolare il Ministero della Giustizia a pubblicare i dati aperti e _machine-readable_** su quello che raccoglie — una lacuna che oggi rende impossibile monitorare gli andamenti nel tempo e condurre analisi strutturate. Se credi che sia importante, condividilo: il passaparola è lo strumento più potente per spingere chi governa a scegliere la trasparenza. **Leggi di più nella [sezione dati](/dati).**
 
 ## Perché è importante?
 
@@ -84,6 +106,14 @@ La tua partecipazione può fare la differenza per:
 - 💼 Tutelare i diritti dei lavoratori
 - 🎓 Investire nell'istruzione
 - 🚌 Migliorare i trasporti pubblici
+
+## Come essere avvisato di una nuova iniziativa
+
+Non vuoi perderti nessuna nuova iniziativa? **Usa il feed RSS**: uno strumento semplice che ti avvisa ogni volta che nasce una raccolta firma.
+
+Un **feed RSS** è come una "sottoscrizione" automatica a un giornale. Invece di visitare il sito ogni giorno, il feed ti invia le ultime notizie appena vengono pubblicate. Lo puoi leggere con **lettori RSS su desktop/mobile**; app come [Feedly](https://feedly.com), [Inoreader](https://www.inoreader.com), ecc..
+
+L'URL del feed RSS è: <https://ondata.github.io/referendum_iniziative_popolari/rss.xml>
 
 ---
 
