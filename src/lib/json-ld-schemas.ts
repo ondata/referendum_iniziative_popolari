@@ -39,11 +39,15 @@ export interface BreadcrumbListSchema {
 export interface SearchActionSchema {
   '@context': string;
   '@type': string;
-  target: {
+  url: string;
+  potentialAction: {
     '@type': string;
-    urlTemplate: string;
+    target: {
+      '@type': string;
+      urlTemplate: string;
+    };
+    'query-input': string;
   };
-  'query-input': string;
 }
 
 /**
@@ -113,10 +117,14 @@ export function generateSearchActionSchema(baseUrl: string): SearchActionSchema 
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${baseUrl}?query={search_term_string}`,
+    url: baseUrl,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}?query={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
     },
-    'query-input': 'required name=search_term_string',
   };
 }

@@ -1,5 +1,9 @@
 # Log delle modifiche
 
+## 2026-01-07
+
+- **Fix schema.org WebSite markup**: corretto `generateSearchActionSchema()` in `src/lib/json-ld-schemas.ts` per annidare `target` e `query-input` dentro `potentialAction.SearchAction` invece che direttamente su `WebSite`. Risolve avvisi di validazione schema.org sulla homepage.
+
 ## 2026-01-06
 
 - **Revert da titoloLeggeCostituzionale a titolo su tutta l'UI**:
