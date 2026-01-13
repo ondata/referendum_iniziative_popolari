@@ -19,9 +19,16 @@ folder="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Scarica i dati JSON dall'API ufficiale del Ministero della Giustizia
 # Il parametro v= sembra essere un timestamp per cache-busting
-curl -s "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public" \
+tmp_source="$(mktemp "${folder}"/../data/source.json.XXXXXX)"
+curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused \
+  "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public" \
   -H "Accept: application/json" \
-  -H "User-Agent: Mozilla/5.0 (compatible; referendum-astro-bot/1.0)" >"${folder}"/../data/source.json
+  -H "User-Agent: Mozilla/5.0 (compatible; referendum-astro-bot/1.0)" \
+  >"${tmp_source}"
+
+# Valida il JSON prima di sostituire il file definitivo
+jq -e '.content | type == "array"' "${tmp_source}" >/dev/null
+mv "${tmp_source}" "${folder}"/../data/source.json
 
 # Converte il JSON in JSONL (una riga per iniziativa), appiattisce la struttura e ordina per ID
 <"${folder}"/../data/source.json jq -c '.content[]' | mlr --jsonl flatten then sort -tr id >"${folder}"/../data/source.jsonl
