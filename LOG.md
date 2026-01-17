@@ -1,5 +1,21 @@
 # Log delle modifiche
 
+## 2026-01-17
+
+- **Creato documento specifiche tecniche generali** (`docs/specifiche-tecniche-generali-sito-web-statico-astro.md`):
+  - Estrae pattern architetturali riutilizzabili dal progetto, generalizzati e indipendenti dal caso d'uso specifico
+  - **Stack tecnologico**: Astro + React + TypeScript strict + Tailwind con tema custom semantico
+  - **Architettura componenti**: separazione static (Astro) vs interactive (React) con hydration selettiva (`client:load`)
+  - **State management**: URL query params come single source of truth per shareability
+  - **CI/CD**: GitHub Actions con multi-trigger (push, schedule, manual), auto-commit artifacts, OG images pre-build
+  - **Git workflow**: pattern anti-conflict per gestire commit automatici da CI (`git pull --rebase --autostash`)
+  - **Accessibilità**: semantic HTML, ARIA attributes, rehype plugin per validare alt text, checklist WCAG
+  - **SEO**: meta tags completi, Open Graph, Twitter Cards, JSON-LD structured data (Organization, Article, BreadcrumbList, SearchAction)
+  - **Social sharing**: OG images 1200x630 generate automaticamente, favicon multi-formato, RSS feed
+  - **Convenzioni**: no testing/linting formale (solo TypeScript strict), file organization standard, markdown processing con rehype plugins
+  - **Performance**: static generation, selective hydration, image optimization pre-build
+  - **Checklist setup**: stack base, build & deploy (senza pattern specifici di data management per mantenere generalità)
+
 ## 2026-01-07
 
 - **Fix schema.org WebSite markup**: corretto `generateSearchActionSchema()` in `src/lib/json-ld-schemas.ts` per annidare `target` e `query-input` dentro `potentialAction.SearchAction` invece che direttamente su `WebSite`. Risolve avvisi di validazione schema.org sulla homepage.
