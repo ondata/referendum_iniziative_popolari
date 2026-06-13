@@ -1,49 +1,59 @@
-# Fix schema.org WebSite Markup
+# Redesign — Referendum Astro
 
-## Todo
+Audit basato su pagine **renderizzate** (Chrome headless, desktop 1440px + mobile 390px) e lettura del codice.
 
-- [x] Update `SearchActionSchema` interface to include `url` and `potentialAction`
-- [x] Fix `generateSearchActionSchema()` to nest `target` and `query-input` inside `potentialAction`
-- [x] Verify the fix resolves schema.org validation warnings
+## Diagnosi: il progetto è già forte
 
-## Plan
+Design system "Civic Brutalism" maturo e coerente: font pairing Crimson Pro / DM Sans / JetBrains Mono, accento terracotta singolo e desaturato, tabular-nums sui dati, hover/focus/active states, skip-link, favicon completi, OG + JSON-LD, texture, ombre tinte. I passi 1–2 della Fix Priority della skill (font swap, color cleanup di base) sono **già fatti**. Non si riparte da zero: solo interventi chirurgici.
 
-**Problem**: The WebSite schema has `target` and `query-input` at the wrong nesting level, causing schema.org validation warnings.
+## Cosa è genuinamente debole (drift di palette generico in un sistema terra/charcoal)
 
-**Solution**: Restructure the JSON-LD to:
-```json
-{
-  "@type": "WebSite",
-  "url": "...",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {...},
-    "query-input": "..."
-  }
-}
-```
+### Fase 1 — Coerenza palette + componenti (alto impatto, basso rischio)
 
-**Files to change**:
-- `src/lib/json-ld-schemas.ts` (interface + function)
+- [ ] **Pagination.tsx** — interamente generica: angoli arrotondati (`rounded-md/lg`), bordi `gray-200/300`, stato attivo `bg-blue-50/border-blue-500/text-blue-600`. Stona col sistema angolare brutalista. Visibile in home a ogni visita. → angolare (niente rounded), `civic-border`, stato attivo `civic-terra`, focus/active feedback coerente.
+- [ ] **SearchAndFilters.tsx** — input/select dei filtri con `border-gray-300` e focus ring `ring-blue-500` (su ogni pagina). → `civic-border` + focus ring terracotta (coerente con `a/button` in global.css).
+- [ ] **initiative/[id].astro** — grafico timeline sostenitori con linea `#1f77b4` (blu default matplotlib/D3), unica nota blu del sito. → `civic-terra` (#c1694f). Testi `text-gray-700/800/900` (righe ~490–498) → `civic-charcoal`/`civic-neutral`.
+- [ ] **HomePage.tsx** — stato vuoto: bottone "Rimuovi filtri" `bg-blue-600 rounded-md` + statistiche `text-gray-600`. → bottone terracotta angolare + `civic-neutral`.
+- [ ] **tabella.astro:16** — `bg-gray-50` → `civic-stone`.
 
-**Impact**: Minimal - only changes the structure of the JSON-LD output, no runtime behavior changes.
+### Fase 2 — Pulizia
 
----
+- [ ] **test_timeline.astro** — artefatto di debug (75 righe), non linkato da nessuna pagina, in routing di produzione. → rimuovere (da confermare).
+
+## Lasciato intenzionalmente com'è
+
+- **ShareButton.tsx** — i blu/verde sono i colori brand delle piattaforme (Twitter/Facebook, WhatsApp): corretti, non drift.
+- **404 "Ops!"** — copy ironico volutamente in italiano con curiosità sul CERN: scelta editoriale, non un errore.
+- **HamburgerMenuReact.tsx** — non è morto: usato in TableView.tsx.
+
+## Domande aperte
+
+- Pagination: ricostruisco in stile brutalista angolare (consigliato) o tocco solo i colori?
+- test_timeline.astro: lo rimuovo?
+- ShareButton: confermo che i colori-piattaforma restano?
 
 ## Review
 
-**Changes made**:
-1. Updated `SearchActionSchema` interface to include `url` property and `potentialAction` object
-2. Modified `generateSearchActionSchema()` to return correctly nested structure with `SearchAction` type
-3. Added `url: baseUrl` field to WebSite schema
+Tutto verificato su pagine renderizzate (Chrome headless, cache pulita).
 
-**Result**: The homepage now generates valid schema.org WebSite markup with proper SearchAction nesting. This should:
-- Resolve schema.org validation warnings
-- Improve chances of Google showing sitelinks search box
-- Make the markup fully compliant with schema.org specification
+**Fatto — Fase 1:**
+- `Pagination.tsx` ricostruita angolare: niente `rounded`, bordi `border-2 civic-border`, pagina attiva `civic-terra` (era blu), `civic-number` tabular, `active:translate-y-px`.
+- `SearchAndFilters.tsx`: input/select → `border-2 civic-border` + focus ring `civic-terra` (era `ring-blue-500`); contenitori `border-3 civic-border` (niente rounded/shadow grigia); checkbox `accent-civic-terra`; bottone "cancella" angolare con hover terracotta; icona ricerca `civic-neutral`.
+- `initiative/[id].astro`: linea+dot timeline `#1f77b4` → `#c1694f`; prose `text-gray-700/800/900` → `civic-charcoal`/`civic-neutral`.
+- `HomePage.tsx`: stato vuoto → riquadro tratteggiato civic + bottone terracotta angolare (era `bg-blue-600 rounded-md`); statistiche `civic-neutral` + `civic-number`; header di fallback (ramo dead `hideHeader=false`) riallineato a charcoal/terra.
+- `tabella.astro`: `bg-gray-50` → `bg-civic-stone`.
 
-**Files changed**: 
-- `src/lib/json-ld-schemas.ts` (lines 39-51, 116-130)
-- `LOG.md` (added entry for 2026-01-07)
+**Fatto — extra emersi durante il lavoro:**
+- `HamburgerMenuReact.tsx` (usato in TableView su header charcoal): righe `bg-gray-600` → bianche, terracotta da aperto; dropdown `rounded-lg border-gray-200` → `border-3 civic-border` + ombra brutalista; voci uppercase con accento terracotta. Ora identico al Native.
+- `public/manifest.json`: `theme_color #3B82F6` (blu) → `#1a1a1a`; `background_color #ffffff` → `#f5f3f0`.
 
-**No breaking changes** - only affects JSON-LD metadata output, no functional changes to site behavior.
+**Fatto — Fase 2:**
+- Rimosso `src/pages/test_timeline.astro` (artefatto di debug).
+
+**Lasciato intenzionalmente:** colori-piattaforma di `ShareButton.tsx`; copy ironico del 404.
+
+**Drift residuo dopo i lavori:** solo `ShareButton.tsx` (intenzionale).
+
+**Nota operativa:** durante il lavoro l'utente vedeva ancora il vecchio design — era **cache del browser** (nessun service worker). Risolto con hard refresh; il server serviva già il design aggiornato.
+
+**Non committato:** modifiche lasciate nel working tree in attesa di conferma.

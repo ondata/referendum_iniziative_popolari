@@ -39,23 +39,23 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="flex flex-col justify-center items-center w-8 h-8 bg-transparent border-none cursor-pointer p-1"
+        className="relative z-50 flex flex-col justify-center items-center w-10 h-10 bg-transparent border-2 border-white cursor-pointer p-1 transition-all hover:border-civic-terra hover:bg-civic-terra/10"
         aria-label="Menu di navigazione"
         aria-expanded={isOpen}
       >
         <span
-          className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${
-            isOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'
+          className={`block transition-all duration-300 ease-out h-0.5 w-6 ${
+            isOpen ? 'rotate-45 translate-y-1 bg-civic-terra' : '-translate-y-0.5 bg-white'
           }`}
         ></span>
         <span
-          className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${
+          className={`bg-white block transition-all duration-300 ease-out h-0.5 w-6 my-0.5 ${
             isOpen ? 'opacity-0' : 'opacity-100'
           }`}
         ></span>
         <span
-          className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${
-            isOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'
+          className={`block transition-all duration-300 ease-out h-0.5 w-6 ${
+            isOpen ? '-rotate-45 -translate-y-1 bg-civic-terra' : 'translate-y-0.5 bg-white'
           }`}
         ></span>
       </button>
@@ -63,18 +63,19 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 bg-civic-charcoal bg-opacity-80 z-40"
           onClick={closeMenu}
         />
       )}
 
       {/* Menu Dropdown */}
       <div
-        className={`absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-200 ease-in-out ${
+        className={`absolute right-0 mt-2 w-56 bg-white border-3 border-civic-border z-50 transition-all duration-200 ease-in-out ${
           isOpen
             ? 'opacity-100 translate-y-0 visible'
             : 'opacity-0 -translate-y-2 invisible'
         }`}
+        style={{ boxShadow: '4px 4px 0 0 rgba(26, 26, 26, 0.15)' }}
       >
         <div className="py-2">
           {menuItems.map((item) => {
@@ -83,13 +84,11 @@ export default function HamburgerMenuReact({ baseUrl }: HamburgerMenuReactProps)
               <a
                 key={item.href}
                 href={getMenuItemUrl(item, baseUrl)}
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+                className="flex items-center px-4 py-3 text-civic-charcoal hover:bg-civic-terra hover:text-white font-bold uppercase text-sm tracking-wide border-l-3 border-transparent hover:border-civic-terra-dark transition-all duration-150"
                 onClick={closeMenu}
               >
-                <div className="flex items-center">
-                  {IconComponent && <IconComponent className="w-5 h-5 mr-3 text-gray-500" />}
-                  {item.label}
-                </div>
+                {IconComponent && <IconComponent className="w-5 h-5 mr-3" />}
+                {item.label}
               </a>
             );
           })}

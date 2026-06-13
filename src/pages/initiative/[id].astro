@@ -422,9 +422,9 @@ const breadcrumbSchema = JSON.stringify(generateBreadcrumbListSchema(jsonLdBaseU
                   grid: true
                 },
                 marks: [
-                  Plot.line(data, { x: "data", y: "sostenitori", stroke: "#1f77b4", strokeWidth: 2 }),
+                  Plot.line(data, { x: "data", y: "sostenitori", stroke: "#c1694f", strokeWidth: 2 }),
                   Plot.ruleX(data, Plot.pointerX({ x: "data", y: "sostenitori", stroke: "rgba(0,0,0,0.2)" })),
-                  Plot.dot(data, Plot.pointerX({ x: "data", y: "sostenitori", stroke: "#1f77b4", fill: "white", r: 3, strokeWidth: 1.5 })),
+                  Plot.dot(data, Plot.pointerX({ x: "data", y: "sostenitori", stroke: "#c1694f", fill: "white", r: 3, strokeWidth: 1.5 })),
                   Plot.text(data, Plot.pointerX({
                     px: "data",
                     py: "sostenitori",
@@ -487,15 +487,15 @@ Sostenitori: ${fmtIt(d.sostenitori)}`,
             <div class="ml-4 h-0.5 flex-1 bg-gradient-to-r from-civic-terra to-transparent"></div>
           </h2>
           <div class="w-full">
-            <div class="text-gray-800 leading-relaxed font-serif text-sm sm:text-base prose prose-sm max-w-none
-                        prose-p:text-gray-800 prose-p:mb-3 prose-p:leading-relaxed
-                        prose-h1:text-lg prose-h1:font-bold prose-h1:mb-3 prose-h1:mt-6 prose-h1:text-gray-900
-                        prose-h2:text-base prose-h2:font-semibold prose-h2:mb-2 prose-h2:mt-4 prose-h2:text-gray-900
-                        prose-h3:text-sm prose-h3:font-medium prose-h3:mb-2 prose-h3:mt-3 prose-h3:text-gray-800
+            <div class="text-civic-charcoal leading-relaxed font-serif text-sm sm:text-base prose prose-sm max-w-none
+                        prose-p:text-civic-charcoal prose-p:mb-3 prose-p:leading-relaxed
+                        prose-h1:text-lg prose-h1:font-bold prose-h1:mb-3 prose-h1:mt-6 prose-h1:text-civic-charcoal
+                        prose-h2:text-base prose-h2:font-semibold prose-h2:mb-2 prose-h2:mt-4 prose-h2:text-civic-charcoal
+                        prose-h3:text-sm prose-h3:font-medium prose-h3:mb-2 prose-h3:mt-3 prose-h3:text-civic-charcoal
                         prose-ul:pl-6 prose-li:mb-1 prose-li:leading-relaxed
                         prose-ol:pl-6 prose-ol:mb-3
-                        prose-strong:text-gray-900 prose-strong:font-semibold
-                        prose-em:italic prose-em:text-gray-700
+                        prose-strong:text-civic-charcoal prose-strong:font-semibold
+                        prose-em:italic prose-em:text-civic-neutral
                         [&>*:first-child]:mt-0 [&>*:last-child]:mb-0
                         [&_p+p]:mt-3 [&_h1+p]:mt-2 [&_h2+p]:mt-2 [&_h3+p]:mt-1"
                  set:html={questionHtml}></div>

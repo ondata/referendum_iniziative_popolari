@@ -301,13 +301,13 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       </div>
 
       {/* Sezione Filtri */}
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Filtri</h3>
+      <div className="bg-white p-6 border-3 border-civic-border">
+        <h3 className="text-lg font-bold text-civic-charcoal mb-4">Filtri</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
           {/* Barra di ricerca */}
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+              <MagnifyingGlassIcon className="h-5 w-5 text-civic-neutral" />
             </div>
             <input
               type="text"
@@ -315,7 +315,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               aria-label="Ricerca nelle iniziative per titolo o descrizione"
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full pl-10 pr-3 py-2 border-2 border-civic-border leading-5 bg-white text-civic-charcoal placeholder-civic-neutral focus:outline-none focus:ring-2 focus:ring-civic-terra focus:border-civic-terra transition-colors"
             />
           </div>
 
@@ -325,7 +325,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
               aria-label="Filtra iniziative per tipologia"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full px-3 py-2 border-2 border-civic-border bg-white text-civic-charcoal focus:outline-none focus:ring-2 focus:ring-civic-terra focus:border-civic-terra transition-colors"
             >
               <option value="">Tutte le tipologie</option>
               {availableOptions.types.map(type => (
@@ -342,7 +342,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
               aria-label="Filtra iniziative per stato di raccolta firme"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full px-3 py-2 border-2 border-civic-border bg-white text-civic-charcoal focus:outline-none focus:ring-2 focus:ring-civic-terra focus:border-civic-terra transition-colors"
             >
               <option value="">Tutti gli stati</option>
               {availableOptions.statuses.map(status => (
@@ -359,7 +359,7 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               aria-label="Filtra iniziative per categoria tematica"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full px-3 py-2 border-2 border-civic-border bg-white text-civic-charcoal focus:outline-none focus:ring-2 focus:ring-civic-terra focus:border-civic-terra transition-colors"
             >
               <option value="">Tutte le categorie</option>
               {availableOptions.categories.map(category => (
@@ -378,9 +378,9 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
                 checked={onlyQuorumReached}
                 onChange={(e) => setOnlyQuorumReached(e.target.checked)}
                 aria-label="Mostra solo iniziative che hanno raggiunto il quorum"
-                className="w-4 h-4 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                className="w-4 h-4 border-2 border-civic-border text-civic-terra accent-civic-terra focus:ring-2 focus:ring-civic-terra"
               />
-              <span className="ml-2 text-sm text-gray-700">Quorum raggiunto</span>
+              <span className="ml-2 text-sm text-civic-charcoal">Quorum raggiunto</span>
             </label>
           </div>
 
@@ -391,10 +391,10 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
               disabled={!hasActiveFilters}
               title="Rimuovi tutti i filtri"
               aria-label="Cancella tutti i filtri attivi"
-              className={`p-2 rounded-md transition-colors ${
+              className={`p-2 border-2 transition-colors active:translate-y-px ${
                 hasActiveFilters
-                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
-                  : 'bg-gray-50 text-gray-400 border border-gray-200 cursor-not-allowed'
+                  ? 'bg-civic-stone text-civic-charcoal hover:bg-civic-terra hover:text-white hover:border-civic-terra border-civic-border'
+                  : 'bg-civic-stone text-civic-neutral border-civic-border opacity-50 cursor-not-allowed'
               }`}
             >
               <XMarkIcon className="w-5 h-5" />
@@ -404,15 +404,15 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
       </div>
 
       {/* Sezione Ordinamento */}
-      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+      <div className="bg-white p-4 border-3 border-civic-border">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-gray-900">Ordinamento</h3>
+          <h3 className="text-lg font-bold text-civic-charcoal">Ordinamento</h3>
           <div className="w-64">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               aria-label="Ordina iniziative per data, titolo, numero di sostenitori o percentuale quorum"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full px-3 py-2 border-2 border-civic-border bg-white text-civic-charcoal focus:outline-none focus:ring-2 focus:ring-civic-terra focus:border-civic-terra transition-colors"
             >
               <option value="dataApertura">Data apertura (più recenti)</option>
               <option value="titolo">Titolo (A-Z)</option>

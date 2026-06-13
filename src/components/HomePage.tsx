@@ -61,7 +61,7 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
     <>
       {/* Header - condizionale */}
       {!hideHeader && (
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-civic-charcoal border-b-3 border-civic-terra">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {/* Navigation */}
             <div className="flex justify-end items-center mb-4">
@@ -70,12 +70,12 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
 
             {/* Title */}
             <div className="text-center">
-              <a href={baseUrl} className="inline-block hover:text-blue-600 transition-colors">
-                <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl cursor-pointer">
+              <a href={baseUrl} className="inline-block text-white hover:text-civic-terra transition-colors">
+                <h1 className="font-serif text-3xl font-bold sm:text-4xl cursor-pointer">
                   {homeContent.title}
                 </h1>
               </a>
-              <p className="mt-2 text-lg text-gray-600">
+              <p className="mt-2 text-lg text-civic-stone">
                 {homeContent.subtitle}
               </p>
             </div>
@@ -93,12 +93,12 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
 
         {/* Statistiche */}
         <div className="mb-6">
-          <p className="text-gray-600">
+          <p className="text-civic-neutral">
             {filteredInitiatives.length === allInitiatives.length ? (
-              <>Totale: <span className="font-semibold">{allInitiatives.length}</span> iniziative</>
+              <>Totale: <span className="font-semibold civic-number text-civic-charcoal">{allInitiatives.length}</span> iniziative</>
             ) : (
               <>
-                Visualizzazione di <span className="font-semibold">{filteredInitiatives.length}</span> su <span className="font-semibold">{allInitiatives.length}</span> iniziative
+                Visualizzazione di <span className="font-semibold civic-number text-civic-charcoal">{filteredInitiatives.length}</span> su <span className="font-semibold civic-number text-civic-charcoal">{allInitiatives.length}</span> iniziative
               </>
             )}
           </p>
@@ -123,16 +123,19 @@ export default function HomePage({ initiatives: allInitiatives, baseUrl = '/', h
             />
           </>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-lg text-gray-600">
+          <div className="text-center py-16 border-3 border-dashed border-civic-border bg-white/50">
+            <p className="text-lg text-civic-charcoal font-medium">
               Nessuna iniziativa trovata con i filtri applicati.
+            </p>
+            <p className="mt-1 text-sm text-civic-neutral">
+              Prova a modificare la ricerca o a rimuovere qualche filtro.
             </p>
             <button
               onClick={() => {
                 setFilteredInitiatives(allInitiatives);
                 setCurrentPage(1);
               }}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="mt-5 inline-flex items-center px-5 py-2.5 bg-civic-terra text-white text-sm font-bold uppercase tracking-wide border-2 border-civic-border hover:bg-civic-terra-dark transition-colors active:translate-y-px civic-badge"
             >
               Rimuovi filtri
             </button>

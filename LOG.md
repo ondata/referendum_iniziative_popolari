@@ -1,5 +1,18 @@
 # Log delle modifiche
 
+## 2026-06-14
+
+- **Redesign chirurgico: pulizia drift di palette** (grigio/blu generico in un sistema terra/charcoal coerente). Audit fatto su pagine renderizzate (Chrome headless, desktop + mobile):
+  - `Pagination.tsx` ricostruita in stile brutalista angolare: pagina attiva terracotta (era blu), bordi civic, `civic-number` tabular, feedback `active`.
+  - `SearchAndFilters.tsx`: input/select con bordi civic e focus ring terracotta (era `ring-blue-500`); contenitori angolari; bottone "cancella" e checkbox allineati al tema.
+  - `initiative/[id].astro`: linea timeline sostenitori `#1f77b4` → `#c1694f` (terracotta); testi prose grigi → civic.
+  - `HomePage.tsx`: stato vuoto riprogettato (riquadro tratteggiato + bottone terracotta, era blu arrotondato); statistiche civic; header di fallback riallineato.
+  - `HamburgerMenuReact.tsx` allineato al Native (righe bianche su charcoal, dropdown angolare con ombra brutalista).
+  - `tabella.astro`: `bg-gray-50` → `bg-civic-stone`.
+  - `public/manifest.json`: `theme_color` blu `#3B82F6` → `#1a1a1a`; `background_color` → `#f5f3f0`.
+  - Rimosso `src/pages/test_timeline.astro` (artefatto di debug nel routing di produzione).
+  - Lasciati intenzionalmente: colori-piattaforma di `ShareButton`; copy ironico del 404.
+
 ## 2026-01-17
 
 - **Creato documento specifiche tecniche generali** (`docs/specifiche-tecniche-generali-sito-web-statico-astro.md`):

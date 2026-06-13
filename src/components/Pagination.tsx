@@ -48,14 +48,14 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex items-center justify-between bg-white px-4 py-3 border border-gray-200 rounded-lg">
+    <div className="flex items-center justify-between bg-white px-4 py-3 border-3 border-civic-border">
       <div className="flex flex-1 justify-between sm:hidden">
         {/* Mobile */}
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
           aria-label={`Vai alla pagina precedente (pagina ${currentPage - 1})`}
-          className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="relative inline-flex items-center px-4 py-2 text-sm font-bold uppercase tracking-wide text-civic-charcoal bg-white border-2 border-civic-border hover:bg-civic-stone transition-colors active:translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Precedente
         </button>
@@ -63,7 +63,7 @@ export default function Pagination({
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           aria-label={`Vai alla pagina successiva (pagina ${currentPage + 1})`}
-          className="relative ml-3 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="relative ml-3 inline-flex items-center px-4 py-2 text-sm font-bold uppercase tracking-wide text-civic-charcoal bg-white border-2 border-civic-border hover:bg-civic-stone transition-colors active:translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Successiva
         </button>
@@ -71,20 +71,20 @@ export default function Pagination({
 
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700">
-            Visualizzazione di <span className="font-medium">{startItem}</span> - <span className="font-medium">{endItem}</span> di{' '}
-            <span className="font-medium">{totalItems}</span> risultati
+          <p className="text-sm text-civic-neutral">
+            Visualizzazione di <span className="civic-number text-civic-charcoal">{startItem}</span> - <span className="civic-number text-civic-charcoal">{endItem}</span> di{' '}
+            <span className="civic-number text-civic-charcoal">{totalItems}</span> risultati
           </p>
         </div>
 
         <div>
-          <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <nav className="relative z-0 inline-flex -space-x-px" aria-label="Pagination">
             {/* Precedente */}
             <button
               onClick={() => onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
               aria-label={`Pagina precedente (pagina ${currentPage - 1})`}
-              className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="relative inline-flex items-center px-2 py-2 border-2 border-civic-border bg-white text-sm font-medium text-civic-charcoal hover:bg-civic-stone transition-colors active:translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <span className="sr-only">Precedente</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -96,7 +96,7 @@ export default function Pagination({
                 return (
                   <span
                     key={`dots-${index}`}
-                    className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
+                    className="relative inline-flex items-center px-4 py-2 border-2 border-civic-border bg-white text-sm font-medium text-civic-neutral"
                   >
                     ...
                   </span>
@@ -112,10 +112,10 @@ export default function Pagination({
                   onClick={() => onPageChange(pageNumber)}
                   aria-label={`Pagina ${pageNumber}${isCurrentPage ? ' (pagina corrente)' : ''}`}
                   aria-current={isCurrentPage ? 'page' : undefined}
-                  className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                  className={`relative inline-flex items-center px-4 py-2 border-2 text-sm font-bold civic-number transition-colors active:translate-y-px ${
                     isCurrentPage
-                      ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                      : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                      ? 'z-10 bg-civic-terra border-civic-terra text-white'
+                      : 'bg-white border-civic-border text-civic-charcoal hover:bg-civic-stone'
                   }`}
                 >
                   {pageNumber}
@@ -128,7 +128,7 @@ export default function Pagination({
               onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
               aria-label={`Pagina successiva (pagina ${currentPage + 1})`}
-              className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="relative inline-flex items-center px-2 py-2 border-2 border-civic-border bg-white text-sm font-medium text-civic-charcoal hover:bg-civic-stone transition-colors active:translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <span className="sr-only">Successiva</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />

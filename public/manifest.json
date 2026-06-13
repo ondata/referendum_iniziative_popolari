@@ -2,8 +2,8 @@
   "name": "Referendum e Iniziative Popolari",
   "short_name": "Referendum",
   "description": "Scopri e partecipa alle iniziative democratiche",
-  "theme_color": "#3B82F6",
-  "background_color": "#ffffff",
+  "theme_color": "#1a1a1a",
+  "background_color": "#f5f3f0",
   "display": "standalone",
   "start_url": "/referendum_iniziative_popolari/",
   "icons": [
