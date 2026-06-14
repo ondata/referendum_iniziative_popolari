@@ -405,9 +405,9 @@ export default function SearchAndFilters({ initiatives, onFilter }: SearchAndFil
 
       {/* Sezione Ordinamento */}
       <div className="bg-white p-4 border-3 border-civic-border">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h3 className="text-lg font-bold text-civic-charcoal">Ordinamento</h3>
-          <div className="w-64">
+          <div className="w-full sm:w-64">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
