@@ -61,7 +61,18 @@ mlr --ijsonl --onidx cut -f id "${folder}"/../data/source.jsonl | while read -r 
   # se "${folder}"/../data/quesiti/"${id}".json non esiste, lo scarica
   if [[ ! -f "${folder}"/../data/quesiti/"${id}".json ]]; then
     echo "Scaricando quesito con ID: ${id}"
-    curl -skL "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public/${id}" >"${folder}"/../data/quesiti/"${id}".json
+    tmp_quesito="$(mktemp "${folder}/../data/quesiti/${id}.json.XXXXXX")"
+    if curl -fsSL --retry 3 --retry-delay 2 --retry-all-errors --max-time 60 \
+      --output "${tmp_quesito}" \
+      "https://firmereferendum.giustizia.it/referendum/api-portal/iniziativa/public/${id}" &&
+      jq -e '.content.quesito | fromjson | (.plainText | type == "string") and (.blocks | type == "array")' "${tmp_quesito}" >/dev/null; then
+      mv "${tmp_quesito}" "${folder}/../data/quesiti/${id}.json"
+    else
+      status=$?
+      rm -f "${tmp_quesito}"
+      echo "Download fallito o JSON non valido per il quesito ${id}" >&2
+      exit "${status}"
+    fi
   fi
 
   # estrai il testo del quesito

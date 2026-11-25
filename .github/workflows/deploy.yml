@@ -60,8 +60,8 @@ jobs:
 
       - name: Install dependencies for data processing
         run: |
-          sudo apt-get update
-          sudo apt-get install -y jq miller
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::Retries=3 install -y jq miller
 
       - name: Download and save API data
         run: |
