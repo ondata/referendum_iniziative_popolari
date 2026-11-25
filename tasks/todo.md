@@ -15,7 +15,7 @@ Branch `feat/tabella-schede`. Problema: a 390px si vedono solo Titolo e Tipologi
 
 ## Fase 3 — Chiusura
 
-- [ ] Build di produzione, anteprima locale in finestra stretta (agent-browser headed via X410), `LOG.md`, commit, PR
+- [x] Build di produzione, anteprima locale in finestra stretta (agent-browser headed via X410), `LOG.md`, commit, PR → 2026-11-25, [PR #21](https://github.com/ondata/referendum_iniziative_popolari/pull/21), dopo rebase su `main` (include la #20)
 
 ## Domande aperte
 
@@ -24,7 +24,6 @@ Branch `feat/tabella-schede`. Problema: a 390px si vedono solo Titolo e Tipologi
 ## Review
 
 - 2026-11-25, verificato con build di produzione su Node 22 e anteprima locale in agent-browser headed (X410). A 390px: intestazione nascosta, schede con tutti i 7 campi, «Ordina per → Sostenitori» ordina dalla più firmata e scrive `?ordinamento=sostenitori`. A 1280px: tabella come prima (screenshot prima/dopo), Invio sul pulsante «Quorum» ordina crescente, `aria-sort=ascending` solo su Quorum, focus resta sul pulsante.
-- Fase 3: resta commit e PR, dopo l'ok visivo.
 
 # Redesign — Referendum Astro
 
