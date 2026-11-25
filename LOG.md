@@ -1,5 +1,9 @@
 # Log delle modifiche
 
+## 2026-11-25
+
+- CI: il download dei quesiti ritenta gli errori e salva solo JSON validati; APT ritenta i download dai mirror Ubuntu.
+
 ## 2026-06-14
 
 - **Redesign chirurgico: pulizia drift di palette** (grigio/blu generico in un sistema terra/charcoal coerente). Audit fatto su pagine renderizzate (Chrome headless, desktop + mobile):
