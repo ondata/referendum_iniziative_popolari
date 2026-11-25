@@ -1,3 +1,31 @@
+# Tabella responsive (`/tabella`) — 2026-11-25
+
+Branch `feat/tabella-schede`. Problema: a 390px si vedono solo Titolo e Tipologia; le altre 5 colonne sono fuori schermo senza indicazione. L'ordinamento è un `onClick` sulle `<th>`: non usabile da tastiera, nessun `aria-sort`. Scelta concordata: schede impilate sotto i 600px di larghezza del contenitore.
+
+## Fase 1 — Semantica e accessibilità (vale a ogni larghezza)
+
+- [x] Intestazioni: `<th scope="col">` con `<button type="button">` interno, `aria-sort` solo sulla colonna ordinata → verifica: Tab raggiunge i pulsanti, Invio ordina, `aria-sort` cambia
+- [x] Titolo come intestazione di riga (`<th scope="row">`), `<caption>` nascosta, contenitore scorrevole con `role="region"`, nome accessibile e `tabindex="0"` → verifica: DOM renderizzato
+
+## Fase 2 — Schede impilate sotto i 600px (container query)
+
+- [x] CSS in `global.css`: `@container` sul contenitore della tabella; sotto 600px `thead` nascosto, ogni riga è una scheda, ogni cella mostra la sua etichetta da `data-label` → verifica: screenshot a 390px, tutti i 7 campi visibili senza scorrimento orizzontale
+- [x] Controlli «Ordina per» e direzione, visibili solo in modalità schede e legati allo stesso stato del sort → verifica: cambiano ordine e URL come le intestazioni
+- [x] Desktop invariato → verifica: screenshot a 1440px prima/dopo
+
+## Fase 3 — Chiusura
+
+- [ ] Build di produzione, anteprima locale in finestra stretta (agent-browser headed via X410), `LOG.md`, commit, PR
+
+## Domande aperte
+
+- nessuna
+
+## Review
+
+- 2026-11-25, verificato con build di produzione su Node 22 e anteprima locale in agent-browser headed (X410). A 390px: intestazione nascosta, schede con tutti i 7 campi, «Ordina per → Sostenitori» ordina dalla più firmata e scrive `?ordinamento=sostenitori`. A 1280px: tabella come prima (screenshot prima/dopo), Invio sul pulsante «Quorum» ordina crescente, `aria-sort=ascending` solo su Quorum, focus resta sul pulsante.
+- Fase 3: resta commit e PR, dopo l'ok visivo.
+
 # Redesign — Referendum Astro
 
 Audit basato su pagine **renderizzate** (Chrome headless, desktop 1440px + mobile 390px) e lettura del codice.
