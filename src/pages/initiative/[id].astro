@@ -441,8 +441,7 @@ Sostenitori: ${fmtIt(d.sostenitori)}`,
                 ]
               });
 
-              container.innerHTML = "";
-              container.append(chart);
+              container.replaceChildren(chart);
             }
 
             const chartContainer = document.getElementById("chart");
