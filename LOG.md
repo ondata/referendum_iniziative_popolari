@@ -2,6 +2,8 @@
 
 ## 2026-11-25
 
+- RSS: seleziona le dieci iniziative più recenti per data di apertura, indipendentemente dall'ID.
+- CI: genera le immagini Open Graph una sola volta e registra l'esito effettivo del deploy delle 21:30 UTC.
 - CI: il download dei quesiti ritenta gli errori e salva solo JSON validati; APT ritenta i download dai mirror Ubuntu.
 
 ## 2026-06-14
