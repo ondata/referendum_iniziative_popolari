@@ -151,7 +151,7 @@ interface Initiative {
 
 **Build Steps**:
 1. Checkout code
-2. Node 18 + npm cache
+2. Node 22 + npm cache
 3. Install system tools: `jq`, `mlr` (required for data processing)
 4. Run `download_data.sh` (fetch and process API data)
 5. Commit data files if changed
