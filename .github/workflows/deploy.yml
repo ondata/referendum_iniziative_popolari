@@ -96,9 +96,6 @@ jobs:
             git push
           fi
 
-      - name: Generate Open Graph Images
-        run: npm run generate-og-images
-
       - name: Build with Astro
         run: npm run build
         env:
@@ -115,39 +112,6 @@ jobs:
         with:
           path: './dist'
 
-      - name: Ensure data directory exists (solo cron 21:30 UTC)
-        if: github.event_name == 'schedule' && github.event.schedule == '30 21 * * *'
-        run: mkdir -p data
-
-      - name: Log deploy status (solo cron 21:30 UTC)
-        if: github.event_name == 'schedule' && github.event.schedule == '30 21 * * *'
-        run: |
-          echo "DEBUG: Entering 'Log deploy status' step for cron 21:30 UTC"
-          STATUS="success"
-          LOG_FILE="data/deploy_log.jsonl"
-          DATE=$(date '+%Y-%m-%d')
-          echo "{\"date\": \"$DATE\", \"status\": \"$STATUS\"}" >> "$LOG_FILE"
-          echo "📝 Aggiornato $LOG_FILE con stato deploy: $STATUS"
-
-      - name: Commit and push deploy log (solo cron 21:30 UTC)
-        if: github.event_name == 'schedule' && github.event.schedule == '30 21 * * *'
-        run: |
-          echo "DEBUG: Entering 'Commit and push deploy log' step for cron 21:30 UTC"
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-          # Sincronizza con il branch remoto (stash automaticamente i cambiamenti locali)
-          git pull --rebase --autostash
-
-          git add data/deploy_log.jsonl
-          if git diff --staged --quiet; then
-            echo "📝 Nessun cambiamento nel file di log"
-          else
-            echo "DEBUG: Changes detected, committing deploy_log.jsonl"
-            git commit -m "chore: update deploy log for 21:30 UTC cron [skip ci]"
-            git push
-            echo "DEBUG: deploy_log.jsonl committed and pushed."
-          fi
   deploy:
     environment:
       name: github-pages
@@ -160,3 +124,25 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           timeout: 1200000
+
+  log-deploy-status:
+    needs: deploy
+    if: ${{ !cancelled() && github.event_name == 'schedule' && github.event.schedule == '30 21 * * *' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Record and push Pages deployment result
+        env:
+          DEPLOY_STATUS: ${{ needs.deploy.result }}
+        run: |
+          printf '{"date":"%s","status":"%s"}\n' "$(date -u '+%Y-%m-%d')" "$DEPLOY_STATUS" >> data/deploy_log.jsonl
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/deploy_log.jsonl
+          git commit -m "chore: update deploy log for 21:30 UTC cron [skip ci]"
+          git push origin HEAD:main

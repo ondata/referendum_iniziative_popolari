@@ -24,11 +24,11 @@ export async function GET(context: APIContext) {
     const fileContent = fs.readFileSync(jsonlPath, 'utf-8');
     const lines = fileContent.trim().split('\n');
 
-    // Prendi le prime 10 linee e parsale
+    // Seleziona le 10 iniziative più recenti per data di apertura
     const initiatives: Initiative[] = lines
-      .slice(0, 10)
       .map(line => JSON.parse(line))
-      .sort((a, b) => new Date(b.dataApertura).getTime() - new Date(a.dataApertura).getTime());
+      .sort((a, b) => new Date(b.dataApertura).getTime() - new Date(a.dataApertura).getTime())
+      .slice(0, 10);
 
     // Costruisci il site URL utilizzando le utility esistenti
     const site = context.site?.toString().replace(/\/$/, '') || '';
