@@ -13,6 +13,16 @@ interface TableViewProps {
 type SortColumn = 'titolo' | 'tipologia' | 'categoria' | 'stato' | 'sostenitori' | 'quorum' | 'dataApertura';
 type SortDirection = 'asc' | 'desc';
 
+const COLUMNS: { key: SortColumn; label: string }[] = [
+  { key: 'titolo', label: 'Titolo' },
+  { key: 'tipologia', label: 'Tipologia' },
+  { key: 'categoria', label: 'Categoria' },
+  { key: 'stato', label: 'Stato' },
+  { key: 'sostenitori', label: 'Sostenitori' },
+  { key: 'quorum', label: 'Quorum' },
+  { key: 'dataApertura', label: 'Data apertura' },
+];
+
 export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -327,18 +337,18 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
   const getSortIcon = (column: SortColumn) => {
     if (sortColumn !== column) {
       return (
-        <svg className="w-4 h-4 text-civic-neutral opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg aria-hidden="true" className="w-4 h-4 text-civic-neutral opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
         </svg>
       );
     }
 
     return sortDirection === 'asc' ? (
-      <svg className="w-4 h-4 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg aria-hidden="true" className="w-4 h-4 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={3} d="M5 15l7-7 7 7" />
       </svg>
     ) : (
-      <svg className="w-4 h-4 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg aria-hidden="true" className="w-4 h-4 text-civic-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={3} d="M19 9l-7 7-7-7" />
       </svg>
     );
@@ -506,95 +516,77 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
           </p>
         </div>
 
-        <div className="bg-white border-3 border-civic-border overflow-hidden">
+        <div className="tabella-contenitore bg-white border-3 border-civic-border overflow-hidden">
           {filteredAndSortedInitiatives.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y-2 divide-civic-border">
+            <>
+            {/* Ordinamento per la vista a schede: visibile solo quando l'intestazione è nascosta */}
+            <div className="tabella-ordina gap-3 p-4 bg-civic-stone border-b-3 border-civic-border">
+              <label className="flex-1">
+                <span className="block text-xs font-bold uppercase tracking-wide text-civic-charcoal mb-1">Ordina per</span>
+                <select
+                  value={sortColumn}
+                  onChange={(e) => setSortColumn(e.target.value as SortColumn)}
+                  className="block w-full px-3 py-2.5 border-2 border-civic-border bg-white text-civic-charcoal font-medium focus:outline-none focus:border-civic-terra"
+                >
+                  {COLUMNS.map((column) => (
+                    <option key={column.key} value={column.key}>{column.label}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="flex-1">
+                <span className="block text-xs font-bold uppercase tracking-wide text-civic-charcoal mb-1">Direzione</span>
+                <select
+                  value={sortDirection}
+                  onChange={(e) => setSortDirection(e.target.value as SortDirection)}
+                  className="block w-full px-3 py-2.5 border-2 border-civic-border bg-white text-civic-charcoal font-medium focus:outline-none focus:border-civic-terra"
+                >
+                  <option value="asc">Crescente</option>
+                  <option value="desc">Decrescente</option>
+                </select>
+              </label>
+            </div>
+            <div className="tabella-scorrimento overflow-x-auto" role="region" aria-labelledby="tabella-caption" tabIndex={0}>
+              <table className="tabella-iniziative min-w-full">
+                <caption id="tabella-caption" className="sr-only">Elenco delle iniziative</caption>
                 <thead className="bg-civic-charcoal">
                   <tr>
-                    <th
-                      onClick={() => handleSort('titolo')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Titolo</span>
-                        {getSortIcon('titolo')}
-                      </div>
-                    </th>
-                    <th
-                      onClick={() => handleSort('tipologia')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Tipologia</span>
-                        {getSortIcon('tipologia')}
-                      </div>
-                    </th>
-                    <th
-                      onClick={() => handleSort('categoria')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Categoria</span>
-                        {getSortIcon('categoria')}
-                      </div>
-                    </th>
-                    <th
-                      onClick={() => handleSort('stato')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Stato</span>
-                        {getSortIcon('stato')}
-                      </div>
-                    </th>
-                    <th
-                      onClick={() => handleSort('sostenitori')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Sostenitori</span>
-                        {getSortIcon('sostenitori')}
-                      </div>
-                    </th>
-                    <th
-                      onClick={() => handleSort('quorum')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors border-r-2 border-civic-border"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Quorum</span>
-                        {getSortIcon('quorum')}
-                      </div>
-                    </th>
-                    <th
-                      onClick={() => handleSort('dataApertura')}
-                      className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-civic-terra select-none transition-colors"
-                    >
-                      <div className="flex items-center space-x-1">
-                        <span>Data Apertura</span>
-                        {getSortIcon('dataApertura')}
-                      </div>
-                    </th>
+                    {COLUMNS.map((column, index) => (
+                      <th
+                        key={column.key}
+                        scope="col"
+                        aria-sort={sortColumn === column.key ? (sortDirection === 'asc' ? 'ascending' : 'descending') : undefined}
+                        className={`p-0 text-left${index < COLUMNS.length - 1 ? ' border-r-2 border-civic-border' : ''}`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => handleSort(column.key)}
+                          className="w-full px-6 py-4 flex items-center space-x-1 text-left text-xs font-bold text-white uppercase tracking-wider hover:bg-civic-terra select-none transition-colors"
+                        >
+                          <span>{column.label}</span>
+                          {getSortIcon(column.key)}
+                        </button>
+                      </th>
+                    ))}
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y-2 divide-civic-border">
+                <tbody className="bg-white">
                   {filteredAndSortedInitiatives.map((initiative) => (
-                    <tr key={initiative.id} className="hover:bg-civic-stone transition-colors">
-                      <td className="px-6 py-4 border-r-2 border-civic-stone">
+                    <tr key={initiative.id} className="border-t-2 border-civic-border hover:bg-civic-stone transition-colors">
+                      <th scope="row" className="px-6 py-4 text-left font-normal border-r-2 border-civic-stone">
                         <a
                           href={`${normalizedBaseUrl}/initiative/${initiative.id}`}
                           className="text-civic-terra hover:text-civic-terra-dark font-bold border-b-2 border-transparent hover:border-civic-terra transition-all"
                         >
                           {initiative.titolo}
                         </a>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
+                      </th>
+                      <td data-label="Tipologia" className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
                         {initiative.idDecTipoIniziativa?.nome || 'N/A'}
                       </td>
-                      <td className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
+                      <td data-label="Categoria" className="px-6 py-4 text-sm text-civic-charcoal font-medium border-r-2 border-civic-stone">
                         {initiative.idDecCatIniziativa?.nome || 'N/A'}
                       </td>
-                      <td className="px-6 py-4 border-r-2 border-civic-stone">
+                      <td data-label="Stato" className="px-6 py-4 border-r-2 border-civic-stone">
                         <span className={`civic-badge text-xs ${
                           initiative.idDecStatoIniziativa?.nome === 'IN RACCOLTA FIRME'
                             ? 'bg-civic-success text-white'
@@ -605,13 +597,13 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                           {initiative.idDecStatoIniziativa?.nome || 'N/A'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-civic-charcoal font-bold text-right civic-number border-r-2 border-civic-stone">
+                      <td data-label="Sostenitori" className="px-6 py-4 text-sm text-civic-charcoal font-bold text-right civic-number border-r-2 border-civic-stone">
                         {formatNumber(initiative.sostenitori)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-civic-charcoal font-bold text-right civic-number border-r-2 border-civic-stone">
+                      <td data-label="Quorum" className="px-6 py-4 text-sm text-civic-charcoal font-bold text-right civic-number border-r-2 border-civic-stone">
                         {formatNumber(initiative.quorum)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-civic-charcoal font-medium civic-number">
+                      <td data-label="Data apertura" className="px-6 py-4 text-sm text-civic-charcoal font-medium civic-number">
                         {initiative.dataApertura
                           ? new Date(initiative.dataApertura).toISOString().split('T')[0]
                           : 'N/A'
@@ -622,6 +614,7 @@ export default function TableView({ initiatives, baseUrl }: TableViewProps) {
                 </tbody>
               </table>
             </div>
+            </>
           ) : (
             <div className="text-center py-16 px-4 bg-civic-stone">
               <div className="max-w-md mx-auto">

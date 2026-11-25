@@ -2,6 +2,7 @@
 
 ## 2026-11-25
 
+- `/tabella`: sotto i 600px di larghezza del contenitore le righe diventano schede con etichette e compaiono i menu «Ordina per»/«Direzione»; intestazioni ordinabili con pulsanti e `aria-sort`, tabella in una regione scorrevole con nome accessibile.
 - CI: build su Node 22 (Node 18 fuori supporto); il grafico della timeline sostituisce il contenuto con `replaceChildren()`.
 - RSS: seleziona le dieci iniziative più recenti per data di apertura, indipendentemente dall'ID.
 - CI: genera le immagini Open Graph una sola volta e registra l'esito effettivo del deploy delle 21:30 UTC.

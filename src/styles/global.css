@@ -162,3 +162,79 @@ h2:hover .header-anchor {
   outline: 2px solid #c1694f;
   outline-offset: 2px;
 }
+
+/* Vista tabellare: tabella sopra i 600px di larghezza del contenitore, schede sotto */
+.tabella-contenitore {
+  container: tabella / inline-size;
+}
+
+.tabella-ordina {
+  display: none;
+}
+
+.tabella-scorrimento:focus-visible,
+.tabella-iniziative th button:focus-visible {
+  outline: 3px solid #c1694f;
+  outline-offset: -3px;
+}
+
+@container tabella (width < 600px) {
+  .tabella-ordina {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tabella-scorrimento {
+    padding: 1rem;
+  }
+
+  .tabella-iniziative,
+  .tabella-iniziative tbody,
+  .tabella-iniziative tr,
+  .tabella-iniziative th,
+  .tabella-iniziative td {
+    display: block;
+  }
+
+  .tabella-iniziative thead {
+    display: none;
+  }
+
+  .tabella-iniziative tbody tr {
+    border: 3px solid #2a2a2a;
+    margin-block-end: 1rem;
+  }
+
+  .tabella-iniziative tbody th {
+    padding: 0.75rem 1rem;
+    border-right: 0;
+    border-bottom: 2px solid #2a2a2a;
+    background: #f4e8e4;
+  }
+
+  .tabella-iniziative td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-right: 0;
+    text-align: right;
+  }
+
+  .tabella-iniziative td + td {
+    border-top: 1px solid #e5e1dc;
+  }
+
+  .tabella-iniziative td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    text-align: left;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b6b6b;
+  }
+}
